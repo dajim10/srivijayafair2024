@@ -1,6 +1,6 @@
 // src/components/SongkhlaMap.js
 import React from 'react';
-import { MapContainer, ImageOverlay, Marker, Popup } from 'react-leaflet';
+import { MapContainer, ImageOverlay, Marker, Popup, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import pin from '../assets/pin.png';
@@ -40,11 +40,11 @@ const Map = ({ image, bounds, markers }) => {
                             click: () => handleMarkerClick(marker.link),
                         }}
                     >
-                        <Popup>
+                        <Tooltip permanent>
                             <div>
                                 {marker.popupText}
                             </div>
-                        </Popup>
+                        </Tooltip>
                     </Marker>
                 ))}
             </MapContainer>
