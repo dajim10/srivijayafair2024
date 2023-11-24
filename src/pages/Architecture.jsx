@@ -1,0 +1,9 @@
+import React from 'react'
+// คณะสถาปัตยกรรม
+const Architecture = () => {
+    return (
+        <div>Architecture</div>
+    )
+}
+
+export default Architecture
