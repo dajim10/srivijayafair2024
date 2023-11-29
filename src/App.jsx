@@ -7,9 +7,12 @@ import axios from 'axios'
 import Home from './components/Home'
 import About from './components/About'
 import Songkhla from './pages/Songkhla'
+import Trang from './pages/Trang'
 // นำเข้าคณะต่าง ๆ เพื่อสร้าง Link ไปยังหน้าคณะ
 import Architecture from './pages/Architecture' // คณะสถาปัตยกรรม
 import Inded from './pages/Inded'
+import AllFaculty from './components/AllFaculty'
+
 const App = () => {
 
     const [isGamePaused, setIsGamePaused] = useState(null);
@@ -56,7 +59,13 @@ const App = () => {
                 <Route path='/about' element={<About />} />
                 <Route path="/songkhla" element={<Songkhla />} />
                 <Route path="/architecture" element={<Architecture />} />
+                <Route path="/trang" element={<Trang />} />
                 <Route path="/inded" element={<Inded />} />
+                <Route to="/allfaculty">
+                    <Route path="/allfaculty/songkhla" element={<AllFaculty faculty='songkhla' />} />
+                    <Route path="/allfaculty/trang" element={<AllFaculty faculty={'trang'} />} />
+                    <Route path="/allfaculty/nakorn" element={<AllFaculty faculty={'nakorn'} />} />
+                </Route>
             </Routes>
         </div>
     )

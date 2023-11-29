@@ -264,10 +264,26 @@ iframe {
 
   }
 
+  .custom-carousel .carousel-control-prev-icon,
+  .custom-carousel .carousel-control-next-icon {
+      background-color: #00154b;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      color:#000 !important;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      
+  }
+
+
   .object {
     animation: MoveUpDown 1s linear infinite;
     /* position: absolute; */
   
+  }
+
+  .link-without-underline {
+    text-decoration: none;
   }
   
   @keyframes MoveUpDown {
@@ -289,6 +305,20 @@ iframe {
       width: 80%;
     }
 
+
+    .custom-carousel .carousel-control-prev-icon,
+  .custom-carousel .carousel-control-next-icon {
+      background-color: #00154b;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      color:#000 !important;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      
+  }
+
+
+  
     .card-activity {
 
       background-color: rgba(255, 255, 255, 0.5);

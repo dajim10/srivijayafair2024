@@ -1,12 +1,10 @@
-// src/components/SongkhlaMap.js
 import React from 'react';
-import { MapContainer, ImageOverlay, Marker, Popup, Tooltip } from 'react-leaflet';
+import { MapContainer, ImageOverlay, Marker, Popup, Tooltip, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import pin from '../assets/pin.png';
 import { useNavigate } from 'react-router-dom';
 
-// Define a custom marker icon with your image
 const customMarkerIcon = L.icon({
     iconUrl: pin,
     iconSize: [30, 40], // Adjust the icon size
@@ -14,7 +12,10 @@ const customMarkerIcon = L.icon({
     popupAnchor: [0, -32],
 });
 
-const Map = ({ image, bounds, markers }) => {
+
+
+const Map = ({ image, markers, bounds }) => {
+
     const navigate = useNavigate();
 
     const handleMarkerClick = (link) => {
@@ -22,33 +23,34 @@ const Map = ({ image, bounds, markers }) => {
     };
 
     return (
-        <>
-            <MapContainer
-                className='container'
-                style={{ height: '550px', width: '300px' }}
-                bounds={bounds}
-                maxBounds={bounds}
-                doubleClickZoom={false}
-            >
-                <ImageOverlay url={image} bounds={bounds} />
-                {markers.map((marker, index) => (
-                    <Marker
-                        key={index}
-                        position={marker.position}
-                        icon={customMarkerIcon}
-                        eventHandlers={{
-                            click: () => handleMarkerClick(marker.link),
-                        }}
-                    >
-                        <Tooltip permanent>
-                            <div>
-                                {marker.popupText}
-                            </div>
-                        </Tooltip>
-                    </Marker>
-                ))}
-            </MapContainer>
-        </>
+        <MapContainer
+            className='container'
+            style={{ height: '600px', width: '400px' }}
+            bounds={bounds}
+            maxBounds={bounds}
+            doubleClickZoom={false}
+            zoom={false}
+
+        >
+            <img src={image} alt="Map" className="img-fluid" />
+            {markers.map((marker, index) => (
+                <Marker
+                    key={index}
+                    position={marker.position}
+                    icon={customMarkerIcon}
+
+                    eventHandlers={{
+                        click: () => handleMarkerClick(marker.link),
+                    }}
+                >
+                    <Tooltip permanent>
+                        <div>
+                            {marker.popupText}
+                        </div>
+                    </Tooltip>
+                </Marker>
+            ))}
+        </MapContainer>
     );
 };
 
