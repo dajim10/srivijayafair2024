@@ -2,8 +2,30 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { client } from '../lib/pocketbase';
 
 const SongkhlaFaculty = () => {
+
+
+
+    const [branchData, setBranchData] = useState([]);
+
+    // useEffect(() => {
+
+    //         client.collection('statusgame').getList(1)
+    //             .then(res => {
+    //                 // setIsGamePaused(res.data.isGamePaused);
+    //                 setIsGamePaused(res.items[0].isGamePaused);
+    //                 console.log(res.items[0].isGamePaused);
+    //                 // const mainContent = document.getElementById('mainContent');
+
+    //             })
+    //             .catch(err => {
+    //                 console.log(err);
+    //             });
+    // }
+    //     , []);
+
     const branch = [
         {
             name: 'Songkhla',

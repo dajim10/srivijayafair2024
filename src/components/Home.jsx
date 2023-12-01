@@ -5,30 +5,28 @@ import TrangFaculty from '../assets/trangFaculty.png'
 import NakornFaculty from '../assets/nakornFaculty.png'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import Calendar from './Calendar'
+
 
 
 const Home = () => {
 
     const navigate = useNavigate();
+    const [IsCloseWindow, setIsCloseWindow] = useState(false)
 
     const handleNavigate = () => {
         const facultyname = 'songkhla'
         navigate(`/allfaculty/${facultyname}`);
     }
 
-    const [calendar, setCalendar] = useState([])
-
-    useEffect(() => {
-        axios.get('http://localhost:3000/api/calendar')
-            .then(res => {
-                setCalendar(res.data.day)
-                console.log(res.data.day)
-            })
-            .catch(err => {
-                console.log(err);
-            });
+    const handleCloseWindow = () => {
+        setIsCloseWindow(!IsCloseWindow)
     }
-        , []);
+
+
 
     return (
         <>
@@ -38,19 +36,34 @@ const Home = () => {
                     <div className="embed-responsive embed-responsive-16by9">
                         {/* how to make ifrme responsive */}
                         <div onClick={handleNavigate} >
-                            <span>มทร.ศรีวิชัย</span>
-                            <h3>สงขลา</h3>
+                            <span>@มทร.ศรีวิชัย สงขลา</span>
                         </div>
-                        <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/QmpIu83Q02c?si=6AGFhTfe8df6MYrY" width={800} height={400}></iframe>
+
+                        <div className='container text-end w-50 sticky-top'>
+
+                            <button className={`btn my-2 ${IsCloseWindow ? "btn-dark" : "btn-danger"}`} onClick={handleCloseWindow}>
+                                {IsCloseWindow ? <FontAwesomeIcon icon={faBars} /> : <FontAwesomeIcon icon={faTimes} />}
+                                {/* {IsCloseWindow ? 'เปิด' : 'ปิด'} */}
+                            </button>
+
+                        </div>
+
+                        {/* {IsCloseWindow ? null : <iframe className="embed-responsive-item sticky-top" src="https://www.youtube.com/embed/QmpIu83Q02c?si=6AGFhTfe8df6MYrY" width={800} height={400} allow="accelerometer;autoplay;"></iframe>} */}
+
+                        {!IsCloseWindow &&
+                            <iframe className="embed-responsive-item sticky-top" src="https://www.youtube.com/embed/QmpIu83Q02c?si=6AGFhTfe8df6MYrY" width={800} height={400} allow="accelerometer;autoplay;"></iframe>
+                        }
                     </div>
                 </div>
 
-            </div>
+            </div >
+
             <div className="container text-center" style={{ position: 'relative', marginTop: '-50px' }} id="cartoon-div">
                 <img src={Cartoon} alt="cartoon" className='img-fluid' />
             </div>
 
-            <div className="container">
+
+            {/* <div className="container">
                 <div className="card rounded shadow" >
                     <div className="card-body">
                         <h4 className='text-center text-green'>ปฏิทินกิจกรรม</h4>
@@ -67,32 +80,35 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
 
+            {!IsCloseWindow &&
+                <div className="container-fluid sticky-top">
+                    <Calendar />
 
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col text-center">
-                        <Link to="/allfaculty/songkhla">
-                            <img src={SongkhlaFaculty} alt="songkhla" className='img-fluid' width={600} />
-                        </Link>
+                    <div className="row">
+                        <div className="col text-center">
+                            <Link to="/allfaculty/songkhla">
+                                <img src={SongkhlaFaculty} alt="songkhla" className='img-fluid' width={600} />
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <Link to="/allfaculty/trang">
+                                <img src={TrangFaculty} alt="trang" className='img-fluid' width={600} />
+                            </Link>
+                        </div>
+                        <div className="col">
+                            <Link to="/allfaculty/nakorn">
+                                <img src={NakornFaculty} alt="nakorn" className='img-fluid' width={600} />
+                            </Link>
+                        </div>
+
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col">
-                        <Link to="/allfaculty/trang">
-                            <img src={TrangFaculty} alt="trang" className='img-fluid' width={600} />
-                        </Link>
-                    </div>
-                    <div className="col">
-                        <Link to="/allfaculty/nakorn">
-                            <img src={NakornFaculty} alt="nakorn" className='img-fluid' width={600} />
-                        </Link>
-                    </div>
-
-                </div>
-            </div>
+            }
         </>
     )
 }

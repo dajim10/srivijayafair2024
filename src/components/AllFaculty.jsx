@@ -26,7 +26,10 @@ const AllFaculty = ({ faculty }) => {
         <>
 
 
-            <div className="container bg-light p-4 rounded shadow text-center">
+            <div className="container bg-light p-4 rounded shadow text-center sticky-bottom" >
+
+
+
                 <div className="row">
                     <div className="col">
                         <Link to="/allfaculty/songkhla" className={`${facultyName === 'songkhla' ? 'text-green' : 'text-muted'} link-without-underline `}>

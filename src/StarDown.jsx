@@ -10,11 +10,11 @@ const StarDown = () => {
     const [stars, setStars] = useState([]);
     const [isGamePaused, setIsGamePaused] = useState(null);
     const [countdown, setCountdown] = useState(30); // 1 minute in seconds
-    const [user, setUser] = useState('admin');
+    // const [user, setUser] = useState('admin');
     const isPageVisible = usePageVisibility();
     const starsIntervalRef = useRef(null);
     //const gameDuration = 0.5 * 60 * 1000; // Set game duration to 5 minutes
-    const maxStars = 100; // Set your desired maximum number of stars
+    const maxStars = 3; // Set your desired maximum number of stars
 
 
 
@@ -69,7 +69,7 @@ const StarDown = () => {
 
 
         const generateStar = () => {
-            if (!isGamePaused) {
+            if (!isGamePaused && isPageVisible) {
 
                 const newStar = {
                     id: Date.now(),
@@ -80,6 +80,7 @@ const StarDown = () => {
 
                 setStars(prevStars => {
                     const updatedStars = [...prevStars, newStar].slice(-maxStars);
+                    // console.log(updatedStars); // test log to see the stars array
                     return updatedStars;
                 });
             } else {
@@ -109,20 +110,21 @@ const StarDown = () => {
     const handleStarClick = (id) => {
         setScore(prevScore => prevScore + 1);
         setStars(prevStars => prevStars.filter(star => star.id !== id));
+
     };
 
     return (
         <>
-            <div className="app">
+            <div className="app" style={{ width: '15px !important' }}>
                 <div>
                     <div className='d-flex justify-content-end'>
                         {/* Interactive part */}
 
                     </div>
                     {/* Non-interactive part */}
-                    <div className="countdown" style={{ pointerEvents: 'none' }}>
+                    {/* <div className="countdown" style={{ pointerEvents: 'none' }}>
                         Time Remaining: {countdown} seconds
-                    </div>
+                    </div> */}
                 </div>
                 <div className="score">Score: {score}</div>
 
