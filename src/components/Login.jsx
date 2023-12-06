@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PocketBase from 'pocketbase';
 import { useNavigate } from 'react-router-dom';
 const url = import.meta.env.VITE_POCKETBASE_URL;
@@ -10,8 +10,11 @@ const pb = new PocketBase(url);
 
 const Login = () => {
     const [phone, setPhone] = useState('');
-    const [isLogin, setIsLogin] = useState(false);
+    const [isLogin, setIsLogin] = useState();
     const navigate = useNavigate();
+
+
+
 
     const fetchFirstRecord = async () => {
         try {
@@ -38,9 +41,10 @@ const Login = () => {
                     localStorage.setItem('email', record.email);
                     localStorage.setItem('phone', phone);
 
-                    // navigate('/');
-                    // how to refresh for useEffect in app.js take an effect
                     window.location.reload();
+                    navigate('/');
+                    // how to refresh for useEffect in app.js take an effect
+
 
                 } else {
                     console.log('Login failed. Invalid phone');
@@ -68,12 +72,32 @@ const Login = () => {
                         <div className="col col-lg-4 col-md-6 col-sm mx-auto">
                             <form className="form-group">
 
-                                <h1 className='text-center' style={{ textShadow: '0 4px 3px #fff, 0 0 5px #fff' }}>เข้าสู่ระบบ  <FontAwesomeIcon icon={faKey} /></h1>
-                                <input type="text" className="form-control rounded-pill" id="phone" placeholder="เบอร์โทร..." onChange={e => setPhone(e.target.value)} />
+                                <h1 className='text-center' style={{ textShadow: '0 4px 3px #fff, 0 0 5px #fff' }}>
+                                    {localStorage.getItem('fullname') &&
+                                        <>
+                                            <h1>ยินดีต้อนรับ</h1>
+                                            {localStorage.getItem('fullname')}
+                                        </>
+
+
+                                    }
+
+
+                                </h1>
+
+                                {!localStorage.getItem('fullname') ?
+                                    <div className='d-flex flex-column text-center'>
+                                        <h1>เข้าสู่ระบบ  </h1> <FontAwesomeIcon icon={faKey} style={{ height: 30 }} />
+                                        <input type="text" className="form-control rounded-pill" id="phone" placeholder="เบอร์โทร..." onChange={e => setPhone(e.target.value)} />
+                                        <div className="d-flex justify-content-center align-items-center mx-auto">
+                                            <button onClick={handleLogin} className='btn-green mt-3 rounded-pill'>ตกลง</button>
+                                        </div>
+
+                                    </div> : null
+                                }
+
                             </form>
-                            <div className="d-flex justify-content-center align-items-center mx-auto">
-                                <button onClick={handleLogin} className='btn-green mt-3 rounded-pill'>ตกลง</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
