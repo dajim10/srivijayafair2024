@@ -3,7 +3,6 @@ import Navbar from './components/Navbar'
 import StarDown from './StarDown'
 import Login from './components/Login'
 import { Routes, Route } from 'react-router-dom'
-import axios from 'axios'
 import Home from './components/Home'
 import About from './components/About'
 import Register from './components/Register'
@@ -16,6 +15,11 @@ import Inded from './pages/Inded'
 import AllFaculty from './components/AllFaculty'
 import { client } from './lib/pocketbase'
 import Activity from './components/Activity'
+import Logo from './assets/Logo500.png'
+import Luckywheel from './components/LuckyWheel'
+import SlotMachine from './components/SlotMachine'
+import Game from './components/Game'
+
 
 
 
@@ -26,24 +30,6 @@ const App = () => {
 
     // ตรวจสอบว่าเกมหยุดหรือไม่
 
-
-
-    // useEffect(() => {
-    //     setInterval(() => {
-    //         axios.get('http://localhost:3000/api/statusgame')
-    //             .then(res => {
-    //                 setIsGamePaused(res.data.isGamePaused);
-    //                 // console.log(res.data.isGamePaused)
-    //                 const mainContent = document.getElementById('mainContent');
-
-    //             })
-    //             .catch(err => {
-    //                 console.log(err);
-    //             });
-    //     }
-    //         , 1000);
-
-    // }, []);
 
     useEffect(() => {
         setInterval(() => {
@@ -60,7 +46,7 @@ const App = () => {
                 });
         }, 5000);
     }
-        , [usePageVisibility]);
+        , [isGamePaused, usePageVisibility]);
 
 
 
@@ -68,32 +54,30 @@ const App = () => {
 
 
     return (
-        <div className='container-fluid' id="mainContent">
-            <div >
+        <div className='container-fluid' id="mainContent" >
 
-                {!isGamePaused ?
-                    <StarDown />
-
-                    :
-                    // ถ้า game หยุด ให้แสดงข้อความว่า เกมหยุด
-                    // <div className='d-flex justify-content-center mt-3 col-lg-6 mx-auto' >
-                    <div style={{ left: '0', top: '90vh !important' }}>
-
-                        <button className="btn btn-danger ">Game Pause</button>
-                    </div>
-                }
-            </div>
             <Navbar />
 
 
             <div className="row">
                 <div className="col col-lg-3 mx-auto">
-                    <h1 className='text-center bg-light border-dark rounded shadow-lg'>SRIVIJAYA FAIR</h1>
-                    <h2 className='text-center btn-outline-dark '>2024</h2>
+                    <img src={Logo} alt="" className='img-fluid' />
+
 
                 </div>
             </div>
 
+            {!isGamePaused ?
+                <StarDown />
+
+                : null
+                // ถ้า game หยุด ให้แสดงข้อความว่า เกมหยุด ใช้สำหรับเวลาที่เรากดหยุดเกมเพื่อทดสอบ
+                // <div className='d-flex justify-content-center mt-3 col-lg-6 mx-auto' >
+                // <div style={{ position: 'absolute', top: '0', zIndex: '9999' }}>
+
+                //     <p className='bg-danger text-light p-2 mt-2 rounded-pill shadow-lg'>{"<"}Game Pause {"/>"}</p>
+                // </div>
+            }
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/login' element={<Login />} />
@@ -109,6 +93,9 @@ const App = () => {
                     <Route path="/allfaculty/nakorn" element={<AllFaculty faculty={'nakorn'} />} />
                 </Route>
                 <Route path="/activity/:day" element={<Activity />} />
+                <Route path="/luckywheel" element={<Luckywheel />} />
+                <Route path="/slotmachine" element={<SlotMachine />} />
+                <Route path="/game" element={<Game />} />
             </Routes>
 
 

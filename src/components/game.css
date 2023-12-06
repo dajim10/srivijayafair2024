@@ -1,0 +1,25 @@
+.slot-machine {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+  }
+  
+  .slot {
+    height: 500px;
+    overflow: hidden;
+  }
+  
+  .symbol {
+    animation: spin 2s linear forwards; /* "forwards" ensures the animation stays at its final state */
+    animation-iteration-count: 10; /* Adjust the count as needed */
+  }
+  
+  @keyframes spin {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-240px); /* Adjust the distance as needed */
+    }
+  }
+  

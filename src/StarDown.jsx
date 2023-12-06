@@ -4,11 +4,12 @@ import './index.css';
 import Logo from './components/Logo';
 import { usePageVisibility } from 'react-page-visibility';
 import axios from 'axios';
+import { client } from './lib/pocketbase';
 
 const StarDown = () => {
     const [score, setScore] = useState(0);
     const [stars, setStars] = useState([]);
-    const [isGamePaused, setIsGamePaused] = useState(null);
+    const [isGamePaused, setIsGamePaused] = useState(true);
     const [countdown, setCountdown] = useState(30); // 1 minute in seconds
     // const [user, setUser] = useState('admin');
     const isPageVisible = usePageVisibility();
@@ -17,30 +18,47 @@ const StarDown = () => {
     const maxStars = 3; // Set your desired maximum number of stars
 
 
-
     useEffect(() => {
         setInterval(() => {
-            axios.get('http://localhost:3000/api/statusgame')
+            client.collection('statusgame').getList(1)
                 .then(res => {
-                    setIsGamePaused(res.data.isGamePaused);
+                    // setIsGamePaused(res.data.isGamePaused);
+                    setIsGamePaused(res.items[0].isGamePaused);
+                    // console.log(res.items[0].isGamePaused);
+                    // const mainContent = document.getElementById('mainContent');
+
                 })
                 .catch(err => {
                     console.log(err);
                 });
-
-            setCountdown(prevCountdown => {
-                if (prevCountdown > 0) {
-                    return prevCountdown - 1;
-                } else {
-                    clearInterval(starsIntervalRef.current);
-                    return 0;
-                }
-            });
-        }, 1000);
+        }, 5000);
+    }
+        , [isGamePaused, usePageVisibility]);
 
 
+    // useEffect(() => {
+    //     setInterval(() => {
+    //         axios.get('http://localhost:3000/api/statusgame')
+    //             .then(res => {
+    //                 setIsGamePaused(res.data.isGamePaused);
+    //             })
+    //             .catch(err => {
+    //                 console.log(err);
+    //             });
 
-    }, []);
+    //         setCountdown(prevCountdown => {
+    //             if (prevCountdown > 0) {
+    //                 return prevCountdown - 1;
+    //             } else {
+    //                 clearInterval(starsIntervalRef.current);
+    //                 return 0;
+    //             }
+    //         });
+    //     }, 1000);
+
+
+
+    // }, []);
 
 
     useEffect(() => {
@@ -126,7 +144,7 @@ const StarDown = () => {
                         Time Remaining: {countdown} seconds
                     </div> */}
                 </div>
-                <div className="score">Score: {score}</div>
+                <div className="score" style={{ right: '10px', bottom: '20px', zIndex: '9999' }}>Score: {score}</div>
 
                 {stars.map(star => (
                     <Star

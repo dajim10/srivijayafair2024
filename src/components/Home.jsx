@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import Calendar from './Calendar'
+import { client } from '../lib/pocketbase'
+
 
 
 
@@ -16,6 +18,7 @@ const Home = () => {
 
     const navigate = useNavigate();
     const [IsCloseWindow, setIsCloseWindow] = useState(false)
+    const [linkUrl, setLinkUrl] = useState('')
 
     const handleNavigate = () => {
         const facultyname = 'songkhla'
@@ -25,6 +28,26 @@ const Home = () => {
     const handleCloseWindow = () => {
         setIsCloseWindow(!IsCloseWindow)
     }
+
+    useEffect(() => {
+        setInterval(async () => {
+            client.collection('live').getList(1)
+                .then(res => {
+                    // setIsGamePaused(res.data.isGamePaused);
+                    // setIsCloseWindow(res.items[0].isCloseWindow);
+                    setLinkUrl(res.items[0].linkUrl);
+                    // console.log(res.items[0].linkUrl)
+                    // console.log(res.items[0].isGamePaused);
+                    // const mainContent = document.getElementById('mainContent');
+
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }, 1000);
+    }
+        , [linkUrl]);
+
 
 
 
@@ -39,7 +62,7 @@ const Home = () => {
                             <span>@มทร.ศรีวิชัย สงขลา</span>
                         </div>
 
-                        <div className='container text-end w-50 sticky-top'>
+                        <div className='container float-right w-50 sticky-top'>
 
                             <button className={`btn my-2 ${IsCloseWindow ? "btn-dark" : "btn-danger"}`} onClick={handleCloseWindow}>
                                 {IsCloseWindow ? <FontAwesomeIcon icon={faBars} /> : <FontAwesomeIcon icon={faTimes} />}
@@ -48,10 +71,28 @@ const Home = () => {
 
                         </div>
 
-                        {/* {IsCloseWindow ? null : <iframe className="embed-responsive-item sticky-top" src="https://www.youtube.com/embed/QmpIu83Q02c?si=6AGFhTfe8df6MYrY" width={800} height={400} allow="accelerometer;autoplay;"></iframe>} */}
+
 
                         {!IsCloseWindow &&
-                            <iframe className="embed-responsive-item sticky-top" src="https://www.youtube.com/embed/QmpIu83Q02c?si=6AGFhTfe8df6MYrY" width={800} height={400} allow="accelerometer;autoplay;"></iframe>
+                            // <iframe className="embed-responsive-item sticky-top" src="https://www.youtube.com/embed/QmpIu83Q02c?si=6AGFhTfe8df6MYrY" width={800} height={400} allow="accelerometer;autoplay;"></iframe>
+                            <>
+                                <iframe className="embed-responsive-item sticky-top" src={`${linkUrl}&autoplay=1&mute=1`} allow="autoplay;fullscreen; encrypted-media"></iframe>
+
+                                {/* <iframe width="1440" height="762" src={linkUrl}
+
+                                    frameborder="0" allow="autoplay; encrypted-media"
+                                    barColor="black"
+                                    controls
+                                    allowfullscreen>
+
+                                </iframe> */}
+
+
+
+
+                                {/* <FacebookLiveEmbed /> */}
+                            </>
+
                         }
                     </div>
                 </div>
@@ -63,24 +104,6 @@ const Home = () => {
             </div>
 
 
-            {/* <div className="container">
-                <div className="card rounded shadow" >
-                    <div className="card-body">
-                        <h4 className='text-center text-green'>ปฏิทินกิจกรรม</h4>
-                        <hr />
-                        <div className="row" id="calendar">
-                            {calendar.map((day, index) => {
-                                return (
-                                    <div className="col text-center" key={index}>
-                                        <h1 className={day.active ? 'active' : null}>{day}</h1>
-                                        <h4 className={day.active ? 'text-green' : 'text-secondary'} style={{ position: 'relative', top: '-25px' }}>มค</h4>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-                </div>
-            </div> */}
 
 
             {!IsCloseWindow &&

@@ -4,7 +4,7 @@ import { Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { client } from '../lib/pocketbase';
 
-const SongkhlaFaculty = () => {
+const TrangFaculty = () => {
 
 
 
@@ -28,19 +28,9 @@ const SongkhlaFaculty = () => {
 
     const branch = [
         {
-            name: 'Songkhla',
+            name: 'trang',
             branch: [
-                { popupText: 'คณะเกษตรศาสตร์', link: '' },
-                { popupText: 'คณะวิทยาศาสตร์และเทคโนโลยี', link: '' },
-                { popupText: 'คณะศิลปศาสตร์', link: '', background: '' },
-                { popupText: 'คณะวิศวกรรมศาสตร์', link: '' },
-                { popupText: 'คณะบริหารธุรกิจ', link: '' },
-                { popupText: 'คณะวิทยาศาสตร์และเทคโนโลยีการประมง', link: '' },
-                { popupText: 'คณะอุตสาหกรรมเกษตร', link: '' },
-                { popupText: 'คณะครุศาสตร์อุตสาหกรรม', link: '/inded' },
-                { popupText: 'วิทยาลัยการโรงแรมและการท่องเที่ยว', link: '' },
-                { popupText: 'วิทยาลัยเทคโนโลยีอุตสาหกรรมและการจัดการ', link: '' },
-                { popupText: 'คณะสถาปัตยกรรมศาสตร์', link: '' },
+
                 { popupText: 'คณะเทคโนโลยีการจัดการ', link: '' },
                 { popupText: 'คณะสัตวแพทยศาสตร์', link: '' },
                 { popupText: 'วิทยาลัยรัตภูมิ', link: '' },
@@ -88,4 +78,4 @@ const SongkhlaFaculty = () => {
     )
 }
 
-export default SongkhlaFaculty
+export default TrangFaculty

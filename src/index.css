@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap');
 
 
  /* value font-color  */
@@ -28,7 +28,8 @@
     padding:0;
     margin:0;
     box-sizing: border-box;
-    font-family: 'Noto Sans Thai', sans-serif;
+    /* font-family: 'Noto Sans Thai', sans-serif; */
+    font-family: 'Prompt', sans-serif;
     cursor: url('./assets/cursor_50.png'), auto;
 
 
@@ -122,11 +123,19 @@ iframe {
 }
 
 
+input[type="text"],input[type="email"] {
+  font-size:21px !important;
+}
+
+textarea {
+  font-size:21px !important;
+}
 
 .star-container {
     position: absolute;
     display: inline-block;
     cursor: pointer;
+
   }
   
   .star {
@@ -308,8 +317,49 @@ iframe {
   
   }
 
+ /* Slot machine css */
+ /* Slot machine css */
+ .slot-machine {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.slot {
+  height: 80px;
+  overflow: hidden;
+}
+
+.symbol {
+  animation: spin 2s linear forwards; /* "forwards" ensures the animation stays at its final state */
+  animation-iteration-count: 10; /* Adjust the count as needed */
+}
+
+@keyframes spin {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-240px); /* Adjust the distance as needed */
+  }
+}
+
+.fancy {
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    background-image: 
+      url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%2300A080' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%2300FDCF'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%2300FDCF'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%23008060'/%3E%3C/g%3E%3C/svg%3E%0A");
+    background-size: 110% auto;
+    background-position: center;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
   .link-without-underline {
     text-decoration: none;
+    color:#000;
+    font-weight: 600;
   }
   
   @keyframes MoveUpDown {
@@ -331,6 +381,18 @@ iframe {
       width: 80%;
     }
 
+    .slot-machine img {
+      
+        width: 30% !important;
+        height: 30% !important;
+      
+    }
+
+    .slot-icon {
+      width: 100%;
+      height: 100px; /* Adjust the height based on the size of your icons */
+      object-fit: cover;
+    }
 
     .custom-carousel .carousel-control-prev-icon,
   .custom-carousel .carousel-control-next-icon {

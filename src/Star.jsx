@@ -9,6 +9,7 @@ const Star = ({ x, y, onClick }) => {
         left: `${x}px`,
         display: 'inline-block',
         cursor: 'pointer',
+
     };
 
     return (

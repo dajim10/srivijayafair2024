@@ -11,7 +11,7 @@ const Calendar = () => {
     useEffect(() => {
         client.collection('calendar').getList(1, 100)
             .then(res => {
-                console.log(res.items)
+                // console.log(res.items)
                 setCalendar(res.items);
                 // console.log(res.items)
                 // setActivityDate(res.items[0].activityDate);
@@ -36,10 +36,10 @@ const Calendar = () => {
 
 
                         <div className="col text-center bg-light rounded shadow py-2">
-                            <Link to={`/activity/${date.day}`}>
-                                <h5 className={date.active ? 'active' : null}>{date.day}</h5>
+                            <Link to={`/activity/${date.day}`} className='link-without-underline'>
+                                <h3 className={date.active ? 'active' : null}>{date.day}</h3>
                                 {/* <p>{date.active ? 'active' : 'not active'}</p> */}
-                                <p className={date.active ? 'active' : null}>{date.month}</p>
+                                <h5 className={date.active ? 'active' : null}>{date.month}</h5>
                             </Link>
                         </div>
 

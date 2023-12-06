@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import icon360 from '../assets/icon360.png'
 import SongkhlaFaculty from '../pages/SongkhlaFaculty'
+import TrangFaculty from '../pages/TrangFaculty'
 
 const AllFaculty = ({ faculty }) => {
     const facultyName = faculty
@@ -65,6 +66,11 @@ const AllFaculty = ({ faculty }) => {
 
             {facultyName === 'songkhla' ?
                 <SongkhlaFaculty />
+                : null
+            }
+
+            {facultyName === 'trang' ?
+                <TrangFaculty />
                 : null
             }
 

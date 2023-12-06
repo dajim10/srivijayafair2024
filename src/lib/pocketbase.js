@@ -1,9 +1,19 @@
 // Path: src/lib/pocketbase.js
 
 import PocketBase from 'pocketbase';
-const url = "https://sathern.rmutsv.ac.th:8077/";
+// const url = "https://sathern.rmutsv.ac.th:8077/";
+const url = import.meta.env.VITE_POCKETBASE_URL;
 export const client = new PocketBase(url);
 client.autoCancellation(false)
+
+export async function createUser(phone, fullname, email) {
+    const data = { phone: phone, fullname: fullname, email: email };
+    await client.collection('register').create(data);
+}
+
+
+
+
 
 
 // const username = import.meta.env.VITE_POCKETBASE_USERNAME;
