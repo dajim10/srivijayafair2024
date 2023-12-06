@@ -15,7 +15,7 @@ const StarDown = () => {
     const isPageVisible = usePageVisibility();
     const starsIntervalRef = useRef(null);
     //const gameDuration = 0.5 * 60 * 1000; // Set game duration to 5 minutes
-    const maxStars = 3; // Set your desired maximum number of stars
+    const maxStars = 100; // Set your desired maximum number of stars
 
 
     useEffect(() => {

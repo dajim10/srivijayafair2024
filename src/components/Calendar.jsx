@@ -30,12 +30,13 @@ const Calendar = () => {
     return (
         <div className='container p-3 rounded' id="calendar">
             <h1 className="text-center">ปฏิทินกิจกรรม</h1>
+            <hr />
             <div className="row">
                 {calendar.map((date, index) => (
                     <div className="col text-center" key={index}>
 
 
-                        <div className="col text-center bg-light rounded shadow py-2">
+                        <div className="col text-center bg-light" id="dateact">
                             <Link to={`/activity/${date.day}`} className='link-without-underline'>
                                 <h3 className={date.active ? 'active' : null}>{date.day}</h3>
                                 {/* <p>{date.active ? 'active' : 'not active'}</p> */}

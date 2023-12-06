@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ userName }) => {
+
+    // useEffect(() => {
+    //     const expires = new Date();
+    //     expires.setMinutes(expires.getMinutes() + 1);
+    //     const fullname = document.cookie.split(';').find(cookie => cookie.includes('fullname'));
+    //     if (fullname) {
+    //         setUserName(fullname.split('=')[1]);
+    //     } else {
+    //         setUserName('เข้าสู่ระบบ');
+    //     }
+    // }
+    //     , []);
+
     return (
         <div className='container d-flex justify-content-between p-3 navbar sticky-top rounded' id="nav-menu">
             <div className='d-flex align-items-center'>
@@ -21,10 +34,22 @@ const Navbar = () => {
             <div className='d-flex align-items-center'>
                 <Link to="/login">
 
-                    <button className=' nav-button'>เข้าสู่ระบบ</button>
+                    <button className=' nav-button'>
+                        {/* {userName} */}
+                        {userName ? userName : เข้าสู่ระบบ}
+
+                    </button>
                 </Link>
 
             </div>
+
+            {userName !== "เข้าสู่ระบบ" &&
+                <div className='d-flex align-items-center'>
+                    <Link to="/logout">
+                        <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                    </Link>
+                </div>
+            }
         </div>
     )
 }

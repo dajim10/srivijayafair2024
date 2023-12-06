@@ -19,6 +19,7 @@ import Logo from './assets/Logo500.png'
 import Luckywheel from './components/LuckyWheel'
 import SlotMachine from './components/SlotMachine'
 import Game from './components/Game'
+import Logout from './components/Logout'
 
 
 
@@ -27,9 +28,13 @@ import Game from './components/Game'
 const App = () => {
 
     const [isGamePaused, setIsGamePaused] = useState(null);
-
+    const [userName, setUserName] = useState(localStorage.getItem('fullname') || 'เข้าสู่ระบบ');
     // ตรวจสอบว่าเกมหยุดหรือไม่
-
+    useEffect(() => {
+        if (userName !== 'เข้าสู่ระบบ') {
+            setUserName(localStorage.getItem('fullname'));
+        }
+    }, [])
 
     useEffect(() => {
         setInterval(() => {
@@ -56,7 +61,7 @@ const App = () => {
     return (
         <div className='container-fluid' id="mainContent" >
 
-            <Navbar />
+            <Navbar userName={userName} />
 
 
             <div className="row">
@@ -96,6 +101,7 @@ const App = () => {
                 <Route path="/luckywheel" element={<Luckywheel />} />
                 <Route path="/slotmachine" element={<SlotMachine />} />
                 <Route path="/game" element={<Game />} />
+                <Route path="/logout" element={<Logout />} />
             </Routes>
 
 

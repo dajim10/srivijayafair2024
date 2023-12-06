@@ -57,21 +57,24 @@ const SlotMachine = () => {
     };
 
     return (
-        <div className='text-center'>
-            <div className="slot-machine">
-                {result.map((image, index) => (
-                    <img
-                        key={index}
-                        src={image}
-                        alt={`Image ${index}`}
-                        style={{ width: '200px', height: '200px', margin: '5px' }}
-                    />
-                ))}
-            </div>
-            <div className="container d-flex align-items-center text-center justify-content-center">
-                <button onClick={handleSpinClick} disabled={spin} className='btn btn-danger rounded-pill shadow' style={{ borderWidth: '5px solid #000' }}>
-                    {spin ? 'Spinning...' : 'Spin'}
-                </button>
+        <div className="sticky-top">
+
+            <div className='text-center'>
+                <div className="slot-machine">
+                    {result.map((image, index) => (
+                        <img
+                            key={index}
+                            src={image}
+                            alt={`Image ${index}`}
+                            style={{ width: '200px', height: '200px', margin: '5px' }}
+                        />
+                    ))}
+                </div>
+                <div className="container d-flex align-items-center text-center justify-content-center">
+                    <button onClick={handleSpinClick} disabled={spin} className='btn btn-danger rounded-pill shadow' style={{ borderWidth: '5px solid #000' }}>
+                        {spin ? 'Spinning...' : 'Spin'}
+                    </button>
+                </div>
             </div>
         </div>
     );

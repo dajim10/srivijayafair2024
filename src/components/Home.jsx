@@ -20,6 +20,7 @@ const Home = () => {
     const [IsCloseWindow, setIsCloseWindow] = useState(false)
     const [linkUrl, setLinkUrl] = useState('')
 
+
     const handleNavigate = () => {
         const facultyname = 'songkhla'
         navigate(`/allfaculty/${facultyname}`);
@@ -28,6 +29,8 @@ const Home = () => {
     const handleCloseWindow = () => {
         setIsCloseWindow(!IsCloseWindow)
     }
+
+
 
     useEffect(() => {
         setInterval(async () => {
@@ -107,7 +110,7 @@ const Home = () => {
 
 
             {!IsCloseWindow &&
-                <div className="container-fluid sticky-top">
+                <div className="container-fluid sticky-top" >
                     <Calendar />
 
                     <div className="row">

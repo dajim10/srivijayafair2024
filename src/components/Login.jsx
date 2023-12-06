@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import PocketBase from 'pocketbase';
+import { useNavigate } from 'react-router-dom';
 const url = import.meta.env.VITE_POCKETBASE_URL;
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faKey } from '@fortawesome/free-solid-svg-icons';
+import { faKey, faRefresh } from '@fortawesome/free-solid-svg-icons';
+import Calendar from './Calendar';
 
 const pb = new PocketBase(url);
 
 const Login = () => {
     const [phone, setPhone] = useState('');
+    const [isLogin, setIsLogin] = useState(false);
+    const navigate = useNavigate();
 
     const fetchFirstRecord = async () => {
         try {
@@ -23,6 +27,21 @@ const Login = () => {
                 if (record.phone === phone) {
                     // Perform successful login logic here
                     console.log('Login successful!');
+                    setIsLogin(true);
+                    // try to set cookie
+                    // const expires = new Date();
+                    // expires.setMinutes(expires.getMinutes() + 1);
+                    // document.cookie = `fullname=${record.fullname};expires=${expires.toUTCString()};path=/`;
+                    // document.cookie = `email=${record.email};expires=${expires.toUTCString()};path=/`;
+                    // document.cookie = `phone=${phone};expires=${expires.toUTCString()};path=/`;
+                    localStorage.setItem('fullname', record.fullname);
+                    localStorage.setItem('email', record.email);
+                    localStorage.setItem('phone', phone);
+
+                    // navigate('/');
+                    // how to refresh for useEffect in app.js take an effect
+                    window.location.reload();
+
                 } else {
                     console.log('Login failed. Invalid phone');
                 }
@@ -40,19 +59,31 @@ const Login = () => {
     };
 
     return (
-        <div className='container d-flex flex-column justify-content-center sticky-top' style={{ border: '6px solid #fff', borderRadius: '20px', boxShadow: '0 0 10px #ccc', backgroundColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(2px)', height: '50vh' }}>
-            {/* <h1 className='text-dark'>Logged In : {pb.authStore.isValid.toString()}</h1> */}
-            <div className="row">
-                <div className="col col-lg-4 col-md-6 col-sm mx-auto">
-                    <form className="form-group">
+        <>
 
-                        <h1 className='text-center' style={{ textShadow: '0 4px 3px #fff, 0 0 5px #fff' }}>Please Login  <FontAwesomeIcon icon={faKey} /></h1>
-                        <input type="text" className="form-control" id="phone" placeholder="เบอร์โทร..." onChange={e => setPhone(e.target.value)} />
-                    </form>
-                    <button onClick={handleLogin} className='mt-3 rounded-pill btn btn-warning form-control ' style={{ border: '10px solid #fff' }}>Login</button>
+            <div className='container d-flex flex-column justify-content-center sticky-top' style={{ border: '6px solid #fff', borderRadius: '20px', boxShadow: '0 0 10px #ccc', backgroundColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(2px)', height: '40vh' }}>
+                {/* <h1 className='text-dark'>Logged In : {pb.authStore.isValid.toString()}</h1> */}
+                <div className="h-50">
+                    <div className="row">
+                        <div className="col col-lg-4 col-md-6 col-sm mx-auto">
+                            <form className="form-group">
+
+                                <h1 className='text-center' style={{ textShadow: '0 4px 3px #fff, 0 0 5px #fff' }}>เข้าสู่ระบบ  <FontAwesomeIcon icon={faKey} /></h1>
+                                <input type="text" className="form-control rounded-pill" id="phone" placeholder="เบอร์โทร..." onChange={e => setPhone(e.target.value)} />
+                            </form>
+                            <div className="d-flex justify-content-center align-items-center mx-auto">
+                                <button onClick={handleLogin} className='btn-green mt-3 rounded-pill'>ตกลง</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
-        </div>
+            <div className="mt-3 p-5">
+
+                <Calendar />
+            </div>
+        </>
     );
 };
 
