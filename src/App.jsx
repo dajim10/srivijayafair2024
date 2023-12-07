@@ -16,7 +16,7 @@ import AllFaculty from './components/AllFaculty'
 import { client } from './lib/pocketbase'
 import Activity from './components/Activity'
 import Logo from './assets/Logo500.png'
-import Luckywheel from './components/LuckyWheel'
+
 import SlotMachine from './components/SlotMachine'
 import Game from './components/Game'
 import Logout from './components/Logout'
@@ -98,7 +98,7 @@ const App = () => {
                     <Route path="/allfaculty/nakorn" element={<AllFaculty faculty={'nakorn'} />} />
                 </Route>
                 <Route path="/activity/:day" element={<Activity />} />
-                <Route path="/luckywheel" element={<Luckywheel />} />
+
                 <Route path="/slotmachine" element={<SlotMachine />} />
                 <Route path="/game" element={<Game />} />
                 <Route path="/logout" element={<Logout />} />

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PocketBase from 'pocketbase';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 const url = import.meta.env.VITE_POCKETBASE_URL;
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faKey, faRefresh } from '@fortawesome/free-solid-svg-icons';
+import { faKey, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import Calendar from './Calendar';
 
 const pb = new PocketBase(url);
@@ -77,6 +77,15 @@ const Login = () => {
                                         <>
                                             <h1>ยินดีต้อนรับ</h1>
                                             {localStorage.getItem('fullname')}
+                                            <div className='mt-3'>
+
+                                                <button className='btn btn-danger'>
+                                                    <FontAwesomeIcon icon={faArrowRightFromBracket} onClick={() => {
+                                                        localStorage.clear();
+                                                        window.location.reload();
+                                                    }} /> ออกจากระบบ
+                                                </button>
+                                            </div>
                                         </>
 
 

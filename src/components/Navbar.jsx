@@ -46,7 +46,7 @@ const Navbar = ({ userName }) => {
             {userName !== "เข้าสู่ระบบ" &&
                 <div className='d-flex align-items-center'>
                     <Link to="/logout">
-                        <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                        <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: 'red', height: '30px' }} />
                     </Link>
                 </div>
             }
