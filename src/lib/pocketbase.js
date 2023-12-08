@@ -6,10 +6,11 @@ const url = import.meta.env.VITE_POCKETBASE_URL;
 export const client = new PocketBase(url);
 client.autoCancellation(false)
 
-export async function createUser(phone, fullname, email) {
-    const data = { phone: phone, fullname: fullname, email: email };
+export async function createUser(phone, fullname, email, address) {
+    const data = { phone: phone, fullname: fullname, email: email, address: address };
     await client.collection('register').create(data);
 }
+
 
 
 

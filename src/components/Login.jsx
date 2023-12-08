@@ -37,9 +37,9 @@ const Login = () => {
                     // document.cookie = `fullname=${record.fullname};expires=${expires.toUTCString()};path=/`;
                     // document.cookie = `email=${record.email};expires=${expires.toUTCString()};path=/`;
                     // document.cookie = `phone=${phone};expires=${expires.toUTCString()};path=/`;
-                    localStorage.setItem('fullname', record.fullname);
-                    localStorage.setItem('email', record.email);
-                    localStorage.setItem('phone', phone);
+                    sessionStorage.setItem('fullname', record.fullname);
+                    sessionStorage.setItem('email', record.email);
+                    sessionStorage.setItem('phone', phone);
 
                     window.location.reload();
                     navigate('/');
@@ -73,18 +73,18 @@ const Login = () => {
                             <form className="form-group">
 
                                 <h1 className='text-center' style={{ textShadow: '0 4px 3px #fff, 0 0 5px #fff' }}>
-                                    {localStorage.getItem('fullname') &&
+                                    {sessionStorage.getItem('fullname') &&
                                         <>
                                             <h1>ยินดีต้อนรับ</h1>
-                                            {localStorage.getItem('fullname')}
+                                            {sessionStorage.getItem('fullname')}
                                             <div className='mt-3'>
 
-                                                <button className='btn btn-danger'>
+                                                <Link to="/logout" className='btn btn-danger'>
                                                     <FontAwesomeIcon icon={faArrowRightFromBracket} onClick={() => {
-                                                        localStorage.clear();
-                                                        window.location.reload();
+                                                        sessionStorage.clear();
+                                                        // window.location.reload();
                                                     }} /> ออกจากระบบ
-                                                </button>
+                                                </Link>
                                             </div>
                                         </>
 
@@ -94,10 +94,10 @@ const Login = () => {
 
                                 </h1>
 
-                                {!localStorage.getItem('fullname') ?
+                                {!sessionStorage.getItem('fullname') ?
                                     <div className='d-flex flex-column text-center'>
                                         <h1>เข้าสู่ระบบ  </h1> <FontAwesomeIcon icon={faKey} style={{ height: 30 }} />
-                                        <input type="text" className="form-control rounded-pill" id="phone" placeholder="เบอร์โทร..." onChange={e => setPhone(e.target.value)} />
+                                        <input type="text" className="form-control rounded-pill" id="phone" placeholder="เบอร์โทร..." onChange={e => setPhone(e.target.value)} autoFocus />
                                         <div className="d-flex justify-content-center align-items-center mx-auto">
                                             <button onClick={handleLogin} className='btn-green mt-3 rounded-pill'>ตกลง</button>
                                         </div>

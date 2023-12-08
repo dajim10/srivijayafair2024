@@ -21,6 +21,20 @@ app.post('/api/login', (req, res) => {
     }
 })
 
+app.get('/api/spin', (req, res) => {
+    const result = generateSpinResult();
+    res.json(result);
+})
+
+function generateSpinResult() {
+    const stopPosition = [200000, 400000, 800000];
+    const result = stopPosition[Math.floor(Math.random() * stopPosition.length)];
+    // result = Math.floor(Math.random() * 1000000);
+    // result = 800000;
+    // result = 100000;
+    return result;
+}
+
 
 app.get('/api/statusgame', (req, res) => {
     //when request come in write to json file isGameRunning = true

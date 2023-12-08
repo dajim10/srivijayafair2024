@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
 import StarDown from './StarDown'
 import Login from './components/Login'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Link } from 'react-router-dom'
 import Home from './components/Home'
 import About from './components/About'
 import Register from './components/Register'
@@ -20,6 +20,7 @@ import Logo from './assets/Logo500.png'
 import SlotMachine from './components/SlotMachine'
 import Game from './components/Game'
 import Logout from './components/Logout'
+import Rewards from './components/Rewards'
 
 
 
@@ -28,13 +29,33 @@ import Logout from './components/Logout'
 const App = () => {
 
     const [isGamePaused, setIsGamePaused] = useState(null);
-    const [userName, setUserName] = useState(localStorage.getItem('fullname') || 'เข้าสู่ระบบ');
     // ตรวจสอบว่าเกมหยุดหรือไม่
+    const [userName, setUserName] = useState(sessionStorage.getItem('fullname') || 'เข้าสู่ระบบ');
+    // ตรวจสอบ user ว่าเข้าสู่ระบบหรือไม่ ถ้าเข้าสู่ระบบแล้วให้แสดงชื่อ user แทนที่จะแสดงเป็น เข้าสู่ระบบ
+    const [isLogin, setIsLogin] = useState(false);
+
     useEffect(() => {
         if (userName !== 'เข้าสู่ระบบ') {
-            setUserName(localStorage.getItem('fullname'));
+            setUserName(sessionStorage.getItem('fullname'));
+            setIsLogin(true);
         }
     }, [])
+
+
+    useEffect(() => {
+        client.collection('statusgame').getList(1)
+            .then(res => {
+                // setIsGamePaused(res.data.isGamePaused);
+                setIsGamePaused(res.items[0].isGamePaused);
+                // console.log(res.items[0].isGamePaused);
+                // const mainContent = document.getElementById('mainContent');
+
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, []);
+
 
     useEffect(() => {
         setInterval(() => {
@@ -68,7 +89,11 @@ const App = () => {
                 <div className="col col-lg-3 mx-auto">
                     <img src={Logo} alt="" className='img-fluid' />
 
-
+                    {isLogin &&
+                        <div className='text-center mb-4'>
+                            <Link to='/rewards' className="button-85 mb-3">ร่วมสนุกสุ่มของรางวัล</Link>
+                        </div>
+                    }
                 </div>
             </div>
 
@@ -102,6 +127,7 @@ const App = () => {
                 <Route path="/slotmachine" element={<SlotMachine />} />
                 <Route path="/game" element={<Game />} />
                 <Route path="/logout" element={<Logout />} />
+                <Route path="/rewards" element={<Rewards />} />
             </Routes>
 
 

@@ -21,7 +21,7 @@ const Navbar = ({ userName }) => {
         <div className='container d-flex justify-content-between p-3 navbar sticky-top rounded' id="nav-menu">
             <div className='d-flex align-items-center'>
                 <Link to="/">
-                    <FontAwesomeIcon icon={faHouse} style={{ height: 30 }} />
+                    <FontAwesomeIcon icon={faHouse} className='font-awesome' />
                 </Link>
 
             </div>
@@ -44,11 +44,16 @@ const Navbar = ({ userName }) => {
             </div>
 
             {userName !== "เข้าสู่ระบบ" &&
-                <div className='d-flex align-items-center'>
-                    <Link to="/logout">
-                        <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: 'red', height: '30px' }} />
-                    </Link>
-                </div>
+
+                <>
+                    <div className='d-flex align-items-center'>
+                        <Link to="/logout">
+                            <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: 'red' }} className='font-awesome' />
+                        </Link>
+                    </div>
+
+                </>
+
             }
         </div>
     )
