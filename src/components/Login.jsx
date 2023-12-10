@@ -3,7 +3,7 @@ import PocketBase from 'pocketbase';
 import { useNavigate, Link } from 'react-router-dom';
 const url = import.meta.env.VITE_POCKETBASE_URL;
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faKey, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faKey, faHouse, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import Calendar from './Calendar';
 
 const pb = new PocketBase(url);
@@ -11,6 +11,7 @@ const pb = new PocketBase(url);
 const Login = () => {
     const [phone, setPhone] = useState('');
     const [isLogin, setIsLogin] = useState();
+    const [score, setScore] = useState(0);
     const navigate = useNavigate();
 
 
@@ -19,7 +20,7 @@ const Login = () => {
     const fetchFirstRecord = async () => {
         try {
             const record = await pb.collection('register').getFirstListItem(`phone="${phone}"`, {
-                expand: 'fullname,email', // Add the fields you want to retrieve
+                expand: 'fullname,email,phone,email,address,score', // Add the fields you want to retrieve
             });
 
             console.log('First Record:', record);
@@ -31,6 +32,7 @@ const Login = () => {
                     // Perform successful login logic here
                     console.log('Login successful!');
                     setIsLogin(true);
+                    setScore(record.score);
                     // try to set cookie
                     // const expires = new Date();
                     // expires.setMinutes(expires.getMinutes() + 1);
@@ -72,20 +74,31 @@ const Login = () => {
                         <div className="col col-lg-4 col-md-6 col-sm mx-auto">
                             <form className="form-group">
 
-                                <h1 className='text-center' style={{ textShadow: '0 4px 3px #fff, 0 0 5px #fff' }}>
+                                <h1 className='text-center'>
                                     {sessionStorage.getItem('fullname') &&
                                         <>
                                             <h1>ยินดีต้อนรับ</h1>
                                             {sessionStorage.getItem('fullname')}
-                                            <div className='mt-3'>
+                                            <div className='mt-2'>
 
-                                                <Link to="/logout" className='btn btn-danger'>
+                                                <Link to="/" className='btn btn-success m-2'>
+                                                    <FontAwesomeIcon icon={faHouse} onClick={() => {
+                                                        sessionStorage.clear();
+                                                        // window.location.reload();
+                                                    }} /> กลับหน้าหลัก
+                                                </Link>
+
+                                                <Link to="/logout" className='btn btn-danger m-2'>
                                                     <FontAwesomeIcon icon={faArrowRightFromBracket} onClick={() => {
                                                         sessionStorage.clear();
                                                         // window.location.reload();
                                                     }} /> ออกจากระบบ
                                                 </Link>
+
+
                                             </div>
+
+
                                         </>
 
 
@@ -97,7 +110,7 @@ const Login = () => {
                                 {!sessionStorage.getItem('fullname') ?
                                     <div className='d-flex flex-column text-center'>
                                         <h1>เข้าสู่ระบบ  </h1> <FontAwesomeIcon icon={faKey} style={{ height: 30 }} />
-                                        <input type="text" className="form-control rounded-pill" id="phone" placeholder="เบอร์โทร..." onChange={e => setPhone(e.target.value)} autoFocus />
+                                        <input type="tel" className="form-control rounded-pill" id="phone" placeholder="เบอร์โทร..." onChange={e => setPhone(e.target.value)} autoFocus />
                                         <div className="d-flex justify-content-center align-items-center mx-auto">
                                             <button onClick={handleLogin} className='btn-green mt-3 rounded-pill'>ตกลง</button>
                                         </div>

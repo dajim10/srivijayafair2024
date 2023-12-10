@@ -31,7 +31,7 @@ const StarDown = () => {
                 .catch(err => {
                     console.log(err);
                 });
-        }, 5000);
+        }, 1000);
     }
         , [isGamePaused, usePageVisibility]);
 
@@ -106,7 +106,7 @@ const StarDown = () => {
             }
         };
 
-        starsIntervalRef.current = setInterval(generateStar, 5000);
+        starsIntervalRef.current = setInterval(generateStar, 1000);
 
     }, [isGamePaused, isPageVisible]);
 
@@ -125,8 +125,20 @@ const StarDown = () => {
         return () => cancelAnimationFrame(animationId);
     }, [stars]);
 
-    const handleStarClick = (id) => {
+    const handleStarClick = async (id) => {
         setScore(prevScore => prevScore + 1);
+
+        const existingRecord = await client.collection('register').getFirstListItem(`phone="${sessionStorage.getItem('phone')}"`);
+
+        if (existingRecord) {
+            // console.log(existingRecord);
+            const res = await client.collection('register').update(existingRecord.id, {
+                score: existingRecord.score + 1,
+            });
+            // console.log(res);
+            setScore(existingRecord.score + 1);
+        }
+
         setStars(prevStars => prevStars.filter(star => star.id !== id));
 
     };
@@ -156,7 +168,7 @@ const StarDown = () => {
                     />
                 ))}
             </div>
-            <Logo />
+            {/* <Logo /> */}
         </>
     );
 };

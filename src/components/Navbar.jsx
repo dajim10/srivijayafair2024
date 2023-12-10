@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom'
 
 const Navbar = ({ userName }) => {
 
+
     // useEffect(() => {
     //     const expires = new Date();
     //     expires.setMinutes(expires.getMinutes() + 1);
-    //     const fullname = document.cookie.split(';').find(cookie => cookie.includes('fullname'));
+    //     const fullname = sessionStorage.getItem('fullname');
     //     if (fullname) {
-    //         setUserName(fullname.split('=')[1]);
+    //         setUserName(fullname.split(' ')[0]);
     //     } else {
     //         setUserName('เข้าสู่ระบบ');
     //     }
@@ -36,7 +37,7 @@ const Navbar = ({ userName }) => {
 
                     <button className=' nav-button'>
                         {/* {userName} */}
-                        {userName ? userName : เข้าสู่ระบบ}
+                        {userName ? userName.split(' ')[0] : เข้าสู่ระบบ}
 
                     </button>
                 </Link>

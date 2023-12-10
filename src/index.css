@@ -295,7 +295,7 @@ textarea {
 /* Rewards Game */
 /* App.css */
 
-.container-reward {
+/* .container-reward {
   width: 350px;
   height: 350px;
   position: relative;
@@ -309,11 +309,11 @@ textarea {
   align-items: center !important;
 
 
-}
+} */
 
-/* App.css */
 
-.container-reward div{
+
+/* .container-reward div{
 	height: 50%;
 	width: 200px;
 	clip-path: polygon(100% 0,50% 100%, 0 0);
@@ -327,12 +327,90 @@ textarea {
 	font-size: 20px;
 	font-family: monospace;
 	font-weight: 1000;
-	/* color:#008276;  */
+
 	 writing-mode: vertical-rl;
+} */
+
+/* test */
+.container-reward {
+  width: 350px;
+  height: 350px;
+  position: relative;
+  margin: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 0 10px gray;
+  transition: 3s all;
+  display: flex;
+  flex-direction: column;
 }
+
+.container-reward div {
+  height: 50%;
+  width: 200px;
+  clip-path: polygon(100% 0, 50% 100%, 0 0);
+  transform: translateX(-50%);
+  transform-origin: bottom;
+  position: absolute;
+  left: 21%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-family: monospace;
+  font-weight: 1000;
+  writing-mode: vertical-rl;
+}
+
+/* ... Your existing div styles ... */
+
+.spin-button {
+  position: relative;
+  top: 43% !important;
+  left: 43% !important;
+  /* transform: translate(-50%, -50%); */
+  width: 50px;
+  height: 50px;
+  background-color: #3498db;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spin-button:before {
+  content: "Spin"; /* Initial text before spinning */
+}
+
+.spin-button.spinning:before {
+  content: "Stop"; /* Text to display while spinning */
+}
+
+.stoper {
+  top: 40px !important;
+  height: 50px;
+  width: 40px;
+  background: #ff0000;
+  position: relative;
+  clip-path: polygon(100% 0, 50% 100%, 0 0);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+.button-container-reward {
+  margin-top: 20px;
+}
+
+/* end test  */
+
 .container-reward .one{
 	background: #d485c8;
 	left: 50%;
+  border-radius: 25%;
 }
 .container-reward .two{
 	background: rgba(255, 255, 255, 0.2);
@@ -341,6 +419,7 @@ textarea {
 .container-reward .three{
 	background: #d485c8;
 	transform: rotate(120deg);
+  border-radius: 25%;
 }
 .container-reward .four{
 	background: #fff;
@@ -349,6 +428,7 @@ textarea {
 .container-reward .five{
 	background: #d485c8;
 	transform: rotate(240deg);
+  border-radius: 25%;
 }
 .container-reward .six{
 	background: #fff;
@@ -381,6 +461,15 @@ textarea {
 #spin:hover {
   /* box-shadow: none; */
 }
+
+/*  mac test spin button on the middle */
+/* .container-reward {
+  position: relative;
+} */
+
+
+
+/*  */
 
 .stoper {
   top: 40px !important;

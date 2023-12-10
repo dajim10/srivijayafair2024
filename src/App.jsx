@@ -81,7 +81,17 @@ const App = () => {
 
     return (
         <div className='container-fluid' id="mainContent" >
+            {!isGamePaused ?
+                <StarDown />
 
+                : null
+                // ถ้า game หยุด ให้แสดงข้อความว่า เกมหยุด ใช้สำหรับเวลาที่เรากดหยุดเกมเพื่อทดสอบ
+                // <div className='d-flex justify-content-center mt-3 col-lg-6 mx-auto' >
+                // <div style={{ position: 'absolute', top: '0', zIndex: '9999' }}>
+
+                //     <p className='bg-danger text-light p-2 mt-2 rounded-pill shadow-lg'>{"<"}Game Pause {"/>"}</p>
+                // </div>
+            }
             <Navbar userName={userName} />
 
 
@@ -97,17 +107,7 @@ const App = () => {
                 </div>
             </div>
 
-            {!isGamePaused ?
-                <StarDown />
 
-                : null
-                // ถ้า game หยุด ให้แสดงข้อความว่า เกมหยุด ใช้สำหรับเวลาที่เรากดหยุดเกมเพื่อทดสอบ
-                // <div className='d-flex justify-content-center mt-3 col-lg-6 mx-auto' >
-                // <div style={{ position: 'absolute', top: '0', zIndex: '9999' }}>
-
-                //     <p className='bg-danger text-light p-2 mt-2 rounded-pill shadow-lg'>{"<"}Game Pause {"/>"}</p>
-                // </div>
-            }
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/login' element={<Login />} />

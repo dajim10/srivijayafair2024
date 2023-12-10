@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Map from '../components/Map_backup'
 import image from '../assets/SongkhlaMap.png'
+import { client } from '../lib/pocketbase'
 
 
 function Trang() {
+
+
+
+
     // const image = '../assets/SongkhlaMap.png'; // Replace with the path to your image
     // const bounds = [[0, -0.08], [51.5, -0.06]]; // Adjust the bounds based on your image
     const markers = [

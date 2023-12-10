@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 const Logout = () => {
 
     useEffect(() => {
-        localStorage.clear();
+        sessionStorage.clear();
         window.location.href = '/';
     }
         , []);

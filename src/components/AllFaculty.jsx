@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import icon360 from '../assets/icon360.png'
 import SongkhlaFaculty from '../pages/SongkhlaFaculty'
 import TrangFaculty from '../pages/TrangFaculty'
+import { client } from '../lib/pocketbase'
 
 const AllFaculty = ({ faculty }) => {
     const facultyName = faculty
@@ -20,6 +21,48 @@ const AllFaculty = ({ faculty }) => {
     const handleNavigate = (link) => {
         navigate(`/${link}`);
     }
+
+    const [isLogin, setIsLogin] = useState(false);
+
+
+    const fetchFirstRecord = async () => {
+
+        const phone = sessionStorage.getItem('phone');
+        try {
+            const existingRecord = await client.collection('register').getFirstListItem(`phone="${phone}"`);
+
+            if (existingRecord) {
+                const dataUpdate = {
+                    score: existingRecord.score + 1
+                }
+                console.log(existingRecord.score);
+                await client.collection('register').update(existingRecord.id, dataUpdate);
+                setIsLogin(true);
+            } else {
+                console.log('No existing record found. Proceeding to createMember...');
+            }
+
+        }
+        catch (err) {
+            if (err.statusCode === 404) {
+                // Handle the case where the document is not found
+                console.log('Document not found. Proceeding to createMember...');
+            } else {
+                // createMember(); // Proceed to create the member even if the document is not found
+                console.error('Error:', err);
+            }
+        }
+
+    };
+
+    useEffect(() => {
+        if (isLogin) {
+            console.log('isLogin')
+            fetchFirstRecord();
+        }
+    }
+        , [isLogin]);
+
 
 
     return (
