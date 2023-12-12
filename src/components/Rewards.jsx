@@ -100,10 +100,11 @@ const Rewards = () => {
                     // Use nextRotation and update state accordingly
                     setRotation(0); // Reset rotation to start from the first position
 
-                    const spinDuration = 5000; // Adjust the spinDuration based on your preferences
+                    const spinDuration = 3000; // Adjust the spinDuration based on your preferences
 
                     // Calculate the spinStep based on the duration and nextRotation
                     const spinStep = (nextRotation / spinDuration) * 16; // 16ms is approximately one frame
+                    // const spinStep = spinDuration * 16;
 
                     console.log(spinStep);
 
