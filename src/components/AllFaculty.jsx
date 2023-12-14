@@ -3,16 +3,38 @@ import { Link, useNavigate } from 'react-router-dom'
 import icon360 from '../assets/icon360.png'
 import SongkhlaFaculty from '../pages/SongkhlaFaculty'
 import TrangFaculty from '../pages/TrangFaculty'
+import NakornFaculty from '../pages/NakornFaculty'
 import { client } from '../lib/pocketbase'
+import { getCounter } from '../lib/getCounter'
 
 const AllFaculty = ({ faculty }) => {
+
     const facultyName = faculty
 
-    const liStyle = {
-        borderRight: '1px solid #ccc',
-        padding: '10px',
-        margin: '10px',
-    }
+
+    const [counter, setCounter] = useState(0);
+    useEffect(() => {
+
+
+        if (faculty === 'songkhla') {
+            getCounter('songkhla').then(res => {
+                setCounter(res);
+            }
+            );
+        } else if (faculty === 'trang') {
+            getCounter('trang').then(res => {
+                setCounter(res);
+            }
+            );
+        } else if (faculty === 'nakorn') {
+            getCounter('nakorn').then(res => {
+                setCounter(res);
+            }
+            );
+        }
+    }, [faculty])
+
+
 
 
 
@@ -80,9 +102,11 @@ const AllFaculty = ({ faculty }) => {
                             <span>มทร.ศรีวิชัย</span>
                             <h3>สงขลา</h3>
                         </Link>
-                        <div className={`${facultyName === 'songkhla' ? 'd-block' : 'd-none'}`}>
-                            <img src={icon360} alt="" width={100} />
-                        </div>
+                        <Link to="/songkhla360">
+                            <div className={`${facultyName === 'songkhla' ? 'd-block' : 'd-none'}`}>
+                                <img src={icon360} alt="" width={100} />
+                            </div>
+                        </Link>
 
                     </div>
                     <div className="col">
@@ -114,6 +138,11 @@ const AllFaculty = ({ faculty }) => {
 
             {facultyName === 'trang' ?
                 <TrangFaculty />
+                : null
+            }
+
+            {facultyName === 'nakorn' ?
+                <NakornFaculty />
                 : null
             }
 

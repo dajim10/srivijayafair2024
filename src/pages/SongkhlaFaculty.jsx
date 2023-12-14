@@ -3,12 +3,14 @@ import axios from 'axios'
 import { Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { client } from '../lib/pocketbase';
+import Branch from './branch/index.jsx';
+
 
 const SongkhlaFaculty = () => {
 
 
 
-    const [branchData, setBranchData] = useState([]);
+    const [branchID, setBranchID] = useState('15');
 
     // useEffect(() => {
 
@@ -53,7 +55,7 @@ const SongkhlaFaculty = () => {
     ];
 
     return (
-        <div className="container mt-3 p-5">
+        <div className="container  p-2">
             {/* Create carousel for each branch */}
             {branch.map((faculty, index) => (
                 <Carousel indicators={false} key={index} interval={null} prevLabel="" nextLabel="" className="custom-carousel">
@@ -79,9 +81,11 @@ const SongkhlaFaculty = () => {
 
                     ))}
 
+
                 </Carousel>
             ))}
 
+            <Branch id="test" />
 
 
         </div>

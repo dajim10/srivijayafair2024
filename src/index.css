@@ -54,7 +54,7 @@ body {
   background-size: cover;
   background-position: center;
   width:100vw;
-  /* height:100vh; */
+  height:100vh;
 }
 
 .nav-button {
@@ -125,10 +125,20 @@ body {
   color: var(--var-green);
 }
 
-iframe {
+#main-live{
 	aspect-ratio: 16 / 9;
 	height: 50%;
 	width: 50%;
+}
+
+#iframe360 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0 auto !important;
+  aspect-ratio: 16 / 9;
+  height: 80%;
+  width: 80%;
 }
 
 
@@ -622,10 +632,16 @@ textarea {
     .score {
       font-size: 1rem;
     }
-    iframe {
+    #main-live {
       aspect-ratio: 16 / 9;
       height: 80%;
       width: 80%;
+    }
+    #iframe360 {
+      margin:0 auto !important;
+      aspect-ratio: 9 / 16;
+      height: 100%;
+      width: 100%;
     }
 
     .slot-machine img {

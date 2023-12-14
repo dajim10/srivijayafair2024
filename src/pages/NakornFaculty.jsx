@@ -4,7 +4,7 @@ import { Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { client } from '../lib/pocketbase';
 
-const TrangFaculty = () => {
+const NakornFaculty = () => {
 
 
 
@@ -28,7 +28,7 @@ const TrangFaculty = () => {
 
     const branch = [
         {
-            name: 'trang',
+            name: 'nakorn',
             branch: [
 
                 { popupText: 'คณะเทคโนโลยีการจัดการ', link: '' },
@@ -71,13 +71,11 @@ const TrangFaculty = () => {
 
                 </Carousel>
             ))}
-            {/* <div className="container-fluid text-center">
-                <iframe src="https://my.treedis.com/tour/ruts-rattaphum-28507ac5" frameborder="0" width={1920}></iframe>
-            </div> */}
+
 
 
         </div>
     )
 }
 
-export default TrangFaculty
+export default NakornFaculty;

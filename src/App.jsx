@@ -21,6 +21,10 @@ import SlotMachine from './components/SlotMachine'
 import Game from './components/Game'
 import Logout from './components/Logout'
 import Rewards from './components/Rewards'
+import { getCounter } from './lib/getCounter'
+import Songkhla360 from './pages/Songkhla360'
+import Trang360 from './pages/Trang360'
+import Nakorn360 from './pages/Nakorn360'
 
 
 
@@ -29,6 +33,7 @@ import Rewards from './components/Rewards'
 const App = () => {
 
     const [isGamePaused, setIsGamePaused] = useState(null);
+    const [counter, setCounter] = useState(0);
     // ตรวจสอบว่าเกมหยุดหรือไม่
     const [userName, setUserName] = useState(sessionStorage.getItem('fullname') || 'เข้าสู่ระบบ');
     // ตรวจสอบ user ว่าเข้าสู่ระบบหรือไม่ ถ้าเข้าสู่ระบบแล้วให้แสดงชื่อ user แทนที่จะแสดงเป็น เข้าสู่ระบบ
@@ -39,8 +44,50 @@ const App = () => {
             setUserName(sessionStorage.getItem('fullname'));
             setIsLogin(true);
         }
+        const pageCounter = getCounter('srivijayafair').then(res => {
+            setCounter(res);
+        }
+        );
+
     }, [])
 
+
+    // useEffect(() => {
+
+    //     async function counterStart() {
+    //         let res = await fetch("https://api.rmutsv.ac.th/counter/srivijayafair");
+    //         let count = await res.json();
+    //         setCounter(count.counter);
+    //     }
+
+    //     async function counterGet() {
+    //         let res = await fetch("https://api.rmutsv.ac.th/counter/srivijayafair/get");
+    //         let count = await res.json();
+
+    //         setCounter(count.counter);
+    //     }
+    //     // check cookie ars if have cookie not count up
+    //     if (document.cookie.indexOf('srivijayafair') >= 0) {
+    //         // console.log('have cookie');
+    //         counterGet();
+    //     } else {
+    //         // console.log('not have cookie');
+    //         // set cookie timeout
+    //         let d = new Date();
+    //         d.setTime(d.getTime() + (5 * 60 * 1000));
+    //         let expires = "expires=" + d.toUTCString();
+    //         document.cookie = `srivijayafair=1;${expires};path=/`;
+    //         counterStart();
+    //     }
+    // }
+    //     , []);
+
+    // useEffect(() => {
+    //     const testCounter = getCounter('srivijayafair');
+    //     console.log(testCounter)
+    //     // setCounter(counter);
+
+    // }, []);
 
     useEffect(() => {
         client.collection('statusgame').getList(1)
@@ -109,7 +156,7 @@ const App = () => {
 
 
             <Routes>
-                <Route path='/' element={<Home />} />
+                <Route path='/' element={<Home counter={counter} />} />
                 <Route path='/login' element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path='/about' element={<About />} />
@@ -128,6 +175,9 @@ const App = () => {
                 <Route path="/game" element={<Game />} />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/rewards" element={<Rewards />} />
+                <Route path="/songkhla360" element={<Songkhla360 />} />
+                <Route path="/trang360" element={<Trang360 />} />
+                <Route path="/nakorn360" element={<Nakorn360 />} />
             </Routes>
 
 

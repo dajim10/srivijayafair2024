@@ -3,10 +3,11 @@ import Cartoon from '../assets/cartoon.png'
 import SongkhlaFaculty from '../assets/SongkhlaFaculty.png'
 import TrangFaculty from '../assets/trangFaculty.png'
 import NakornFaculty from '../assets/nakornFaculty.png'
+import starCute from '../assets/starCute.png'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faEye } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import Calendar from './Calendar'
 import { client } from '../lib/pocketbase'
@@ -14,7 +15,8 @@ import { client } from '../lib/pocketbase'
 
 
 
-const Home = () => {
+
+const Home = ({ counter }) => {
 
     const navigate = useNavigate();
     const [IsCloseWindow, setIsCloseWindow] = useState(false)
@@ -62,7 +64,12 @@ const Home = () => {
                     <div className="embed-responsive embed-responsive-16by9">
                         {/* how to make ifrme responsive */}
                         <div onClick={handleNavigate} >
-                            <span>@มทร.ศรีวิชัย สงขลา</span>
+                            {/* <span>@มทร.ศรีวิชัย สงขลา */}
+                            {/* <button className="btn btn-dark btm-sm m-2"> */}
+
+
+                            {/* </button> */}
+                            {/* </span> */}
                         </div>
 
                         <div className='container float-right w-50 sticky-top'>
@@ -74,12 +81,15 @@ const Home = () => {
 
                         </div>
 
-
+                        <div className='container d-flex justify-content-end' style={{ marginTop: '-50px' }}>
+                            <img src={starCute} alt="star cute" width={50} />
+                        </div>
 
                         {!IsCloseWindow &&
                             // <iframe className="embed-responsive-item sticky-top" src="https://www.youtube.com/embed/QmpIu83Q02c?si=6AGFhTfe8df6MYrY" width={800} height={400} allow="accelerometer;autoplay;"></iframe>
+
                             <>
-                                <iframe className="embed-responsive-item sticky-top" src={`${linkUrl}&autoplay=1&mute=1`} allow="autoplay;fullscreen; encrypted-media"></iframe>
+                                <iframe className="embed-responsive-item sticky-top" src={`${linkUrl}&autoplay=1&mute=1`} allow="autoplay;fullscreen; encrypted-media" id="main-live"></iframe>
 
                                 {/* <iframe width="1440" height="762" src={linkUrl}
 
@@ -135,6 +145,10 @@ const Home = () => {
                     </div>
                 </div>
             }
+            <div className="d-flex justify-content-end align-items-center text-center">
+                {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, et.</p> */}
+                <FontAwesomeIcon icon={faEye} className='text-dark p-2' />{"  "}{counter}
+            </div>
         </>
     )
 }
