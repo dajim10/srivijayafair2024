@@ -74,10 +74,10 @@ const Home = ({ counter }) => {
 
                         <div className='container float-right w-50 sticky-top'>
 
-                            <button className={`btn my-2 ${IsCloseWindow ? "btn-dark" : "btn-danger"}`} onClick={handleCloseWindow}>
+                            {/* <button className={`btn my-2 ${IsCloseWindow ? "btn-dark" : "btn-danger"}`} onClick={handleCloseWindow}>
                                 {IsCloseWindow ? <FontAwesomeIcon icon={faBars} /> : <FontAwesomeIcon icon={faTimes} />}
-                                {/* {IsCloseWindow ? 'เปิด' : 'ปิด'} */}
-                            </button>
+                            </button> */}
+                            {/* {IsCloseWindow ? 'เปิด' : 'ปิด'} */}
 
                         </div>
 
@@ -89,7 +89,7 @@ const Home = ({ counter }) => {
                             // <iframe className="embed-responsive-item sticky-top" src="https://www.youtube.com/embed/QmpIu83Q02c?si=6AGFhTfe8df6MYrY" width={800} height={400} allow="accelerometer;autoplay;"></iframe>
 
                             <>
-                                <iframe className="embed-responsive-item sticky-top" src={`${linkUrl}&autoplay=1&mute=1`} allow="autoplay;fullscreen; encrypted-media" id="main-live"></iframe>
+                                <iframe className="embed-responsive-item " src={`${linkUrl}&autoplay=1&mute=1`} allow="autoplay;fullscreen; encrypted-media" id="main-live"></iframe>
 
                                 {/* <iframe width="1440" height="762" src={linkUrl}
 
@@ -120,7 +120,7 @@ const Home = ({ counter }) => {
 
 
             {!IsCloseWindow &&
-                <div className="container-fluid sticky-top" >
+                <div className="container-fluid " >
                     <Calendar />
 
                     <div className="row">

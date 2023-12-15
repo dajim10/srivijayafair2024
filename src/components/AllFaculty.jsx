@@ -6,6 +6,7 @@ import TrangFaculty from '../pages/TrangFaculty'
 import NakornFaculty from '../pages/NakornFaculty'
 import { client } from '../lib/pocketbase'
 import { getCounter } from '../lib/getCounter'
+import Vr360 from './Vr360'
 
 const AllFaculty = ({ faculty }) => {
 
@@ -102,7 +103,7 @@ const AllFaculty = ({ faculty }) => {
                             <span>มทร.ศรีวิชัย</span>
                             <h3>สงขลา</h3>
                         </Link>
-                        <Link to="/songkhla360">
+                        <Link to="/vr360/songkhla">
                             <div className={`${facultyName === 'songkhla' ? 'd-block' : 'd-none'}`}>
                                 <img src={icon360} alt="" width={100} />
                             </div>
@@ -114,18 +115,22 @@ const AllFaculty = ({ faculty }) => {
                             <span>มทร.ศรีวิชัย</span>
                             <h3>ตรัง</h3>
                         </Link>
-                        <div className={`${facultyName === 'trang' ? 'd-block' : 'd-none'}`}>
-                            <img src={icon360} alt="" width={100} />
-                        </div>
+                        <Link to="/vr360/trang">
+                            <div className={`${facultyName === 'trang' ? 'd-block' : 'd-none'}`}>
+                                <img src={icon360} alt="" width={100} />
+                            </div>
+                        </Link>
                     </div>
                     <div className="col">
                         <Link to="/allfaculty/nakorn" className={`${facultyName === 'nakorn' ? 'text-green' : 'text-muted'} link-without-underline`}>
                             <span>มทร.ศรีวิชัย</span>
                             <h3>นครศรีฯ</h3>
                         </Link>
-                        <div className={`${facultyName === 'nakorn' ? 'd-block' : 'd-none'}`}>
-                            <img src={icon360} alt="" width={100} />
-                        </div>
+                        <Link to="/vr360/nakorn">
+                            <div className={`${facultyName === 'nakorn' ? 'd-block' : 'd-none'}`}>
+                                <img src={icon360} alt="" width={100} />
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </div>

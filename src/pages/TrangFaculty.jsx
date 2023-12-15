@@ -1,82 +1,98 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { Carousel } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { client } from '../lib/pocketbase';
+import { client } from '../lib/pocketbase'
+
+
 
 const TrangFaculty = () => {
+    // const [image, setImage] = useState('');
+    const [data, setData] = useState([]);
+    const [facultyData, setFacultyData] = useState([]);
+    const imgUrl = import.meta.env.VITE_POCKETBASE_FILE_URL;
+    const pocketbaseUrl = import.meta.env.VITE_POCKETBASE_URL;
+    const facultyName = 'trang';
+    const [collectionId, setCollectionId] = useState('');
+    const [id, setId] = useState('');
+    const [slideImage, setSlideImage] = useState([]);
+    const [baseImageUrl, setBaseImageUrl] = useState('');
 
 
+    useEffect(() => {
 
-    const [branchData, setBranchData] = useState([]);
+        // const fetchData = async () => {
+        //     fetch('https://ars.rmutsv.ac.th/json').then(res => res.json()).then(res => {
+        //         setFacultyData(res);
+        //         console.log(res);
+        //     }
+        //     ).catch(err => {
+        //         console.log(err);
+        //     })
 
-    // useEffect(() => {
-
-    //         client.collection('statusgame').getList(1)
-    //             .then(res => {
-    //                 // setIsGamePaused(res.data.isGamePaused);
-    //                 setIsGamePaused(res.items[0].isGamePaused);
-    //                 console.log(res.items[0].isGamePaused);
-    //                 // const mainContent = document.getElementById('mainContent');
-
-    //             })
-    //             .catch(err => {
-    //                 console.log(err);
-    //             });
-    // }
-    //     , []);
-
-    const branch = [
-        {
-            name: 'trang',
-            branch: [
-
-                { popupText: 'คณะเทคโนโลยีการจัดการ', link: '' },
-                { popupText: 'คณะสัตวแพทยศาสตร์', link: '' },
-                { popupText: 'วิทยาลัยรัตภูมิ', link: '' },
-                { popupText: 'คณะครุศาสตร์อุตสาหกรรมและเทคโนโลยี', link: '' },
+        // }
+        // fetchData();
 
 
-            ]
-        },
+        client.collection('faculty').getList(1, 100, { expand: "campus" })
+            .then(res => {
+                setFacultyData(res.items);
+                // if (res.items[].expand.campus.name === 'สงขลา') { // 1 is facultyId of Nakorn
+                // console.log(res.items[0]);
+                setData(res.items[0]);
+                console.log(res.items[0]);
+                setSlideImage(res.items[0].slideImage);
+                setCollectionId(res.items[0].collectionId)
+                setId(res.items[0].id)
+                setBaseImageUrl()
+                // }
 
-    ];
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+        , []);
+
 
     return (
-        <div className="container mt-3 p-5">
-            {/* Create carousel for each branch */}
-            {branch.map((faculty, index) => (
-                <Carousel indicators={false} key={index} interval={null} prevLabel="" nextLabel="" className="custom-carousel">
 
-                    {faculty.branch.map((item, itemIndex) => (
-                        <Carousel.Item key={itemIndex}>
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col-12 col-sm-12 col-md-12 mx-auto">
-                                        <Link to={item.link} style={{ textDecoration: 'none' }}>
-                                            <div className="card mb-3">
-                                                <div className="card-body d-flex align-items-center justify-content-center" style={{ height: '150px' }}>
-                                                    {/* Your card content here */}
-                                                    <h5 className="card-title text-center">{item.popupText}</h5>
-                                                </div>
-                                            </div>
-                                        </Link>
+
+        <div className="container-fluid  p-2">
+            {/* Create carousel for image slider */}
+            <div className="row">
+                <div className="row">
+
+                </div>
+                <div className="row">
+                    <div className="col col-lg-6 col-md col-sm mx-auto">
+                        <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
+                            <div className="carousel-inner">
+                                {slideImage.map((slide, index) => (
+                                    <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
+
+                                        <img src={imgUrl + collectionId + '/' + id + '/' + slide} className="d-block w-100" alt="..." />
+
                                     </div>
-                                </div>
+                                ))}
                             </div>
+                            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="prev">
+                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span className="visually-hidden"></span>
+                            </button>
+                            <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="next">
+                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span className="visually-hidden"></span>
+                            </button>
+                        </div>
+                    </div>
 
-                        </Carousel.Item>
+                </div>
 
-                    ))}
-
-                </Carousel>
-            ))}
-            {/* <div className="container-fluid text-center">
-                <iframe src="https://my.treedis.com/tour/ruts-rattaphum-28507ac5" frameborder="0" width={1920}></iframe>
-            </div> */}
-
-
+            </div>
         </div>
+
+
+
     )
 }
 

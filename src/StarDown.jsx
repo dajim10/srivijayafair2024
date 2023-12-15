@@ -145,7 +145,7 @@ const StarDown = () => {
 
     return (
         <>
-            <div className="app" style={{ width: '15px !important' }}>
+            <div className="" style={{ width: '15px !important' }}>
                 <div>
                     <div className='d-flex justify-content-end'>
                         {/* Interactive part */}

@@ -67,7 +67,7 @@ const Login = () => {
     return (
         <>
 
-            <div className='container d-flex flex-column justify-content-center sticky-top' style={{ border: '6px solid #fff', borderRadius: '20px', boxShadow: '0 0 10px #ccc', backgroundColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(2px)', height: '40vh' }}>
+            <div className='container d-flex flex-column justify-content-center ' style={{ border: '6px solid #fff', borderRadius: '20px', boxShadow: '0 0 10px #ccc', backgroundColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(2px)', height: '40vh' }}>
                 {/* <h1 className='text-dark'>Logged In : {pb.authStore.isValid.toString()}</h1> */}
                 <div className="h-50">
                     <div className="row">

@@ -25,7 +25,8 @@ import { getCounter } from './lib/getCounter'
 import Songkhla360 from './pages/Songkhla360'
 import Trang360 from './pages/Trang360'
 import Nakorn360 from './pages/Nakorn360'
-
+import Admin from './components/Admin'
+import Vr360 from './components/Vr360'
 
 
 
@@ -128,7 +129,7 @@ const App = () => {
 
     return (
         <div className='container-fluid' id="mainContent" >
-            {!isGamePaused ?
+            {!isGamePaused && isLogin ?
                 <StarDown />
 
                 : null
@@ -178,6 +179,8 @@ const App = () => {
                 <Route path="/songkhla360" element={<Songkhla360 />} />
                 <Route path="/trang360" element={<Trang360 />} />
                 <Route path="/nakorn360" element={<Nakorn360 />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/vr360/:faculty" element={<Vr360 />} />
             </Routes>
 
 

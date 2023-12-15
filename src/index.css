@@ -127,8 +127,8 @@ body {
 
 #main-live{
 	aspect-ratio: 16 / 9;
-	height: 50%;
-	width: 50%;
+	height: 80%;
+	width: 80%;
 }
 
 #iframe360 {
@@ -141,8 +141,14 @@ body {
   width: 80%;
 }
 
+.iframe360 {
+  margin:0 auto !important;
+  aspect-ratio: 16 / 9;
+  height: 100%;
+  width: 100%;
+}
 
-input[type="text"],input[type="email"] {
+input[type="text"],input[type="email"],input[type="password"] {
   font-size:21px !important;
   border-radius: 50px;
   margin-top: 10px;
@@ -182,7 +188,7 @@ textarea {
     position: absolute;
     display: inline-block;
     cursor: pointer;
-  
+    z-index: 999;
   }
   
 /* 
@@ -636,8 +642,16 @@ textarea {
       aspect-ratio: 16 / 9;
       height: 80%;
       width: 80%;
+
     }
     #iframe360 {
+      margin:0 auto !important;
+      aspect-ratio: 9 / 16;
+      height: 100%;
+      width: 100%;
+    }
+
+    .iframe360 {
       margin:0 auto !important;
       aspect-ratio: 9 / 16;
       height: 100%;

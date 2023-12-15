@@ -32,21 +32,21 @@ const SongkhlaFaculty = () => {
         {
             name: 'Songkhla',
             branch: [
-                { popupText: 'คณะเกษตรศาสตร์', link: '' },
-                { popupText: 'คณะวิทยาศาสตร์และเทคโนโลยี', link: '' },
-                { popupText: 'คณะศิลปศาสตร์', link: '', background: '' },
-                { popupText: 'คณะวิศวกรรมศาสตร์', link: '' },
-                { popupText: 'คณะบริหารธุรกิจ', link: '' },
-                { popupText: 'คณะวิทยาศาสตร์และเทคโนโลยีการประมง', link: '' },
-                { popupText: 'คณะอุตสาหกรรมเกษตร', link: '' },
-                { popupText: 'คณะครุศาสตร์อุตสาหกรรม', link: '/inded' },
-                { popupText: 'วิทยาลัยการโรงแรมและการท่องเที่ยว', link: '' },
-                { popupText: 'วิทยาลัยเทคโนโลยีอุตสาหกรรมและการจัดการ', link: '' },
-                { popupText: 'คณะสถาปัตยกรรมศาสตร์', link: '' },
-                { popupText: 'คณะเทคโนโลยีการจัดการ', link: '' },
-                { popupText: 'คณะสัตวแพทยศาสตร์', link: '' },
-                { popupText: 'วิทยาลัยรัตภูมิ', link: '' },
-                { popupText: 'คณะครุศาสตร์อุตสาหกรรมและเทคโนโลยี', link: '' },
+                { popupText: 'คณะเกษตรศาสตร์', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'คณะวิทยาศาสตร์และเทคโนโลยี', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'คณะศิลปศาสตร์', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'คณะวิศวกรรมศาสตร์', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'คณะบริหารธุรกิจ', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'คณะวิทยาศาสตร์และเทคโนโลยีการประมง', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'คณะอุตสาหกรรมเกษตร', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'คณะครุศาสตร์อุตสาหกรรม', link: 'https://www.youtube.com/embed/QmpIu83Q02c?si=bAb5MYWQSyj4PDkr', mainImage: 'https://apptree.sgp1.digitaloceanspaces.com/open-house/backend/59fb2cdc64555ae77e38d36be63868e3.jpg', details: '', leftImage: 'https://apptree.sgp1.digitaloceanspaces.com/open-house/backend/8dcc5ea02196cfea40ab182edd8a4946.jpg', rightImage: 'https://apptree.sgp1.digitaloceanspaces.com/open-house/backend/f98918b685e0b8eae627d75cd48a3f20.jpg' },
+                { popupText: 'วิทยาลัยการโรงแรมและการท่องเที่ยว', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'วิทยาลัยเทคโนโลยีอุตสาหกรรมและการจัดการ', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'คณะสถาปัตยกรรมศาสตร์', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'คณะเทคโนโลยีการจัดการ', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'คณะสัตวแพทยศาสตร์', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'วิทยาลัยรัตภูมิ', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
+                { popupText: 'คณะครุศาสตร์อุตสาหกรรมและเทคโนโลยี', link: '', mainImage: '', details: '', leftImage: '', rightImage: '' },
 
 
             ]
@@ -55,24 +55,17 @@ const SongkhlaFaculty = () => {
     ];
 
     return (
-        <div className="container  p-2">
+        <div className="container-fluid  p-2">
             {/* Create carousel for each branch */}
             {branch.map((faculty, index) => (
                 <Carousel indicators={false} key={index} interval={null} prevLabel="" nextLabel="" className="custom-carousel">
 
                     {faculty.branch.map((item, itemIndex) => (
                         <Carousel.Item key={itemIndex}>
-                            <div className="container">
+                            <div className="container-fluid">
                                 <div className="row">
                                     <div className="col-12 col-sm-12 col-md-12 mx-auto">
-                                        <Link to={item.link} style={{ textDecoration: 'none' }}>
-                                            <div className="card mb-3">
-                                                <div className="card-body d-flex align-items-center justify-content-center" style={{ height: '150px' }}>
-                                                    {/* Your card content here */}
-                                                    <h5 className="card-title text-center">{item.popupText}</h5>
-                                                </div>
-                                            </div>
-                                        </Link>
+                                        <Branch key={itemIndex} id={item.popupText} text={item.popupText} mainImage={item.mainImage} details={item.details} leftImage={item.leftImage} rightImage={item.rightImage} link={item.link} />
                                     </div>
                                 </div>
                             </div>
@@ -84,8 +77,15 @@ const SongkhlaFaculty = () => {
 
                 </Carousel>
             ))}
+            {/* {branch.map((faculty, index) => (
+                <div key={index}>
+                    {faculty.branch.map((item, itemIndex) => (
+                        <Branch key={itemIndex} id={item.popupText} text={item.popupText} />
 
-            <Branch id="test" />
+                    ))}
+                </div>
+            ))} */}
+            {/* <Branch id="test" /> */}
 
 
         </div>

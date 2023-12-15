@@ -73,7 +73,7 @@ const Activiry = () => {
     return (
         <div>
             {/* calendar */}
-            <div className='container p-3 rounded sticky-top' id="calendar">
+            <div className='container p-3 rounded ' id="calendar">
                 <h1 className="text-center">ปฏิทินกิจกรรม</h1>
                 <div className="row">
                     {calendar.map((date, index) => (
