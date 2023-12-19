@@ -64,10 +64,10 @@ const SongkhlaFaculty = () => {
     //     , [])
 
     return (
-        <div>
+        <>
             <Slide facultyData={facultyData} />
 
-        </div>
+        </>
 
     )
 }

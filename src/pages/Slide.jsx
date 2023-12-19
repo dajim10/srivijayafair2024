@@ -36,17 +36,18 @@ const Slide = ({ facultyData }) => {
     };
 
     return (
-        <>
-            <Carousel className='mt-5' autoPlay={false} interval={null} controls={true}>
+        <div  style={{padding:'2px',margin:'20px',backgroundColor:'rgba(255,255,255,0.5)',borderRadius:'20px',backdropFilter:'blur(5px)'}}>
+
+            <Carousel className='mt-3 ' autoPlay={false} interval={null} controls={true} >
                 {facultyData.map((item, index) => (
                     <Carousel.Item key={index}>
-                        <div className="card  text-center  justify-content-center align-items-center" style={{ height: 'auto', width: '80%', margin: '0 auto', background: 'none', border: 'none' }}>
-                            <div className='p-5 rounded-4 shadow-lg w-100' style={{ backgroundColor: 'rgba(255,255,255,0.3)', backdropFilter: 'blur(10px)' }}>
+                        <div className=" text-center justify-content-center align-items-center">
+                            <div className='p-2 button-85 mt-3 rounded-4 shadow-lg w-50 mx-auto'>
                                 <h5>{item.facultyName}</h5>
                             </div>
                             <br />
                             <div className=" text-center  d-flex justify-content-between align-items-center">
-                                <div className='leftImage' >
+                                <div className='col-3 p-3'>
                                     <img
                                         src={`${imageUrl}${item.collectionId}/${item.id}/${item.leftImage}`}
                                         className='img-fluid'
@@ -54,13 +55,13 @@ const Slide = ({ facultyData }) => {
 
                                     />
                                 </div>
-                                <div className='container-fluid text-center mt-2'>
+                                <div className='col-6'>
                                     <iframe src={item.youtubeLink} className='iframeFac'></iframe>
                                 </div>
-                                <div className='leftImage'>
+                                <div className='col-3 p-3'>
                                     <img
                                         src={`${imageUrl}${item.collectionId}/${item.id}/${item.rightImage}`}
-                                        className='img-fluid'
+                                        className='img-fluid leftImage'
                                         onClick={() => handleShow(`${imageUrl}${item.collectionId}/${item.id}/${item.rightImage}`)}
 
                                     />
@@ -68,7 +69,7 @@ const Slide = ({ facultyData }) => {
                             </div>
 
                         </div>
-                        <div className="container-fluid text-center  d-flex justify-content-between align-items-center">
+                        <div className="text-center d-flex justify-content-between align-items-center">
 
                             {/* <Carousel>
                                 {item.slideImage.map((image, index) => (
@@ -86,7 +87,7 @@ const Slide = ({ facultyData }) => {
 
                             {/* using multi item in one slide */}
                             <div className="container p-3">
-                                <Carousel interval={null} controls={true} indicators={false} activeIndex={activeIndex} onSelect={handleSelect}>
+                                <Carousel interval={null} controls={null} indicators={false} activeIndex={activeIndex} onSelect={handleSelect}>
                                     {item.slideImage.map((image, index) => (
                                         <Carousel.Item key={index}>
                                             <div className="image-container">
@@ -95,13 +96,14 @@ const Slide = ({ facultyData }) => {
                                                         <img
                                                             src={`${imageUrl}${item.collectionId}/${item.id}/${image}`}
                                                             alt={`Slide Image ${imageIndex}`}
-                                                            className="img-fluid"
+                                                            className="img-fluid p-2"
                                                             onClick={() => handleShow(`${imageUrl}${item.collectionId}/${item.id}/${image}`)}
+                                                            
                                                         />
                                                     </div>
                                                 ))}
                                             </div>
-                                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                            {/* <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                 <span class="sr-only">Previous</span>
                                             </a>
@@ -109,7 +111,7 @@ const Slide = ({ facultyData }) => {
                                             <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                 <span class="sr-only">Next</span>
-                                            </a>
+                                            </a> */}
 
                                             {/* <div className="d-flex justify-content-between mt-3">
                                             {activeIndex > 0 && (
@@ -157,7 +159,7 @@ const Slide = ({ facultyData }) => {
                 <button className='nav-button '>สมัครทดลองเรียน</button>
 
             </div>
-        </>
+        </div>
     );
 };
 

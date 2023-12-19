@@ -1,18 +1,17 @@
-#1st Stage
-FROM node:lts-alpine
+FROM node:lts-alpine As builder
 
 RUN mkdir -p /usr/src/app
-ENV NODE_ENV=production
 WORKDIR /usr/src/app
-COPY package*.json .
+COPY package.json .
 RUN npm install --ignore-platform
 COPY . .
-RUN yarn build
+RUN npm run build
 
-# 2nd Stage
-FROM nginx:1.14.2-alpine
-
-COPY --from=0 /usr/src/app/build /usr/share/nginx/html
+# install nginx
+FROM nginx:alpine
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
 WORKDIR /usr/share/nginx/html
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
