@@ -93,7 +93,7 @@ const AllFaculty = ({ faculty }) => {
         <>
 
 
-            <div className="container bg-light p-4 rounded shadow text-center sticky-bottom" >
+            <div className="container-fluid bg-light  rounded shadow text-center sticky-bottom" >
 
 
 

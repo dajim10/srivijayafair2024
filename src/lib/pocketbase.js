@@ -1,6 +1,7 @@
 // Path: src/lib/pocketbase.js
 
 import PocketBase from 'pocketbase';
+
 // const url = "https://sathern.rmutsv.ac.th:8077/";
 const url = import.meta.env.VITE_POCKETBASE_URL;
 export const client = new PocketBase(url);
@@ -13,12 +14,14 @@ export async function createUser(phone, fullname, email, address) {
 
 export const fetchFirstRecord = async () => {
     const phone = sessionStorage.getItem('phone');
+
+
     try {
         const existingRecord = await client.collection('register').getFirstListItem(`phone="${phone}"`);
 
         if (existingRecord) {
             console.log(existingRecord);
-            setScore(existingRecord.score);
+            // setScore(existingRecord.score);
             setIsLogin(true);
         } else {
             console.log('No existing record found. Proceeding to createMember...');

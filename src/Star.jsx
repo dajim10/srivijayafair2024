@@ -9,13 +9,12 @@ const Star = ({ x, y, onClick }) => {
         left: `${x}px`,
         display: 'inline-block',
         cursor: 'pointer',
-
     };
 
     return (
         <div className="star-container" style={containerStyle} onClick={onClick}>
             <div className="star">
-                <img src={StarLogo} alt="star" width={100} />
+                <img src={StarLogo} alt="star" width={50} />
             </div>
         </div>
     );

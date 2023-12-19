@@ -35,6 +35,7 @@ const App = () => {
 
     const [isGamePaused, setIsGamePaused] = useState(null);
     const [counter, setCounter] = useState(0);
+    const [score, setScore] = useState(0);
     // ตรวจสอบว่าเกมหยุดหรือไม่
     const [userName, setUserName] = useState(sessionStorage.getItem('fullname') || 'เข้าสู่ระบบ');
     // ตรวจสอบ user ว่าเข้าสู่ระบบหรือไม่ ถ้าเข้าสู่ระบบแล้วให้แสดงชื่อ user แทนที่จะแสดงเป็น เข้าสู่ระบบ
@@ -102,6 +103,7 @@ const App = () => {
             .catch(err => {
                 console.log(err);
             });
+
     }, []);
 
 
@@ -118,6 +120,14 @@ const App = () => {
                 .catch(err => {
                     console.log(err);
                 });
+
+            // query from pocketbase and get score from collection with phone number user in collection register
+
+
+
+
+
+
         }, 5000);
     }
         , [isGamePaused, usePageVisibility]);
@@ -145,11 +155,11 @@ const App = () => {
 
             <div className="row">
                 <div className="col col-lg-3 mx-auto">
-                    <img src={Logo} alt="" className='img-fluid' />
+                    <img src={Logo} alt="" className='img-fluid' id="mainLogo" />
 
                     {isLogin &&
                         <div className='text-center mb-4'>
-                            <Link to='/rewards' className="button-85 mb-3">ร่วมสนุกสุ่มของรางวัล</Link>
+                            <Link to='/rewards' className="button-85 mb-3 " style={{ textDecoration: 'none' }}>ร่วมสนุกสุ่มของรางวัล </Link>
                         </div>
                     }
                 </div>

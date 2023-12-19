@@ -11,6 +11,7 @@ import { faBars, faEye } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import Calendar from './Calendar'
 import { client } from '../lib/pocketbase'
+import BgIsland from '../assets/bgIsland.png'
 
 
 
@@ -22,6 +23,18 @@ const Home = ({ counter }) => {
     const [IsCloseWindow, setIsCloseWindow] = useState(false)
     const [linkUrl, setLinkUrl] = useState('')
 
+
+    const styles = {
+        backgroundImage: `url(${BgIsland})`,
+        backgroundSize: 'cover', // Adjust as needed
+        backgroundPosition: 'center', // Adjust as needed
+        width: '100vw',
+        height: '500px',
+        margin: '0 auto'
+
+
+        // Add more background-related styles if necessary
+    };
 
     const handleNavigate = () => {
         const facultyname = 'songkhla'
@@ -38,13 +51,7 @@ const Home = ({ counter }) => {
         setInterval(async () => {
             client.collection('live').getList(1)
                 .then(res => {
-                    // setIsGamePaused(res.data.isGamePaused);
-                    // setIsCloseWindow(res.items[0].isCloseWindow);
                     setLinkUrl(res.items[0].linkUrl);
-                    // console.log(res.items[0].linkUrl)
-                    // console.log(res.items[0].isGamePaused);
-                    // const mainContent = document.getElementById('mainContent');
-
                 })
                 .catch(err => {
                     console.log(err);
@@ -63,14 +70,7 @@ const Home = ({ counter }) => {
                 <div className="col col-lg text-center">
                     <div className="embed-responsive embed-responsive-16by9">
                         {/* how to make ifrme responsive */}
-                        <div onClick={handleNavigate} >
-                            {/* <span>@มทร.ศรีวิชัย สงขลา */}
-                            {/* <button className="btn btn-dark btm-sm m-2"> */}
 
-
-                            {/* </button> */}
-                            {/* </span> */}
-                        </div>
 
                         <div className='container float-right w-50 sticky-top'>
 
@@ -119,32 +119,38 @@ const Home = ({ counter }) => {
 
 
 
-            {!IsCloseWindow &&
-                <div className="container-fluid " >
-                    <Calendar />
+            <Calendar />
+            {/* {!IsCloseWindow && */}
+            <div className="container-fluid "    >
 
-                    <div className="row">
-                        <div className="col text-center">
-                            <Link to="/allfaculty/songkhla">
-                                <img src={SongkhlaFaculty} alt="songkhla" className='img-fluid' width={600} />
-                            </Link>
-                        </div>
+
+                <div className="row">
+                    <div className="col text-center">
+                        <Link to="/allfaculty/songkhla">
+                            <img src={SongkhlaFaculty} alt="songkhla" className='img-fluid' width={600} />
+                        </Link>
                     </div>
-                    <div className="row">
-                        <div className="col">
-                            <Link to="/allfaculty/trang">
-                                <img src={TrangFaculty} alt="trang" className='img-fluid' width={600} />
-                            </Link>
-                        </div>
-                        <div className="col">
-                            <Link to="/allfaculty/nakorn">
-                                <img src={NakornFaculty} alt="nakorn" className='img-fluid' width={600} />
-                            </Link>
-                        </div>
 
+
+                </div>
+
+                <div className="row">
+
+
+                    <div className="col text-center">
+                        <Link to="/allfaculty/trang">
+                            <img src={TrangFaculty} alt="trang" className='img-fluid' width={600} />
+                        </Link>
+                    </div>
+                    <div className="col text-center">
+                        <Link to="/allfaculty/nakorn">
+                            <img src={NakornFaculty} alt="nakorn" className='img-fluid' width={600} />
+                        </Link>
                     </div>
                 </div>
-            }
+
+            </div>
+            {/* } */}
             <div className="d-flex justify-content-end align-items-center text-center">
                 {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, et.</p> */}
                 <FontAwesomeIcon icon={faEye} className='text-dark p-2' />{"  "}{counter}

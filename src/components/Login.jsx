@@ -42,6 +42,10 @@ const Login = () => {
                     sessionStorage.setItem('fullname', record.fullname);
                     sessionStorage.setItem('email', record.email);
                     sessionStorage.setItem('phone', phone);
+                    sessionStorage.setItem('address', record.address);
+                    sessionStorage.setItem('score', record.score);
+                    // document.cookie = `phone=${phone};path=/`;
+                    //
 
                     window.location.reload();
                     navigate('/');
@@ -74,38 +78,38 @@ const Login = () => {
                         <div className="col col-lg-4 col-md-6 col-sm mx-auto">
                             <form className="form-group">
 
-                                <h1 className='text-center'>
-                                    {sessionStorage.getItem('fullname') &&
-                                        <>
-                                            <h1>ยินดีต้อนรับ</h1>
-                                            {sessionStorage.getItem('fullname')}
-                                            <div className='mt-2'>
 
-                                                <Link to="/" className='btn btn-success m-2'>
-                                                    <FontAwesomeIcon icon={faHouse} onClick={() => {
-                                                        sessionStorage.clear();
-                                                        // window.location.reload();
-                                                    }} /> กลับหน้าหลัก
-                                                </Link>
+                                {sessionStorage.getItem('fullname') &&
+                                    <div className='text-center'>
+                                        <h1>ยินดีต้อนรับ</h1>
+                                        {sessionStorage.getItem('fullname')}
+                                        <div className='mt-2'>
 
-                                                <Link to="/logout" className='btn btn-danger m-2'>
-                                                    <FontAwesomeIcon icon={faArrowRightFromBracket} onClick={() => {
-                                                        sessionStorage.clear();
-                                                        // window.location.reload();
-                                                    }} /> ออกจากระบบ
-                                                </Link>
+                                            <Link to="/" className='btn btn-success m-2'>
+                                                <FontAwesomeIcon icon={faHouse} onClick={() => {
+                                                    sessionStorage.clear();
+                                                    // window.location.reload();
+                                                }} /> กลับหน้าหลัก
+                                            </Link>
 
-
-                                            </div>
+                                            <Link to="/logout" className='btn btn-danger m-2'>
+                                                <FontAwesomeIcon icon={faArrowRightFromBracket} onClick={() => {
+                                                    sessionStorage.clear();
+                                                    // window.location.reload();
+                                                }} /> ออกจากระบบ
+                                            </Link>
 
 
-                                        </>
+                                        </div>
 
 
-                                    }
+                                    </div>
 
 
-                                </h1>
+                                }
+
+
+
 
                                 {!sessionStorage.getItem('fullname') ?
                                     <div className='d-flex flex-column text-center'>

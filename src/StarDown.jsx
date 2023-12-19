@@ -15,7 +15,7 @@ const StarDown = () => {
     const isPageVisible = usePageVisibility();
     const starsIntervalRef = useRef(null);
     //const gameDuration = 0.5 * 60 * 1000; // Set game duration to 5 minutes
-    const maxStars = 100; // Set your desired maximum number of stars
+    const maxStars = 4; // Set your desired maximum number of stars
 
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const StarDown = () => {
                 .catch(err => {
                     console.log(err);
                 });
-        }, 1000);
+        }, 3000);
     }
         , [isGamePaused, usePageVisibility]);
 
@@ -156,7 +156,7 @@ const StarDown = () => {
                         Time Remaining: {countdown} seconds
                     </div> */}
                 </div>
-                <div className="score" style={{ right: '10px', bottom: '20px', zIndex: '9999' }}>Score: {score}</div>
+                {/* <div className="score" style={{ right: '10px', bottom: '20px', zIndex: '9999' }}>Score: {score}</div> */}
 
                 {stars.map(star => (
                     <Star
@@ -164,7 +164,11 @@ const StarDown = () => {
                         x={star.x}
                         y={star.y}
                         onClick={() => handleStarClick(star.id)}
-                        style={{ pointerEvents: isGamePaused ? 'none' : 'auto' }}
+                    // style={{ pointerEvents: isGamePaused ? 'none' : 'auto' }}
+                    // style={`${star.y > 800 ? 'd-none' : 'auto'}`}
+                    // className={`${star.y > 800 ? 'd-none' : 'auto'}`}
+                    // style={{ overFlow : star.y > 800 ? 'none' : 'auto' }}
+
                     />
                 ))}
             </div>

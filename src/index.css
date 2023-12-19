@@ -141,6 +141,13 @@ body {
   width: 80%;
 }
 
+.iframeFac {
+  margin:0 auto !important;
+  aspect-ratio: 16 / 9;
+  height: 100%;
+  width: 100%;
+}
+
 .iframe360 {
   margin:0 auto !important;
   aspect-ratio: 16 / 9;
@@ -614,7 +621,31 @@ textarea {
   .link-without-underline {
     text-decoration: none;
     color:#000;
-    font-weight: 600;
+    /* font-weight: 600; */
+  }
+
+  .leftImage {
+    width: 30% !important;
+    height: 30% !important; /* Adjust the height based on the size of your icons */
+    /* object-fit: cover; */
+    padding:1.5px;
+
+
+
+  }
+
+  .leftImage img {
+    padding:1.5px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #ccc;
+  }
+
+  .image-container {
+    display: flex;
+  }
+  
+  .image-container img {
+    flex: 1;
   }
   
   @keyframes MoveUpDown {
@@ -627,6 +658,23 @@ textarea {
   }
   
   @media screen and (max-width: 600px) {
+
+    .image-container {
+      display: flex;
+    }
+  
+    .image-container img {
+      width: 100%;
+      height: auto;
+    }
+
+    #mainLogo {
+      width: 70%;
+      margin: 20px auto;
+      align-items: center;
+      display:flex;
+      justify-content: center;
+    }
 
     .nav-button {
       padding:2px 15px;
@@ -651,12 +699,21 @@ textarea {
       width: 100%;
     }
 
+    .iframeFac {
+      margin:0 auto !important;
+      aspect-ratio: 16 / 9;
+      height: 100%;
+      width: 100%;
+    }
+
     .iframe360 {
       margin:0 auto !important;
       aspect-ratio: 9 / 16;
       height: 100%;
       width: 100%;
     }
+
+   
 
     .slot-machine img {
       
@@ -671,7 +728,12 @@ textarea {
       object-fit: cover;
     }
 
-    .custom-carousel .carousel-control-prev-icon,
+    .leftImage {
+      width: 10%;
+      height: 10%; /* Adjust the height based on the size of your icons */
+      object-fit: cover;
+    }
+    /* .custom-carousel .carousel-control-prev-icon,
   .custom-carousel .carousel-control-next-icon {
       background-color: #00154b;
       width: 25px;
@@ -680,7 +742,7 @@ textarea {
       color:#000 !important;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       
-  }
+  } */
 
   .link-without-underline h3 ,h5 {
     text-decoration: none;

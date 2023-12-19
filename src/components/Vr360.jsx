@@ -11,7 +11,7 @@ const Vr360 = ({ linkUrl }) => {
     if (faculty === 'songkhla') {
         return (
             <div className='container text-center'>
-                <h1>วิทยาเขตสงขลา</h1>
+                <h1>สงขลา</h1>
                 <div className="d-flex justify-content-between ">
 
                     <FontAwesomeIcon icon={faCircleLeft} onClick={() => navigate(-1)} style={{ fontSize: '40px' }} />
