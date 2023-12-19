@@ -9,6 +9,15 @@ const Register = () => {
     const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
+    const [homeNumber, setHomeNumber] = useState('');
+    const [soi, setSoi] = useState('');
+    const [road, setRoad] = useState('');
+    const [tambol, setTambol] = useState('');
+    const [ampur, setAmpur] = useState('');
+    const [province, setProvince] = useState('');
+    const [postCode, setPostCode] = useState('');
+    const [schoolName, setSchoolName] = useState('');
+
     const [register_type, setRegister_type] = useState('1');
 
 
@@ -18,7 +27,16 @@ const Register = () => {
             fullname: fullname,
             email: email,
             address: address,
-            register_type: register_type
+            register_type: register_type,
+            homeNumber: homeNumber,
+            soi: soi,
+            road: road,
+            tambol: tambol,
+            ampur: ampur,
+            province: province,
+            postCode: postCode,
+            schoolName: schoolName,
+
         })
             .then(res => {
                 console.log(res);
@@ -66,7 +84,7 @@ const Register = () => {
 
 
     return (
-        <div className="container  h-50  d-flex flex-column align-items-center justify-content-center sticky-top" style={{ border: '6px solid #fff', borderRadius: '20px', boxShadow: '0 0 10px #ccc', backgroundColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(2px)' }} >
+        <div className="container    d-flex flex-column align-items-center justify-content-center sticky-top" style={{ border: '6px solid #fff', borderRadius: '20px', boxShadow: '0 0 10px #ccc', backgroundColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(2px)' }} >
             <form onSubmit={handleSubmit} className='form-group'>
                 {/* <div className="form-group"> */}
 
@@ -82,11 +100,16 @@ const Register = () => {
                     {/* <option value="3">ศิษย์เก่า</option> */}
                 </select>
 
+                {register_type === '1' &&
+                    <input type="text" className="form-control" id="schoolName" placeholder="ชื่อโรงเรียน" autoFocus required onChange={(e) => setSchoolName(e.target.value)} />
+                }
+
                 {/* <label htmlFor="fullname">ชื่อ-นามสกุล</label> */}
                 <input type="text" className="form-control" id="fullname" placeholder="ชื่อ-นามสกุล" value={fullname} onChange={(e) => setFullname(e.target.value)}
                     required
-                    autoFocus
+
                 />
+
                 {/* </div> */}
 
                 {/* <div className="form-group"> */}
@@ -105,10 +128,41 @@ const Register = () => {
                 {/* </div> */}
                 <div className="form-group mt-3">
 
-                    <textarea type="text" className="form-control" id="address" placeholder="ที่อยู่"
+                    {/* <textarea type="text" className="form-control" id="address" placeholder="ที่อยู่"
                         value={address} onChange={(e) => setAddress(e.target.value)}
                         required
+                    /> */}
+                    <label htmlFor="address">ที่อยู่</label>
+                    <input type="text" className="form-control" id="homeNumber" placeholder="บ้านเลขที่"
+                        value={homeNumber} onChange={(e) => setHomeNumber(e.target.value)}
+                        required
                     />
+                    <input type="text" className="form-control" id="soi" placeholder="ซอย"
+                        value={soi} onChange={(e) => setSoi(e.target.value)}
+                        required
+                    />
+                    <input type="text" className="form-control" id="road" placeholder="ถนน"
+                        value={road} onChange={(e) => setRoad(e.target.value)}
+                        required
+                    />
+                    <input type="text" className="form-control" id="tambol" placeholder="ตำบล"
+                        value={tambol} onChange={(e) => setTambol(e.target.value)}
+                        required
+                    />
+                    <input type="text" className="form-control" id="ampur" placeholder="อำเภอ"
+                        value={ampur} onChange={(e) => setAmpur(e.target.value)}
+                        required
+                    />
+                    <input type="text" className="form-control" id="province" placeholder="จังหวัด"
+                        value={province} onChange={(e) => setProvince(e.target.value)}
+                        required
+                    />
+                    <input type="text" className="form-control" id="postCode" placeholder="รหัสไปรษณีย์"
+                        value={postCode} onChange={(e) => setPostCode(e.target.value)}
+                        required
+                    />
+
+
                     <small>*** กรุณาระบุข้อมูลตามความเป็นจริงเพื่อประโยชน์ในการติดต่อกลับในกรณีที่ได้รับของรางวัล</small>
                 </div>
                 <div className="form-group mt-3">

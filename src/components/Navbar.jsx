@@ -11,29 +11,32 @@ const Navbar = ({ userName }) => {
 
     useEffect(() => {
         setInterval(async () => {
-            setUserScore(sessionStorage.getItem('score'));
+            // check if user is logged in
+            if (sessionStorage.getItem('fullname')) {
+                setUserScore(sessionStorage.getItem('score'));
 
-            try {
-                const existingRecord = await client.collection('register').getFirstListItem(`phone="${phone}"`);
+                try {
+                    const existingRecord = await client.collection('register').getFirstListItem(`phone="${phone}"`);
 
-                if (existingRecord) {
-                    console.log(existingRecord);
+                    if (existingRecord) {
+                        // console.log(existingRecord);
 
-                    setUserScore(existingRecord.score);
-                    sessionStorage.setItem('score', existingRecord.score);
-                    // setIsLogin(true);
-                } else {
-                    console.log('No existing record found. Proceeding to createMember...');
+                        setUserScore(existingRecord.score);
+                        sessionStorage.setItem('score', existingRecord.score);
+                        // setIsLogin(true);
+                    } else {
+                        console.log('No existing record found. Proceeding to createMember...');
+                    }
+
                 }
-
-            }
-            catch (err) {
-                if (err.statusCode === 404) {
-                    // Handle the case where the document is not found
-                    console.log('Document not found. Proceeding to createMember...');
-                } else {
-                    // createMember(); // Proceed to create the member even if the document is not found
-                    console.error('Error:', err);
+                catch (err) {
+                    if (err.statusCode === 404) {
+                        // Handle the case where the document is not found
+                        console.log('Document not found. Proceeding to createMember...');
+                    } else {
+                        // createMember(); // Proceed to create the member even if the document is not found
+                        console.error('Error:', err);
+                    }
                 }
             }
         }

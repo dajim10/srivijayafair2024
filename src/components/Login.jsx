@@ -44,6 +44,7 @@ const Login = () => {
                     sessionStorage.setItem('phone', phone);
                     sessionStorage.setItem('address', record.address);
                     sessionStorage.setItem('score', record.score);
+                    sessionStorage.setItem('id', record.id);
                     // document.cookie = `phone=${phone};path=/`;
                     //
 

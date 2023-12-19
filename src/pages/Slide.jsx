@@ -13,6 +13,19 @@ const Slide = ({ facultyData }) => {
         setActiveIndex(selectedIndex);
     };
 
+    const handleSubmit = () => {
+        const registerId = sessionStorage.getItem('id');
+        console.log(registerId);
+
+        if (registerId) {
+            window.location.href = `https://admission.rmutsv.ac.th/check.php?${registerId}`;
+        }
+        else {
+            alert('กรุณาเข้าสู่ระบบก่อน');
+        }
+    }
+
+
     const handleShow = (imageUrl) => {
         setImage(imageUrl);
         setShowModal(true);
@@ -24,11 +37,11 @@ const Slide = ({ facultyData }) => {
 
     return (
         <>
-            <Carousel className='mt-5' autoPlay={false} interval={null} controls={false}>
+            <Carousel className='mt-5' autoPlay={false} interval={null} controls={true}>
                 {facultyData.map((item, index) => (
                     <Carousel.Item key={index}>
                         <div className="card  text-center  justify-content-center align-items-center" style={{ height: 'auto', width: '80%', margin: '0 auto', background: 'none', border: 'none' }}>
-                            <div className='bg-light p-2 rounded shadow w-100'>
+                            <div className='p-5 rounded-4 shadow-lg w-100' style={{ backgroundColor: 'rgba(255,255,255,0.3)', backdropFilter: 'blur(10px)' }}>
                                 <h5>{item.facultyName}</h5>
                             </div>
                             <br />
@@ -72,22 +85,33 @@ const Slide = ({ facultyData }) => {
                             </Carousel> */}
 
                             {/* using multi item in one slide */}
-                            <Carousel interval={null} controls={true} indicators={false} activeIndex={activeIndex} onSelect={handleSelect}>
-                                {item.slideImage.map((image, index) => (
-                                    <Carousel.Item key={index}>
-                                        <div className="image-container">
-                                            {item.slideImage.slice(activeIndex, activeIndex + 3).map((image, imageIndex) => (
-                                                <div key={imageIndex} className="col-md-4">
-                                                    <img
-                                                        src={`${imageUrl}${item.collectionId}/${item.id}/${image}`}
-                                                        alt={`Slide Image ${imageIndex}`}
-                                                        className="img-fluid"
-                                                        onClick={() => handleShow(`${imageUrl}${item.collectionId}/${item.id}/${image}`)}
-                                                    />
-                                                </div>
-                                            ))}
-                                        </div>
-                                        {/* <div className="d-flex justify-content-between mt-3">
+                            <div className="container p-3">
+                                <Carousel interval={null} controls={true} indicators={false} activeIndex={activeIndex} onSelect={handleSelect}>
+                                    {item.slideImage.map((image, index) => (
+                                        <Carousel.Item key={index}>
+                                            <div className="image-container">
+                                                {item.slideImage.slice(activeIndex, activeIndex + 3).map((image, imageIndex) => (
+                                                    <div key={imageIndex} className="col-md-4">
+                                                        <img
+                                                            src={`${imageUrl}${item.collectionId}/${item.id}/${image}`}
+                                                            alt={`Slide Image ${imageIndex}`}
+                                                            className="img-fluid"
+                                                            onClick={() => handleShow(`${imageUrl}${item.collectionId}/${item.id}/${image}`)}
+                                                        />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+
+                                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+
+                                            {/* <div className="d-flex justify-content-between mt-3">
                                             {activeIndex > 0 && (
                                                 <button className="btn btn-secondary" onClick={() => handleSelect(activeIndex - 1)}>
                                                     &lt; Prev
@@ -99,9 +123,10 @@ const Slide = ({ facultyData }) => {
                                                 </button>
                                             )}
                                         </div> */}
-                                    </Carousel.Item>
-                                ))}
-                            </Carousel>
+                                        </Carousel.Item>
+                                    ))}
+                                </Carousel>
+                            </div>
                             {/*  */}
 
                         </div>
@@ -110,15 +135,16 @@ const Slide = ({ facultyData }) => {
             </Carousel>
 
 
-            <Modal show={showModal} onHide={handleClose} style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}>
+            <Modal show={showModal} onHide={handleClose} style={{ backgroundColor: 'rgba(255,255,255,0.2)', width: '100vw' }}>
                 {/* <Modal.Header closeButton>
                     <Modal.Title>Large Image</Modal.Title>
                 </Modal.Header> */}
                 {/* <Modal.Body > */}
                 <img src={image} alt="Large" className="img-fluid" />
+                {/* <iframe src="https://www.youtube.com/embed/sKY_nTunC9s?si=9gP4xruEuIoVd0b6" frameborder="0" height={500}></iframe> */}
                 {/* </Modal.Body> */}
                 <Modal.Footer>
-                    <button className="btn btn-secondary" onClick={handleClose}>
+                    <button className="button-85" onClick={handleClose}>
                         ปิด
                     </button>
                 </Modal.Footer>
@@ -126,7 +152,7 @@ const Slide = ({ facultyData }) => {
 
             <div className="container d-flex justify-content-center  p-3 navbar ">
 
-                <button className='nav-button '>สมัครเรียน</button>
+                <button className='nav-button ' onClick={handleSubmit}>สมัครเรียน</button>
 
                 <button className='nav-button '>สมัครทดลองเรียน</button>
 

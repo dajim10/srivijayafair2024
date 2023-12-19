@@ -93,12 +93,12 @@ const AllFaculty = ({ faculty }) => {
         <>
 
 
-            <div className="container-fluid bg-light  rounded shadow text-center sticky-bottom" >
+            <div className="container-fluid bg-light py-2 rounded shadow text-center sticky-bottom" >
 
 
 
-                <div className="row">
-                    <div className="col">
+                <div className="row my-4">
+                    <div className="col" style={{ borderRight: '2px solid #ccc' }}>
                         <Link to="/allfaculty/songkhla" className={`${facultyName === 'songkhla' ? 'text-green' : 'text-muted'} link-without-underline `}>
                             <span>มทร.ศรีวิชัย</span>
                             <h3>สงขลา</h3>
@@ -110,7 +110,7 @@ const AllFaculty = ({ faculty }) => {
                         </Link>
 
                     </div>
-                    <div className="col">
+                    <div className="col" style={{ borderRight: '2px solid #ccc' }}>
                         <Link to="/allfaculty/trang" className={`${facultyName === 'trang' ? 'text-green' : 'text-muted'} link-without-underline`}>
                             <span>มทร.ศรีวิชัย</span>
                             <h3>ตรัง</h3>
