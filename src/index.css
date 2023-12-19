@@ -1,0 +1,884 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap');
+
+
+ /* value font-color  */
+
+
+/* กำหนด css variables เอาไว้ที่ pseudo element */
+/* (ทำให้เราสามารถนำ css variables ไปใช้ได้ในทุกๆ ที่) */
+
+  :root {
+    --var-green: #51B694;
+    --var-yellow: #F9C784;
+    --var-red: #E86666;
+    --var-blue: #5D9CEC;
+    --var-purple: #A47ED4;
+    --var-pink: #F9A7B0;
+    --var-gray: #757575;
+  }
+   
+  /* กำหนด css variables เอาไว้ที่ pseudo element */
+  /* (ทำให้เราสามารถนำ css variables ไปใช้ได้ในทุกๆ ที่) */
+
+
+
+
+
+* {
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    /* font-family: 'Noto Sans Thai', sans-serif; */
+    font-family: 'Prompt', sans-serif;
+    cursor: url('./assets/cursor_50.png'), auto;
+
+
+}
+
+
+
+html {
+    scroll-behavior: smooth;  
+}
+
+body {
+    width:100vw;
+    height:100vh;
+    
+}
+
+#mainContent {
+
+  background-image: url('./assets/background_xl.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width:100vw;
+  height:100vh;
+}
+
+.nav-button {
+  background-color: #ffcc00;
+  border: 4px solid #ffffff;
+  border-radius: 10px;
+  padding: 5px 20px;
+  margin-right:10px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-weight: 400;
+
+
+}
+
+.font-awesome {
+  font-size:30px;
+}
+
+.font-awesome:hover {
+  color: var(--var-green);
+}
+
+
+.card-activity {
+
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+  border-radius: 5px;
+  padding: 5px 20px;
+  margin-right:10px;
+  font-size: 16px;
+  width: 40vw;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px 0px #ccc;
+  
+}
+
+#calendar {
+
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 10px 0px #ccc;
+}
+
+#island {
+  background-image: url('./assets/island.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+
+/* Customize the appearance of Bootstrap carousel controls */
+
+.carousel-indicators {
+  /* bottom: 30% !important;  */
+  /* Adjust the position as needed */
+
+}
+
+.carousel-indicators li {
+  background-color: #ffcc00 !important; /* Color of inactive dots */
+  border: 1px solid #ddd; /* Border of inactive dots */
+  margin: 0 5px !important; /* Adjust the space between dots */
+  width: 10px !important; /* Size of inactive dots */
+  height: 10px !important;
+  border-radius: 50% !important; /* Make the dots circular */
+  cursor: pointer;
+}
+
+.carousel-indicators .active {
+  background-color: #333; /* Color of the active dot */
+  border-color: #333; /* Border of the active dot */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 10% !important;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #000 !important;
+  border-radius: 50%;
+  color: #ffcc00 !important;
+  /* padding: 2px; */
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  background-color: #ffcc00 !important;
+}
+
+
+
+
+#trangPoint {
+  position: relative;
+  top:-300px !important;
+  left: 280px;
+  z-index: 1000;
+  width: 100px;
+  /* background-image: url('./assets/trangPoint.png'); */ 
+}
+
+.text-green {
+  color: var(--var-green);
+}
+
+#main-live{
+	aspect-ratio: 16 / 9;
+	height: 80%;
+	width: 80%;
+}
+
+#iframe360 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0 auto !important;
+  aspect-ratio: 16 / 9;
+  height: 100%;
+  width: 100%;
+}
+
+.iframeFac {
+  margin:0 auto !important;
+  aspect-ratio: 16 / 9;
+  height: 100%;
+  width: 100%;
+}
+
+.iframe360 {
+  margin:0 auto !important;
+  aspect-ratio: 16 / 9;
+  height: 100%;
+  width: 100%;
+}
+
+input[type="text"],input[type="email"],input[type="password"] {
+  font-size:21px !important;
+  border-radius: 50px;
+  margin-top: 10px;
+}
+
+input[type="checkbox"] {
+  font-size:21px !important;
+}
+
+label {
+  font-size:21px !important;
+}
+
+
+textarea {
+  margin-top: 10px;
+  font-size:21px !important;
+
+}
+
+.btn-green {
+  border-style: none;
+  padding:5px 40px;
+  background-color: var(--var-green);
+
+  
+}
+
+.star-container {
+    position: absolute;
+    display: inline-block;
+    cursor: pointer;
+
+  }
+  
+  .star {
+    position: absolute;
+    display: inline-block;
+    cursor: pointer;
+    z-index: 999;
+  }
+  
+/* 
+
+<!-- HTML !-->
+<button class="button-92" role="button">Button 92</button>
+
+/* Login button CSS */
+
+
+/* CSS */
+
+
+/* CSS */
+.button-85 {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-85:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.button-85:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+/*  */
+
+  .star::before {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100px;
+    background-size: 100% 100%;
+    /* background-image: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C); */
+    /* z-index: 1000; */
+    /* z-index:-999; */
+  }
+
+ 
+  
+  .star-icon {
+    color: #ffd700; /* Gold color for the star icon */
+    height: 100px;
+    width: 100px;
+  }
+  
+  #dateact {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    background-color: #fff !important;
+    border-radius: 10px !important;
+
+
+    /* background-color: #002bff !important; */
+    color: #fff !important;
+  }
+  
+/* Rewards Game */
+/* App.css */
+
+/* .container-reward {
+  width: 350px;
+  height: 350px;
+  position: relative;
+  margin: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 0 10px gray;
+  transition: 3s all;
+  justify-content: center !important;
+  align-items: center !important;
+
+
+} */
+
+
+
+/* .container-reward div{
+	height: 50%;
+	width: 200px;
+	clip-path: polygon(100% 0,50% 100%, 0 0);
+	transform: translateX(-50%);
+	transform-origin: bottom;
+	position: absolute;
+	left: 21%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 20px;
+	font-family: monospace;
+	font-weight: 1000;
+
+	 writing-mode: vertical-rl;
+} */
+
+/* test */
+.container-reward {
+  width: 350px;
+  height: 350px;
+  position: relative;
+  margin: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 0 10px gray;
+  transition: 3s all;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-reward div {
+  height: 50%;
+  width: 200px;
+  clip-path: polygon(100% 0, 50% 100%, 0 0);
+  transform: translateX(-50%);
+  transform-origin: bottom;
+  position: absolute;
+  left: 21%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-family: monospace;
+  font-weight: 1000;
+  writing-mode: vertical-rl;
+}
+
+/* ... Your existing div styles ... */
+
+.spin-button {
+  position: relative;
+  top: 43% !important;
+  left: 43% !important;
+  /* transform: translate(-50%, -50%); */
+  width: 50px;
+  height: 50px;
+  background-color: #3498db;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spin-button:before {
+  content: "Spin"; /* Initial text before spinning */
+}
+
+.spin-button.spinning:before {
+  content: "Stop"; /* Text to display while spinning */
+}
+
+.stoper {
+  top: 40px !important;
+  height: 50px;
+  width: 40px;
+  background: #ff0000;
+  position: relative;
+  clip-path: polygon(100% 0, 50% 100%, 0 0);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+.button-container-reward {
+  margin-top: 20px;
+}
+
+/* end test  */
+
+.container-reward .one{
+	background: #d485c8;
+	left: 50%;
+  border-radius: 25%;
+}
+.container-reward .two{
+	background: rgba(255, 255, 255, 0.2);
+	transform: rotate(60deg);
+}
+.container-reward .three{
+	background: #d485c8;
+	transform: rotate(120deg);
+  border-radius: 25%;
+}
+.container-reward .four{
+	background: #fff;
+	transform: rotate(180deg);
+}
+.container-reward .five{
+	background: #d485c8;
+	transform: rotate(240deg);
+  border-radius: 25%;
+}
+.container-reward .six{
+	background: #fff;
+	transform: rotate(300deg);
+}
+
+
+
+
+
+
+
+
+#spin {
+  height: auto;
+  width: 200px;
+  border-radius: 50px;
+  background: #4ed4c6;
+  font-size: 20px;
+  color: white;
+  font-weight: 1000;
+  letter-spacing: 4px;
+  border: 5px solid white;
+  cursor: pointer;
+  box-shadow: 0 5px 10px gray;
+  transition: 0.2s all;
+  padding:5px 20px;
+}
+
+#spin:hover {
+  /* box-shadow: none; */
+}
+
+/*  mac test spin button on the middle */
+/* .container-reward {
+  position: relative;
+} */
+
+
+
+/*  */
+
+.stoper {
+  top: 40px !important;
+  height: 50px;
+  width: 40px;
+  background: #ff0000;
+  position: relative;
+  clip-path: polygon(100% 0, 50% 100%, 0 0);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+
+}
+
+.button-container-reward {
+  margin-top: 20px;
+}
+
+
+/* ****************************************************** */
+  
+  .app {
+    position: absolute;
+    height: 100vh;
+    width:100vw;
+    /* background-color: #222; */
+    overflow: hidden;
+    color: white;
+    z-index: 1;
+  }
+
+  .active {
+    color: var(--var-green);
+
+  }
+  
+  .score {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff0000;
+    background-color: #FFF;
+    padding: 1rem;
+    border-radius: 0.5rem;
+
+  }
+
+  .custom-carousel .carousel-control-prev-icon,
+  .custom-carousel .carousel-control-next-icon {
+      background-color: #00154b;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      color:#000 !important;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      
+  }
+
+  #nav-menu {
+    background-color: #ffffff65;
+    backdrop-filter: blur(5px);
+  }
+
+  #register
+    {
+      background-color: #ffcc00;
+      border: 4px solid #ffffff;
+      border-radius: 10px;
+      padding: 5px 20px;
+      margin-right:10px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      font-weight: 400;
+    }
+  
+
+  .object {
+    animation: MoveUpDown 1s linear infinite;
+    /* position: absolute; */
+  
+  }
+
+ /* Slot machine css */
+ /* Slot machine css */
+ .slot-machine {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.slot {
+  height: 80px;
+  overflow: hidden;
+}
+
+.symbol {
+  animation: spin 2s linear forwards; /* "forwards" ensures the animation stays at its final state */
+  animation-iteration-count: 10; /* Adjust the count as needed */
+}
+
+@keyframes spin {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-240px); /* Adjust the distance as needed */
+  }
+}
+
+.fancy {
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    background-image: 
+      url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%2300A080' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%2300FDCF'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%2300FDCF'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%23008060'/%3E%3C/g%3E%3C/svg%3E%0A");
+    background-size: 110% auto;
+    background-position: center;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
+  .link-without-underline {
+    text-decoration: none;
+    color:#000;
+    /* font-weight: 600; */
+  }
+
+  /* .leftImage {
+    width: 10% !important;
+    height: 10% !important; 
+    padding:1.5px;
+
+
+
+  } */
+
+  .leftImage img {
+    padding:1.5px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #ccc;
+  }
+
+  .image-container {
+    display: flex;
+    background-color: #ccc;
+  }
+  
+  .image-container img {
+    flex: 1;
+    border-radius: 15px;
+    
+  }
+  
+  @keyframes MoveUpDown {
+    0%, 100% {
+      bottom: 0;
+    }
+    50% {
+      bottom: 100px;
+    }
+  }
+  
+  @media screen and (max-width: 720px) {
+
+
+    .carousel-control-prev,
+.carousel-control-next {
+  width: 2%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+
+  background-color: #ffcc00;
+  border-radius: 50%;
+  color: white;
+  padding: 0px;
+  font-weight: 600;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  background-color: #0056b3;
+}
+
+    .image-container {
+      display: flex;
+    }
+  
+    .image-container img {
+      width: 100%;
+      height: auto;
+    }
+
+    #mainLogo {
+      width: 70%;
+      margin: 20px auto;
+      align-items: center;
+      display:flex;
+      justify-content: center;
+    }
+
+    .nav-button {
+      padding:2px 15px;
+      font-size:12px;
+      border : 2px solid #ffffff;
+      color:#000;
+      width: auto;
+    }
+    .score {
+      font-size: 1rem;
+    }
+    #main-live {
+      aspect-ratio: 16 / 9;
+      height: 80%;
+      width: 80%;
+
+    }
+    #iframe360 {
+      margin:0 auto !important;
+      aspect-ratio: 16 / 9;
+      height: 100%;
+      width: 100%;
+    }
+
+    .iframeFac {
+      margin:0 auto !important;
+      aspect-ratio: 16 / 9;
+      height: 100% !important;
+      width: 100%;
+    }
+
+    .iframe360 {
+      margin:0 auto !important;
+      aspect-ratio: 9 / 16;
+      height: 100%;
+      width: 100%;
+    }
+
+   
+
+    .slot-machine img {
+      
+        width: 30% !important;
+        height: 30% !important;
+      
+    }
+
+    .slot-icon {
+      width: 100%;
+      height: 100px; /* Adjust the height based on the size of your icons */
+      object-fit: cover;
+    }
+
+    .leftImage {
+      width: 100%;
+      height: 100%; /* Adjust the height based on the size of your icons */
+      object-fit: cover;
+    }
+    /* .custom-carousel .carousel-control-prev-icon,
+  .custom-carousel .carousel-control-next-icon {
+      background-color: #00154b;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      color:#000 !important;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      
+  } */
+
+  .link-without-underline h3 ,h5 {
+    text-decoration: none;
+    font-weight: 600;
+    font-size:15px !important;
+  }
+
+  #dateact {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    background-color: #fff !important;
+    border-radius: 10px !important;
+    margin-top: 5px;
+
+    /* background-color: #002bff !important; */
+    color: #fff !important;
+
+  }
+
+  .font-awesome {
+    font-size:20px;
+  }
+
+
+
+  
+    .card-activity {
+
+      background-color: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(5px);
+      border-radius: 5px;
+      padding: 5px 20px;
+      margin-right:10px;
+      font-size: 16px;
+      width: 100vw;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px 0px #ccc;
+      
+    }
+
+
+    
+
+    #cartoon-div {
+      position: relative;
+      margin-top: 0px !important;
+    }
+
+    #trangPoint {
+      position: relative;
+      top:-90px !important;
+      left: 100px;
+      z-index: 1000;
+      width: 50px;
+      /* background-image: url('./assets/trangPoint.png'); */ 
+    }
+
+    #mainContent {
+
+      background-image: url('./assets/background_v2.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      width:100vw;
+      /* height:100vh; */
+    }
+
+  }
+
+  
