@@ -1,6 +1,8 @@
 import { client as pb } from '../lib/pocketbase';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faLine } from '@fortawesome/free-brands-svg-icons';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -97,12 +99,11 @@ const Register = () => {
                 <select className="form-control rounded-pill" id="register_type" required style={{ fontSize: '20px' }} onChange={e => setRegister_type(e.target.value)} >
                     <option value="1">บุคคลทั่วไป</option>
                     <option value="2">บุคลากรมหาวิทยาลัย</option>
+                    <option value="3">นักเรียน-นักศึกษา</option>
                     {/* <option value="3">ศิษย์เก่า</option> */}
                 </select>
 
-                {register_type === '1' &&
-                    <input type="text" className="form-control" id="schoolName" placeholder="ชื่อโรงเรียน" autoFocus required onChange={(e) => setSchoolName(e.target.value)} />
-                }
+
 
                 {/* <label htmlFor="fullname">ชื่อ-นามสกุล</label> */}
                 <input type="text" className="form-control" id="fullname" placeholder="ชื่อ-นามสกุล" value={fullname} onChange={(e) => setFullname(e.target.value)}
@@ -110,57 +111,30 @@ const Register = () => {
 
                 />
 
-                {/* </div> */}
 
-                {/* <div className="form-group"> */}
-                {/* <label htmlFor="phone">เบอร์โทรศัพท์</label> */}
                 <input type="text" className="form-control" id="phone" placeholder="เบอร์โทรศัพท์" value={phone} onChange={(e) => setPhone(e.target.value)}
                     required
                 />
-                {/* </div> */}
-                {/* <div className="form-group"> */}
-                {/* <label htmlFor="email">E-mail</label> */}
+
                 <input type="email"
                     className="form-control" id="email" placeholder="อีเมล"
                     value={email} onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                {/* </div> */}
-                <div className="form-group mt-3">
 
-                    {/* <textarea type="text" className="form-control" id="address" placeholder="ที่อยู่"
-                        value={address} onChange={(e) => setAddress(e.target.value)}
-                        required
-                    /> */}
-                    <label htmlFor="address">ที่อยู่</label>
-                    <input type="text" className="form-control" id="homeNumber" placeholder="บ้านเลขที่"
-                        value={homeNumber} onChange={(e) => setHomeNumber(e.target.value)}
-                        required
-                    />
-                    <input type="text" className="form-control" id="soi" placeholder="ซอย"
-                        value={soi} onChange={(e) => setSoi(e.target.value)}
-                        required
-                    />
-                    <input type="text" className="form-control" id="road" placeholder="ถนน"
-                        value={road} onChange={(e) => setRoad(e.target.value)}
-                        required
-                    />
-                    <input type="text" className="form-control" id="tambol" placeholder="ตำบล"
-                        value={tambol} onChange={(e) => setTambol(e.target.value)}
-                        required
-                    />
-                    <input type="text" className="form-control" id="ampur" placeholder="อำเภอ"
-                        value={ampur} onChange={(e) => setAmpur(e.target.value)}
-                        required
-                    />
-                    <input type="text" className="form-control" id="province" placeholder="จังหวัด"
-                        value={province} onChange={(e) => setProvince(e.target.value)}
-                        required
-                    />
-                    <input type="text" className="form-control" id="postCode" placeholder="รหัสไปรษณีย์"
-                        value={postCode} onChange={(e) => setPostCode(e.target.value)}
-                        required
-                    />
+                />
+                {register_type === '3' &&
+                    <input type="text" className="form-control" id="schoolName" placeholder="ชื่อโรงเรียน" autoFocus required onChange={(e) => setSchoolName(e.target.value)} />
+                }
+
+                <div className="form-group mt-3">
+                    <h3>Social</h3>
+                    <div className="form-group">
+                        <FontAwesomeIcon icon={faFacebook} style={{ fontSize: '20px', color: 'blue' }} />
+                        <input type="text" className="form-control" id="facebook" placeholder="Facebook" />
+                    </div>
+                    <div className="form-group mt-2">
+                        <FontAwesomeIcon icon={faLine} style={{ fontSize: '20px', color: 'green' }} />
+                        <input type="text" className="form-control" id="line" placeholder="Line" />
+                    </div>
 
 
                     <small>*** กรุณาระบุข้อมูลตามความเป็นจริงเพื่อประโยชน์ในการติดต่อกลับในกรณีที่ได้รับของรางวัล</small>

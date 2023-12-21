@@ -3,13 +3,54 @@ import { Carousel as ResponsiveCarousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Modal } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import the FontAwesomeIcon component get close icon
-import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faChevronLeft, faChevronRight, } from '@fortawesome/free-solid-svg-icons';
 
+const arrowStyleNext = {
+    position: 'absolute',
+    right: '0',
+    top: '10%', // You can adjust this value
+    transform: 'translateY(-50%)',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    border: 'none',
+    borderRadius: '20%',
+    padding: '10px',
+    cursor: 'pointer',
+    zIndex: 2, // Set a higher z-index
+};
 
-
+const arrowStylePrev = {
+    position: 'absolute',
+    left: '0',
+    top: '10%', // You can adjust this value
+    transform: 'translateY(-50%)',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    border: 'none',
+    borderRadius: '20%',
+    padding: '10px',
+    cursor: 'pointer',
+    zIndex: 2, // Set a higher z-index
+};
 
 
 const Slide = ({ facultyData }) => {
+
+    const renderCustomPrevArrow = (clickHandler, hasPrev, label) => {
+        return hasPrev && (
+            <button type="button" onClick={clickHandler} title={label} style={arrowStylePrev}>
+                <FontAwesomeIcon icon={faChevronLeft} />
+            </button>
+        );
+    };
+
+    const renderCustomNextArrow = (clickHandler, hasNext, label) => {
+        return hasNext && (
+            <button type="button" onClick={clickHandler} title={label} style={arrowStyleNext}>
+                <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+        );
+    };
+
+
     const imageUrl = import.meta.env.VITE_POCKETBASE_FILE_URL;
     const [showModal, setShowModal] = useState(false);
     const [image, setImage] = useState('');
@@ -63,8 +104,17 @@ const Slide = ({ facultyData }) => {
         <>
             <ResponsiveCarousel
                 infiniteLoop={true}
+                renderArrowPrev={renderCustomPrevArrow}
+                renderArrowNext={renderCustomNextArrow}
 
-                key={facultyData.campusID} showIndicators={false} selectedItem={0} >
+                transitionTime={500}
+                showStatus={false}
+                showThumbs={false}
+                showIndicators={false}
+
+
+
+                key={facultyData.campusID} showIndicators={false}  >
                 {facultyData.map((item, index) => (
                     <>
                         <div className='row' key={index}>
@@ -72,85 +122,41 @@ const Slide = ({ facultyData }) => {
 
                                 <h5 className='p-2 text-center glass mt-2'>{item.name}</h5>
                                 <iframe src={`${item.youtubeLink}&autoplay=1&mute=1`} id="main-live"></iframe>
-
-                                {/* <iframe className="embed-responsive-item " src={`${linkUrl}&autoplay=1&mute=1`} allow="autoplay;fullscreen; encrypted-media" id="main-live"></iframe> */}
-
-                                {/* <img src={`${imageUrl}${item.collectionId}/${item.id}/${item.expand.program.Image}`} alt="" className='p-3 rounded-5' /> */}
-
                             </div>
 
-                            <div className="row">
-
-                                <br />
-                                <p className='text-center'>หลักสูตร</p>
-                                <div className="row d-flex  justify-content-center align-items-center">
-
-
-                                    {typeof item.expand.program === 'object' ?
-                                        item.expand.program.map((item, index) => (
-                                            <div className="col-4 mt-2 ">
-                                                <div className=" glass" key={index}
-                                                    onClick={() => {
-
-                                                        handleShow(`${imageUrl}${item.collectionId}/${item.id}/${item.image}`)
-                                                        setYoutubeUrl(item.youtubeLink)
-                                                    }
-                                                    }
-                                                >
-
-                                                    {/* <p className='text-center  '>หลักสูตร</p> */}
-
-                                                    <img src={`${imageUrl}${item.collectionId}/${item.id}/${item.image}`} alt="" className='text-center  rounded' />
-                                                </div>
-                                            </div>
-                                        ))
-                                        : null
-                                    }
-
-
-                                </div>
-
-                            </div >
                         </div>
 
-                        <ResponsiveCarousel>
-                            {item.slideImage.map((image, imageIndex) => (
-                                <div key={imageIndex} onClick={() => handleShow(`${imageUrl}${item.collectionId}/${item.id}/${image}`, item.youtubeLink)}>
-                                    <img
-                                        src={`${imageUrl}${item.collectionId}/${item.id}/${image}`}
-                                        alt={`Slide Image ${imageIndex}`}
-                                        className="img-fluid p-2"
 
-                                    />
-                                </div>
-                            ))}
-                        </ResponsiveCarousel>
+                        <div className="row">
+                            <p className='text-center '>หลักสูตร</p>
 
 
+                            {typeof item.expand.program === 'object' ?
+                                item.expand.program.map((item, index) => (
+                                    <div className="col-4 mt-2" style={{ display: 'flex', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
+                                        <div key={index}
+                                            onClick={() => {
 
+                                                handleShow(`${imageUrl}${item.collectionId}/${item.id}/${item.image}`)
+                                                setYoutubeUrl(item.youtubeLink)
+                                            }
+                                            }
+                                        >
 
+                                            {/* <p className='text-center  '>หลักสูตร</p> */}
 
+                                            <img src={`${imageUrl}${item.collectionId}/${item.id}/${item.image}`} alt="" className='text-center  rounded' />
+                                        </div>
+                                    </div>
+                                ))
+                                : null
+                            }
 
-
-                        {/* <div className='row p-3 mt-5'>
-                            <ResponsiveCarousel
-                                infiniteLoop={true}
-                                showArrows={true}
-                                autoPlay={false}
-                                interval={null}
-                                controls={true}
-                                indicators={true}
-                                showThumbs={true}
-                                showIndicators={false}
-                                showStatus={false}
-                                centerMode={true}
-                                centerSlidePercentage={50}
-                                responsive={responeSive}
-                                arrowColor='red'
-                                className='p-3'
-                            >
+                        </div>
+                        <div className="row">
+                            <ResponsiveCarousel showThumbs={false}>
                                 {item.slideImage.map((image, imageIndex) => (
-                                    <div key={imageIndex} onClick={() => handleShow(`${imageUrl}${item.collectionId}/${item.id}/${image}`)}>
+                                    <div className="m-4" key={imageIndex} onClick={() => handleShow(`${imageUrl}${item.collectionId}/${item.id}/${image}`, item.youtubeLink)}>
                                         <img
                                             src={`${imageUrl}${item.collectionId}/${item.id}/${image}`}
                                             alt={`Slide Image ${imageIndex}`}
@@ -160,12 +166,24 @@ const Slide = ({ facultyData }) => {
                                     </div>
                                 ))}
                             </ResponsiveCarousel>
-                        </div> */}
-                    </>
+                        </div>
 
+
+
+
+
+                    </>
                 ))
                 }
+
+
             </ResponsiveCarousel >
+
+            {/* {facultyData.map((item, index) => (
+                
+            ))} */}
+
+
             <Modal show={showModal} onHide={handleClose} style={{ backgroundColor: 'rgba(255,255,255,0.2)', width: '100vw', backdropFilter: 'blur(10px)' }}>
                 {/* <Modal.Header closeButton>
                     <Modal.Title>Large Image</Modal.Title>
@@ -185,6 +203,8 @@ const Slide = ({ facultyData }) => {
         </>
     )
 }
+
+
 
 export default Slide
 
