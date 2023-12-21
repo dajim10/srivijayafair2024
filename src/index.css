@@ -98,8 +98,9 @@ body {
 #calendar {
 
   background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(5px);
-  box-shadow: 0 0 10px 0px #ccc;
+  margin-top:20px;
+  backdrop-filter: blur(10px);
+  /* box-shadow: 0 0 10px 0px #ccc; */
 }
 
 #island {
@@ -179,7 +180,7 @@ body {
   align-items: center;
   justify-content: center;
   margin:0 auto !important;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 9 / 16;
   height: 100%;
   width: 100%;
 }
@@ -190,6 +191,15 @@ body {
   height: 100%;
   width: 100%;
 }
+
+.glass {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+  border-radius: 20px !important;
+  
+
+}
+
 
 .iframe360 {
   margin:0 auto !important;
@@ -586,17 +596,50 @@ textarea {
 
   }
 
-  .custom-carousel .carousel-control-prev-icon,
-  .custom-carousel .carousel-control-next-icon {
-      background-color: #00154b;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      color:#000 !important;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      
+  /* .carousel-indicators button {
+    width: 0.4rem !important;
+    height: 0.4rem !important;
+    border-radius: 50%;
+    
   }
+  
+  .carousel-indicators button:not(:first-child) {
+    margin-left: 0.5rem;
+  }
+  
+  .carousel-indicators .active {
+    background-color: #ff7a54;
+  } */
 
+  .center-mode-carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .center-mode-carousel .carousel-item {
+    /* Add additional styling for each item in the carousel */
+    overflow: hidden;
+  }
+  
+  .center-mode-carousel .carousel-item > div {
+    /* Adjust the width to control the visible portion of the next and previous slides */
+    width: 80%; /* Adjust as needed */
+    margin: 0 auto;
+  }
+  
+  .center-mode-carousel .carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; /* Add border-radius for rounded corners if desired */
+  }
+  
+  .iframeSlide {
+    margin:0 auto !important;
+    aspect-ratio: 16 / 9;
+    height: 100%;
+    width: 100%;
+  }
   #nav-menu {
     background-color: #ffffff65;
     backdrop-filter: blur(5px);
@@ -758,9 +801,15 @@ textarea {
       width: 80%;
 
     }
+
+    #facultyIframe {
+      aspect-ratio: 16 / 9;
+      height: 80%;
+      width: 80%;
+    }
     #iframe360 {
       margin:0 auto !important;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 9 / 16;
       height: 100%;
       width: 100%;
     }

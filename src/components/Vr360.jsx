@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleLeft, faCircleRight } from '@fortawesome/free-solid-svg-icons';
-
+import icon360 from '../assets/icon360.png'
 
 const Vr360 = ({ linkUrl }) => {
     const { faculty } = useParams();
@@ -11,7 +11,9 @@ const Vr360 = ({ linkUrl }) => {
     if (faculty === 'songkhla') {
         return (
             <div className='container text-center'>
+                <span>มทร.ศรีวิชัย <img src={icon360} alt="360" width={100} /></span>
                 <h1>สงขลา</h1>
+
                 <div className="d-flex justify-content-between ">
 
                     <FontAwesomeIcon icon={faCircleLeft} onClick={() => navigate(-1)} style={{ fontSize: '40px' }} />
@@ -34,7 +36,7 @@ const Vr360 = ({ linkUrl }) => {
 
                     <FontAwesomeIcon icon={faCircleRight} onClick={() => navigate('/vr360/nakorn')} style={{ fontSize: '40px' }} />
                 </div>
-                <iframe src="https://my.treedis.com/tour/ruts-rattaphum-28507ac5" frameborder="0" width={1080} height={1920} id="iframe360"></iframe>
+                <iframe src="https://my.treedis.com/tour/trang-f06cc610?fbclid=IwAR29ffoGQLACWnSENUf1g4OE1tXgeHPRde8TaB3LZUBgee9kzcInKRSha-o" frameborder="0" width={1080} height={1920} id="iframe360"></iframe>
                 <div className="mt-2" style={{ height: '20px' }}></div>
             </div>
         )

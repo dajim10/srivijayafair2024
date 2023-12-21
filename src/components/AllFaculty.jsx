@@ -93,7 +93,7 @@ const AllFaculty = ({ faculty }) => {
         <>
 
 
-            <div className="container-fluid bg-light py-2 rounded shadow text-center sticky-bottom" >
+            <div className="container-fluid  py-2 rounded-5 shadow text-center sticky-bottom" style={{ backgroundColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(10px)' }}>
 
 
 
@@ -108,6 +108,7 @@ const AllFaculty = ({ faculty }) => {
                                 <img src={icon360} alt="" width={100} />
                             </div>
                         </Link>
+
 
                     </div>
                     <div className="col" style={{ borderRight: '2px solid #ccc' }}>

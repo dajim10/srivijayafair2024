@@ -32,6 +32,7 @@ import Vr360 from './components/Vr360'
 
 
 
+
 const App = () => {
 
     const [isGamePaused, setIsGamePaused] = useState(null);
@@ -193,6 +194,7 @@ const App = () => {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/vr360/:faculty" element={<Vr360 />} />
                 <Route path="/program" element={<Program />} />
+
             </Routes>
 
 

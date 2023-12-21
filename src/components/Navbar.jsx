@@ -47,7 +47,7 @@ const Navbar = ({ userName }) => {
 
 
     return (
-        <div className='container d-flex justify-content-around  p-3 navbar sticky-top rounded' id="nav-menu">
+        <div className='container-fluid d-flex justify-content-around  navbar sticky-top rounded' id="nav-menu">
             <div className=''>
                 <Link to="/">
                     <FontAwesomeIcon icon={faHouse} className='font-awesome' />

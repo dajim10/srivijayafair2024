@@ -80,12 +80,12 @@ const Activiry = () => {
                         <div className="col text-center" key={index}>
 
 
-                            <div className="col text-center bg-light rounded shadow py-2">
-                                <div className='link-without-underline' onClick={e => handleNavigate(date.day)}>
-                                    <h5 className={date.active ? 'active' : null}>{date.day}</h5>
+                            <div className="col p-2 shadow my-2 rounded bg-light text-center" >
+                                <Link to={`/activity/${date.day}`} className='link-without-underline'>
+                                    <h2 className={date.active ? 'active' : null} style={{ fontWeight: '700' }}>{date.day}</h2>
                                     {/* <p>{date.active ? 'active' : 'not active'}</p> */}
-                                    <p className={date.active ? 'active' : null}>{date.month}</p>
-                                </div>
+                                    <span className={date.active ? 'active' : null}>{date.month}</span>
+                                </Link>
                             </div>
 
                         </div>

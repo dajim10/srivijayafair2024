@@ -23,6 +23,26 @@ const Rewards = () => {
     const [spinning, setSpinning] = useState(false);
 
 
+    const existingReward = async () => {
+        const existingRecord = await client.collection('userReward').getFirstListItem(`id="${userId}"`);
+        try {
+            if (existingRecord) {
+                // console.log(existingRecord);
+                console.log('Existing record found. Proceeding to updateMember...');
+                setScore(existingRecord.score);
+                setIsLogin(true);
+            } else {
+                console.log('No existing record found. Proceeding to createMember...');
+            }
+        } catch (err) {
+            if (err.statusCode === 404) {
+                // Handle the case where the document is not found
+                console.log('Document not found. Proceeding to createMember...');
+            }
+        }
+    };
+
+
 
     const fetchFirstRecord = async () => {
         const phone = sessionStorage.getItem('phone');
@@ -30,7 +50,7 @@ const Rewards = () => {
             const existingRecord = await client.collection('register').getFirstListItem(`phone="${phone}"`);
 
             if (existingRecord) {
-                console.log(existingRecord);
+                // console.log(existingRecord);
                 setScore(existingRecord.score);
                 setIsLogin(true);
             } else {
@@ -81,7 +101,9 @@ const Rewards = () => {
 
 
     const handleSpin = async () => {
-        setSpinning((prevSpinning) => !prevSpinning);
+
+        setSpinning(true);
+
 
         if (score <= 0) {
             // exit, can't spin
@@ -89,13 +111,72 @@ const Rewards = () => {
             setArrowVisible(false);
             return;
         } else {
+            existingReward();
             // Request spin result from the server
-            fetch('https://sathern.rmutsv.ac.th:8077/api/collections/gamecontrol/records')
+            await fetch('https://sathern.rmutsv.ac.th:8077/api/collections/gamecontrol/records')
                 .then((response) => response.json())
                 .then((data) => {
                     const result = data.items[0].stopposition;
                     const nextRotation = result[Math.floor(Math.random() * result.length)];
+                    // find nextRotation in stock collection
+                    client.collection('stock').getFirstListItem(`stopposition=${nextRotation}`)
+                        .then((res) => {
+                            console.log(res);
+                            const stock = res.amount;
+                            const stockId = res.id;
+                            console.log(stock);
+                            if (stock > 0) {
+                                // console.log(stock);
+                                // console.log('stock > 0');
+                                // update stock
+                                client.collection('stock').update(res.id, {
+
+                                    amount: stock - 1,
+                                });
+                                client.collection('userRewards').create({
+                                    userId: sessionStorage.getItem('id'),
+                                    rewardId: stockId,
+                                    phone: sessionStorage.getItem('phone'),
+
+
+                                });
+                            }
+                            else {
+                                // console.log('stock < 0');
+                                // update stock
+                                client.collection('stock').update(res.id, {
+                                    amount: 0,
+                                });
+                            }
+
+                            // if (res) {
+                            //     // console.log(res);
+                            //     const stock = res.stock;
+                            //     console.log(stock);
+                            //     if (stock > 0) {
+                            //         // console.log(stock);
+                            //         // console.log('stock > 0');
+                            //         // update stock
+                            //         client.collection('stock').update(res.id, {
+                            //             stock: stock - 1,
+                            //         });
+                            //     } else {
+                            //         // console.log('stock < 0');
+                            //         // update stock
+                            //         client.collection('stock').update(res.id, {
+                            //             stock: 0,
+                            //         });
+                            //     }
+                            // }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+
                     console.log(nextRotation);
+                    setSpinning(false);
+
+
 
                     // Use nextRotation and update state accordingly
                     setRotation(0); // Reset rotation to start from the first position
@@ -103,10 +184,10 @@ const Rewards = () => {
                     const spinDuration = 3000; // Adjust the spinDuration based on your preferences
 
                     // Calculate the spinStep based on the duration and nextRotation
-                    const spinStep = (nextRotation / spinDuration) * 16; // 16ms is approximately one frame
+                    const spinStep = (nextRotation / spinDuration) * 25; // 16ms is approximately one frame
                     // const spinStep = spinDuration * 16;
 
-                    console.log(spinStep);
+                    // console.log(spinStep);
 
 
                     // test spinStep
@@ -122,6 +203,7 @@ const Rewards = () => {
                                 setTimeout(animateSpin, 16); // Schedule the next frame
                             } else {
                                 // Snap to the exact stop position
+                                setSpinning(false);
                                 setRotation(nextRotation);
 
                                 // Spin is complete
@@ -218,18 +300,16 @@ const Rewards = () => {
 
                     {/* <section className="spin-button" onClick={handleSpin}></section> */}
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '30px' }}>
-                    <h1>คะแนนของคุณ: {score}</h1>
-                </div>
+
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '30px' }}>
+
                     <button id="spin" className="button-container-reward" onClick={handleSpin}>
-                        SPIN
+                        {!spinning ? 'หมุนวงล้อ' : 'กำลังหมุน...'}
+
                     </button>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '30px' }}>
-                    <h1>เล่นได้: {score / 100}  ครั้ง</h1>
-                </div>
+
             </>
             {/* )} */}
 

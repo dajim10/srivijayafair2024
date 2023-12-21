@@ -28,19 +28,19 @@ const Calendar = () => {
 
 
     return (
-        <div className='container p-3 rounded-4' id="calendar">
+        <div className='container-fluid  rounded-4' id="calendar">
             <h1 className="text-center">ปฏิทินกิจกรรม</h1>
             <hr />
             <div className="row">
                 {calendar.map((date, index) => (
-                    <div className="col text-center" key={index}>
+                    <div className="col text-center align-items-center" key={index}>
 
 
-                        <div className="col text-center" id="dateact">
+                        <div className="col p-2 shadow my-2 rounded bg-light text-center" >
                             <Link to={`/activity/${date.day}`} className='link-without-underline'>
-                                <h3 className={date.active ? 'active' : null}>{date.day}</h3>
+                                <h2 className={date.active ? 'active' : null} style={{ fontWeight: '700' }}>{date.day}</h2>
                                 {/* <p>{date.active ? 'active' : 'not active'}</p> */}
-                                <h5 className={date.active ? 'active' : null}>{date.month}</h5>
+                                <span className={date.active ? 'active' : null}>{date.month}</span>
                             </Link>
                         </div>
 

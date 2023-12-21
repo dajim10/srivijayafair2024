@@ -80,15 +80,24 @@ const Slide = ({ facultyData }) => {
                             </div>
 
                             <div className="row">
+                                <div className="col-9 mx-auto mt-5">
 
-                                <br />
-                                <p className='text-center'>หลักสูตร</p>
-                                <div className="row d-flex  justify-content-center align-items-center">
+                                    <br />
+                                    <p className='text-center'>หลักสูตร</p>
+                                    <ResponsiveCarousel
+                                        showArrows={false}
+                                        centerMode={true}
+                                        centerSlidePercentage={100}
+                                        showThumbs={false}
+                                        infiniteLoop={true}
+                                        className='d-flex flex-column align-items-center  justify-content-center text-center' style={{ zIndex: '9999' }}
 
 
-                                    {typeof item.expand.program === 'object' ?
-                                        item.expand.program.map((item, index) => (
-                                            <div className="col-4 mt-2 ">
+
+                                    >
+
+                                        {typeof item.expand.program === 'object' ?
+                                            item.expand.program.map((item, index) => (
                                                 <div className=" glass" key={index}
                                                     onClick={() => {
 
@@ -100,16 +109,13 @@ const Slide = ({ facultyData }) => {
 
                                                     {/* <p className='text-center  '>หลักสูตร</p> */}
 
-                                                    <img src={`${imageUrl}${item.collectionId}/${item.id}/${item.image}`} alt="" className='text-center  rounded' />
+                                                    <img src={`${imageUrl}${item.collectionId}/${item.id}/${item.image}`} alt="" className='text-center p-2 rounded-5' />
                                                 </div>
-                                            </div>
-                                        ))
-                                        : null
-                                    }
-
-
+                                            ))
+                                            : null
+                                        }
+                                    </ResponsiveCarousel>
                                 </div>
-
                             </div >
                         </div>
 
