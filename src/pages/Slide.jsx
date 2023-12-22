@@ -8,12 +8,12 @@ import { faClose, faChevronLeft, faChevronRight, } from '@fortawesome/free-solid
 const arrowStyleNext = {
     position: 'absolute',
     right: '0',
-    top: '10%', // You can adjust this value
+    top: '50%', // You can adjust this value
     transform: 'translateY(-50%)',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     border: 'none',
-    borderRadius: '20%',
-    padding: '10px',
+    borderRadius: '50%',
+    padding: '10px 16px',
     cursor: 'pointer',
     zIndex: 2, // Set a higher z-index
 };
@@ -21,12 +21,12 @@ const arrowStyleNext = {
 const arrowStylePrev = {
     position: 'absolute',
     left: '0',
-    top: '10%', // You can adjust this value
+    top: '50%', // You can adjust this value
     transform: 'translateY(-50%)',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     border: 'none',
-    borderRadius: '20%',
-    padding: '10px',
+    borderRadius: '50%',
+    padding: '10px 16px',
     cursor: 'pointer',
     zIndex: 2, // Set a higher z-index
 };
@@ -34,21 +34,7 @@ const arrowStylePrev = {
 
 const Slide = ({ facultyData }) => {
 
-    const renderCustomPrevArrow = (clickHandler, hasPrev, label) => {
-        return hasPrev && (
-            <button type="button" onClick={clickHandler} title={label} style={arrowStylePrev}>
-                <FontAwesomeIcon icon={faChevronLeft} />
-            </button>
-        );
-    };
 
-    const renderCustomNextArrow = (clickHandler, hasNext, label) => {
-        return hasNext && (
-            <button type="button" onClick={clickHandler} title={label} style={arrowStyleNext}>
-                <FontAwesomeIcon icon={faChevronRight} />
-            </button>
-        );
-    };
 
 
     const imageUrl = import.meta.env.VITE_POCKETBASE_FILE_URL;
@@ -56,6 +42,16 @@ const Slide = ({ facultyData }) => {
     const [image, setImage] = useState('');
     // const [yourubeUrl, setYourubeUrl] = useState('https://www.youtube.com/embed/');
     const [youtubeUrl, setYoutubeUrl] = useState('');
+
+    const [isDragging, setIsDragging] = useState(false);
+
+    const handleDragStart = () => {
+        setIsDragging(true);
+    };
+
+    const handleDragEnd = () => {
+        setIsDragging(false);
+    };
 
     console.log(facultyData)
 
@@ -100,6 +96,35 @@ const Slide = ({ facultyData }) => {
 
     }
 
+
+    const renderCustomPrevArrow = (clickHandler, hasPrev, label) => {
+        return hasPrev && (
+            <button
+                type="button"
+                onClick={clickHandler}
+                title={label}
+                // style={arrowStylePrev}>
+                style={isDragging ? disabledArrowStyle : arrowStylePrev}
+                disabled={isDragging}>
+                <FontAwesomeIcon icon={faChevronLeft} />
+            </button>
+        );
+    };
+
+    const renderCustomNextArrow = (clickHandler, hasNext, label) => {
+        return hasNext && (
+            <button type="button"
+                onClick={clickHandler}
+                title={label}
+                style={isDragging ? disabledArrowStyle : arrowStyleNext}
+                disabled={isDragging}
+
+            >
+                <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+        );
+    };
+
     return (
         <>
             <ResponsiveCarousel
@@ -114,7 +139,7 @@ const Slide = ({ facultyData }) => {
 
 
 
-                key={facultyData.campusID} showIndicators={false}  >
+                key={facultyData.campusID}   >
                 {facultyData.map((item, index) => (
                     <>
                         <div className='row' key={index}>
@@ -128,7 +153,13 @@ const Slide = ({ facultyData }) => {
 
 
                         <div className="row">
-                            <p className='text-center '>หลักสูตร</p>
+                            <div>
+                                <button className='nav-button' onClick={handleSubmit}>สมัครเรียน</button>
+                                <button className='nav-button'>ทดลองเรียน</button>
+                            </div>
+                            <div>
+                                <p className='text-center button-85 w-50 mx-auto mt-2'>หลักสูตร</p>
+                            </div>
 
 
                             {typeof item.expand.program === 'object' ?
@@ -154,13 +185,16 @@ const Slide = ({ facultyData }) => {
 
                         </div>
                         <div className="row">
-                            <ResponsiveCarousel showThumbs={false}>
+                            <ResponsiveCarousel showThumbs={false}
+                                renderArrowPrev={renderCustomPrevArrow}
+                                renderArrowNext={renderCustomNextArrow}
+                            >
                                 {item.slideImage.map((image, imageIndex) => (
-                                    <div className="m-4" key={imageIndex} onClick={() => handleShow(`${imageUrl}${item.collectionId}/${item.id}/${image}`, item.youtubeLink)}>
+                                    <div className="col-lg-4 p-2 mx-auto m-4" key={imageIndex} onClick={() => handleShow(`${imageUrl}${item.collectionId}/${item.id}/${image}`, item.youtubeLink)}>
                                         <img
                                             src={`${imageUrl}${item.collectionId}/${item.id}/${image}`}
                                             alt={`Slide Image ${imageIndex}`}
-                                            className="img-fluid p-2"
+                                            className="img-fluid  rounded-5"
 
                                         />
                                     </div>

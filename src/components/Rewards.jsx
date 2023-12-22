@@ -21,6 +21,7 @@ const Rewards = () => {
 
     const [isLogin, setIsLogin] = useState(false);
     const [spinning, setSpinning] = useState(false);
+    const [starPoint, setStarPoint] = useState(0);
 
 
     const existingReward = async () => {
@@ -81,6 +82,22 @@ const Rewards = () => {
             'กรุณาเข้าสู่ระบบ'
         }
     }, []);
+
+    useEffect(() => {
+
+        client.collection('statusgame').getList(1)
+            .then(res => {
+
+                setStarPoint(res.items[0].starPoint);
+
+
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+
+    }, [])
 
     const generateRandomRotations = () => {
         const numRotations = 10000;
@@ -224,17 +241,17 @@ const Rewards = () => {
             setArrowVisible(true);
             // setScore((prevScore) => prevScore - 100);
             const data = {
-                score: score - 100,
+                score: score - starPoint,
             };
             const existingRecord = await client.collection('register').getFirstListItem(`phone="${sessionStorage.getItem('phone')}"`);
 
             if (existingRecord) {
                 // console.log(existingRecord);
                 const res = await client.collection('register').update(existingRecord.id, {
-                    score: existingRecord.score - 100,
+                    score: existingRecord.score - starPoint,
 
                 });
-                setScore((prevScore) => prevScore - 100)
+                setScore((prevScore) => prevScore - starPoint)
                 // console.log(res);
 
             }

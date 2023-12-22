@@ -10,15 +10,9 @@ const Register = () => {
     const [phone, setPhone] = useState('');
     const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
-    const [address, setAddress] = useState('');
-    const [homeNumber, setHomeNumber] = useState('');
-    const [soi, setSoi] = useState('');
-    const [road, setRoad] = useState('');
-    const [tambol, setTambol] = useState('');
-    const [ampur, setAmpur] = useState('');
-    const [province, setProvince] = useState('');
-    const [postCode, setPostCode] = useState('');
-    const [schoolName, setSchoolName] = useState('');
+    const [facebook, setFacebook] = useState('');
+    const [line, setLine] = useState('');
+    const [school, setSchool] = useState('');
 
     const [register_type, setRegister_type] = useState('1');
 
@@ -28,16 +22,10 @@ const Register = () => {
             phone: phone,
             fullname: fullname,
             email: email,
-            address: address,
             register_type: register_type,
-            homeNumber: homeNumber,
-            soi: soi,
-            road: road,
-            tambol: tambol,
-            ampur: ampur,
-            province: province,
-            postCode: postCode,
-            schoolName: schoolName,
+            facebook: facebook,
+            line: line,
+            school: school,
 
         })
             .then(res => {
@@ -78,13 +66,6 @@ const Register = () => {
 
 
 
-
-
-
-
-
-
-
     return (
         <div className="container    d-flex flex-column align-items-center justify-content-center sticky-top" style={{ border: '6px solid #fff', borderRadius: '20px', boxShadow: '0 0 10px #ccc', backgroundColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(2px)' }} >
             <form onSubmit={handleSubmit} className='form-group'>
@@ -108,7 +89,7 @@ const Register = () => {
                 {/* <label htmlFor="fullname">ชื่อ-นามสกุล</label> */}
                 <input type="text" className="form-control" id="fullname" placeholder="ชื่อ-นามสกุล" value={fullname} onChange={(e) => setFullname(e.target.value)}
                     required
-
+                    autoFocus
                 />
 
 
@@ -122,18 +103,18 @@ const Register = () => {
 
                 />
                 {register_type === '3' &&
-                    <input type="text" className="form-control" id="schoolName" placeholder="ชื่อโรงเรียน" autoFocus required onChange={(e) => setSchoolName(e.target.value)} />
+                    <input type="text" className="form-control" id="schoolName" placeholder="ชื่อโรงเรียน" required onChange={(e) => setSchool(e.target.value)} />
                 }
 
                 <div className="form-group mt-3">
                     <h3>Social</h3>
                     <div className="form-group">
                         <FontAwesomeIcon icon={faFacebook} style={{ fontSize: '20px', color: 'blue' }} />
-                        <input type="text" className="form-control" id="facebook" placeholder="Facebook" />
+                        <input type="text" className="form-control" id="facebook" placeholder="Facebook" onChange={(e) => setFacebook(e.target.value)} />
                     </div>
                     <div className="form-group mt-2">
                         <FontAwesomeIcon icon={faLine} style={{ fontSize: '20px', color: 'green' }} />
-                        <input type="text" className="form-control" id="line" placeholder="Line" />
+                        <input type="text" className="form-control" id="line" placeholder="Line" onChange={(e) => setLine(e.target.value)} />
                     </div>
 
 

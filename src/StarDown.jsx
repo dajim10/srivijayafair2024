@@ -12,6 +12,7 @@ const StarDown = () => {
     const [isGamePaused, setIsGamePaused] = useState(true);
     const [countdown, setCountdown] = useState(30); // 1 minute in seconds
     // const [user, setUser] = useState('admin');
+    const [starPoint, setStarPoint] = useState(0);
     const isPageVisible = usePageVisibility();
     const starsIntervalRef = useRef(null);
     //const gameDuration = 0.5 * 60 * 1000; // Set game duration to 5 minutes
@@ -24,6 +25,7 @@ const StarDown = () => {
                 .then(res => {
                     // setIsGamePaused(res.data.isGamePaused);
                     setIsGamePaused(res.items[0].isGamePaused);
+                    setStarPoint(res.items[0].starPoint);
                     // console.log(res.items[0].isGamePaused);
                     // const mainContent = document.getElementById('mainContent');
 

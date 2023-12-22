@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Cartoon from '../assets/cartoon.png'
-import SongkhlaFaculty from '../assets/SongkhlaFaculty.png'
-import TrangFaculty from '../assets/trangFaculty.png'
-import NakornFaculty from '../assets/nakornFaculty.png'
+import SongkhlaFaculty from '../assets/songkhlaIsland.png'
+import TrangFaculty from '../assets/trangIsland.png'
+import NakornFaculty from '../assets/nakornIsland.png'
 import starCute from '../assets/starCute.png'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
@@ -12,6 +12,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import Calendar from './Calendar'
 import { client } from '../lib/pocketbase'
 import BgIsland from '../assets/bgIsland.png'
+import AllFaculty from './AllFaculty'
 
 
 
@@ -120,38 +121,58 @@ const Home = ({ counter }) => {
 
 
             <Calendar />
+            {/* <div className='container-fluid fixed-bottom'>
+                <div className="row">
+                    <div className="col mx-auto" style={{ margin: '0', padding: '0' }}>
+
+                        <AllFaculty />
+                    </div>
+
+                </div>
+
+            </div> */}
             {/* {!IsCloseWindow && */}
             <div className="container-fluid "    >
 
 
                 <div className="row">
-                    <div className="col text-center">
+                    <div className="col-lg-6 col-md-6 col-sm-6 text-center  mx-auto">
                         <Link to="/allfaculty/songkhla">
-                            <img src={SongkhlaFaculty} alt="songkhla" className='img-fluid' width={600} />
+                            <img src={SongkhlaFaculty} alt="songkhla" className='img-fluid' width={400} />
                         </Link>
                     </div>
-
-
                 </div>
 
                 <div className="row">
 
 
-                    <div className="col text-center">
-                        <Link to="/allfaculty/trang">
-                            <img src={TrangFaculty} alt="trang" className='img-fluid' width={600} />
-                        </Link>
+
+                    <div className="col">
+                        <div className="row">
+                            <div className="col text-center">
+                                <Link to="/allfaculty/trang">
+                                    <img src={TrangFaculty} alt="trang" className='img-fluid' width={400} />
+                                </Link>
+                            </div>
+
+                            <div className="col text-center">
+                                <Link to="/allfaculty/nakorn">
+                                    <img src={NakornFaculty} alt="nakorn" className='img-fluid' width={400} />
+                                </Link>
+                            </div>
+                        </div>
                     </div>
-                    <div className="col text-center">
-                        <Link to="/allfaculty/nakorn">
-                            <img src={NakornFaculty} alt="nakorn" className='img-fluid' width={600} />
-                        </Link>
-                    </div>
+
+
+
+
+
                 </div>
 
             </div>
             {/* } */}
-            <div className="d-flex justify-content-end align-items-center text-center">
+
+            <div className="d-flex justify-content-center align-items-center text-center">
                 {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, et.</p> */}
                 <FontAwesomeIcon icon={faEye} className='text-dark p-2' />{"  "}{counter}
             </div>

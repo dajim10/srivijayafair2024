@@ -4,7 +4,7 @@ import { client } from '../lib/pocketbase';
 const SpecialStar = () => {
 
     const [isSpechialStar, setIsSpecialStar] = useState(null);
-
+    // isSpecialStar
     useEffect(() => {
         setInterval(() => {
             client.collection('statusgame').getList(1)
@@ -28,6 +28,7 @@ const SpecialStar = () => {
     return (
         <div>
             {/* implement special star falling down at time */}
+            {isSpecialStar ? <img src={star} alt="star" className="star" /> : null}
 
         </div>
     )
