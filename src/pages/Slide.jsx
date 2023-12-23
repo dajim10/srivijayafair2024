@@ -5,6 +5,34 @@ import { Modal } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import the FontAwesomeIcon component get close icon
 import { faClose, faChevronLeft, faChevronRight, } from '@fortawesome/free-solid-svg-icons';
 
+const arrowStyleNextTop = {
+    position: 'absolute',
+    right: '0',
+    top: '10%', // You can adjust this value
+    transform: 'translateY(-50%)',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    border: 'none',
+    borderRadius: '50%',
+    padding: '10px 16px',
+    cursor: 'pointer',
+    zIndex: 2, // Set a higher z-index
+};
+
+const arrowStylePrevTop = {
+    position: 'absolute',
+    left: '0',
+    top: '10%', // You can adjust this value
+    transform: 'translateY(-50%)',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    border: 'none',
+    borderRadius: '50%',
+    padding: '10px 16px',
+    cursor: 'pointer',
+    zIndex: 2, // Set a higher z-index
+};
+
+
+
 const arrowStyleNext = {
     position: 'absolute',
     right: '0',
@@ -44,6 +72,10 @@ const Slide = ({ facultyData }) => {
     const [youtubeUrl, setYoutubeUrl] = useState('');
 
     const [isDragging, setIsDragging] = useState(false);
+    const [slideImage, setSlideImage] = useState([]);
+    const [program, setProgram] = useState([]);
+
+    console.log(facultyData.program)
 
     const handleDragStart = () => {
         setIsDragging(true);
@@ -55,9 +87,10 @@ const Slide = ({ facultyData }) => {
 
     console.log(facultyData)
 
-    const handleShow = (imageUrl, youtubeUrl) => {
+    const handleShow = (imageUrl, youtubeUrl, slideImage) => {
         setImage(imageUrl);
         setYoutubeUrl(youtubeUrl);
+        setSlideImage(slideImage);
         setShowModal(true);
     };
 
@@ -125,12 +158,40 @@ const Slide = ({ facultyData }) => {
         );
     };
 
+    const renderCustomPrevArrowTop = (clickHandler, hasPrev, label) => {
+        return hasPrev && (
+            <button
+                type="button"
+                onClick={clickHandler}
+                title={label}
+                // style={arrowStylePrev}>
+                style={isDragging ? disabledArrowStyle : arrowStylePrevTop}
+                disabled={isDragging}>
+                <FontAwesomeIcon icon={faChevronLeft} />
+            </button>
+        );
+    };
+
+    const renderCustomNextArrowTop = (clickHandler, hasNext, label) => {
+        return hasNext && (
+            <button type="button"
+                onClick={clickHandler}
+                title={label}
+                style={isDragging ? disabledArrowStyle : arrowStyleNextTop}
+                disabled={isDragging}
+
+            >
+                <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+        );
+    };
+
     return (
         <>
             <ResponsiveCarousel
                 infiniteLoop={true}
-                renderArrowPrev={renderCustomPrevArrow}
-                renderArrowNext={renderCustomNextArrow}
+                renderArrowPrev={renderCustomPrevArrowTop}
+                renderArrowNext={renderCustomNextArrowTop}
 
                 transitionTime={500}
                 showStatus={false}
@@ -151,25 +212,35 @@ const Slide = ({ facultyData }) => {
 
                         </div>
 
+                        <div>
+                            <button className='nav-button' onClick={handleSubmit}>สมัครเรียน</button>
+                            <button className='nav-button'>ทดลองเรียน</button>
+                        </div>
 
-                        <div className="row">
-                            <div>
-                                <button className='nav-button' onClick={handleSubmit}>สมัครเรียน</button>
-                                <button className='nav-button'>ทดลองเรียน</button>
+
+                        {/* {item.program.map((item, index) => (
+                            <div className="row" key={index}>
+                                {JSON}
                             </div>
-                            <div>
-                                <p className='text-center button-85 w-50 mx-auto mt-2'>หลักสูตร</p>
+                        ))
+
+                        } */}
+
+                        {/* {JSON.stringify(item.expand.program)} */}
+                        <div className="row" key={item.id}>
+
+                            <div className='my-3 mt-5'>
+                                <span className='rounded-pill p-2 my-3 button-85'>หลักสูตรที่เปิด</span>
                             </div>
-
-
                             {typeof item.expand.program === 'object' ?
                                 item.expand.program.map((item, index) => (
-                                    <div className="col-4 mt-2" style={{ display: 'flex', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
+                                    <div className="col-6 mt-2" style={{ display: 'flex', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
                                         <div key={index}
                                             onClick={() => {
 
                                                 handleShow(`${imageUrl}${item.collectionId}/${item.id}/${item.image}`)
                                                 setYoutubeUrl(item.youtubeLink)
+                                                setSlideImage(item.slideImage)
                                             }
                                             }
                                         >
@@ -184,6 +255,7 @@ const Slide = ({ facultyData }) => {
                             }
 
                         </div>
+
                         <div className="row">
                             <ResponsiveCarousel showThumbs={false}
                                 renderArrowPrev={renderCustomPrevArrow}
@@ -229,6 +301,28 @@ const Slide = ({ facultyData }) => {
                 {/* </Modal.Body> */}
                 {/* <button className="btn btn-danger " onClick={handleClose} style={{ position: 'absolute', top: '0', right: '0', borderRadius: '50%' }}> */}
                 <FontAwesomeIcon icon={faClose} onClick={handleClose} style={{ position: 'absolute', top: '10px', right: '10px', borderRadius: '50%', fontSize: '2rem', backgroundColor: 'red', color: '#fff', padding: '10px 13px', border: '3px solid #fff' }} />
+                {/* {facultyData.map((item, index) => (
+                    <div className="row" key={index}>
+                        <ResponsiveCarousel showThumbs={false}
+                            renderArrowPrev={renderCustomPrevArrow}
+                            renderArrowNext={renderCustomNextArrow}
+                        >
+                            {typeof item.expand.program === 'object' ?
+                                item.expand.program.map((item, index) => (
+                                    <div className="col-lg-4 p-2 mx-auto m-4" key={index} >
+                                        <img
+                                            src={`${imageUrl}${item.collectionId}/${item.id}/${image}`}
+                                            alt={`Slide Image ${index}`}
+                                            className="img-fluid  rounded-5"
+
+                                        />
+                                    </div>
+                                )) : null
+                            }
+
+                        </ResponsiveCarousel>
+                    </div>
+                ))} */}
                 {/* </button> */}
                 {/* <Modal.Footer> */}
 

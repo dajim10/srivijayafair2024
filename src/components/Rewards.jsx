@@ -22,28 +22,26 @@ const Rewards = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [spinning, setSpinning] = useState(false);
     const [starPoint, setStarPoint] = useState(0);
-    const userId = sessionStorage.getItem('id');
 
-    // console.log(userId);
 
-    // const existingReward = async () => {
-    //     const existingRecord = await client.collection('userRewards').getFirstListItem(`id="${userId}"`);
-    //     try {
-    //         if (existingRecord) {
-    //             // console.log(existingRecord);
-    //             console.log('Existing record found. Proceeding to updateMember...');
-    //             setScore(existingRecord.score);
-    //             setIsLogin(true);
-    //         } else {
-    //             console.log('No existing record found. Proceeding to createMember...');
-    //         }
-    //     } catch (err) {
-    //         if (err.statusCode === 404) {
-    //             // Handle the case where the document is not found
-    //             console.log('Document not found. Proceeding to createMember...');
-    //         }
-    //     }
-    // };
+    const existingReward = async () => {
+        const existingRecord = await client.collection('userReward').getFirstListItem(`id="${userId}"`);
+        try {
+            if (existingRecord) {
+                // console.log(existingRecord);
+                console.log('Existing record found. Proceeding to updateMember...');
+                setScore(existingRecord.score);
+                setIsLogin(true);
+            } else {
+                console.log('No existing record found. Proceeding to createMember...');
+            }
+        } catch (err) {
+            if (err.statusCode === 404) {
+                // Handle the case where the document is not found
+                console.log('Document not found. Proceeding to createMember...');
+            }
+        }
+    };
 
 
 
@@ -130,27 +128,11 @@ const Rewards = () => {
             setArrowVisible(false);
             return;
         } else {
-            // existingReward();
+            existingReward();
             // Request spin result from the server
-
-
-            // mac test
-            // const phone = sessionStorage.getItem('phone');
-            // console.log(phone)
-            // await fetch(`https://sathern.rmutsv.ac.th:8077/api/collections/userRewards/records?filters=phone=${phone}`)
-            //     .then((response) => response.json())
-            //     .then((data) => {
-            //         if (data) {
-            //             console.log('mactest:', data);
-
-            //         }
-            //     })
-            //
-
-            await fetch(`https://sathern.rmutsv.ac.th:8077/api/collections/gamecontrol/records`)
+            await fetch('https://sathern.rmutsv.ac.th:8077/api/collections/gamecontrol/records')
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
                     const result = data.items[0].stopposition;
                     const nextRotation = result[Math.floor(Math.random() * result.length)];
                     // find nextRotation in stock collection
@@ -159,7 +141,7 @@ const Rewards = () => {
                             console.log(res);
                             const stock = res.amount;
                             const stockId = res.id;
-                            // console.log(stock);
+                            console.log(stock);
                             if (stock > 0) {
                                 // console.log(stock);
                                 // console.log('stock > 0');
@@ -168,26 +150,13 @@ const Rewards = () => {
 
                                     amount: stock - 1,
                                 });
-                                // create userRewards
-
-                                const data = {
+                                client.collection('userRewards').create({
                                     userId: sessionStorage.getItem('id'),
                                     rewardId: stockId,
                                     phone: sessionStorage.getItem('phone'),
-                                    fullname: sessionStorage.getItem('fullname'),
-                                }
-                                console.log(data);
-                                client.collection('userRewards').create(data)
-                                    .then(res => {
-                                        console.log(res);
-                                    }
-                                    )
-                                    .catch(err => {
-                                        console.log(err);
-                                    });
 
 
-
+                                });
                             }
                             else {
                                 // console.log('stock < 0');

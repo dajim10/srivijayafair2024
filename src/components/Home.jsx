@@ -4,6 +4,7 @@ import SongkhlaFaculty from '../assets/songkhlaIsland.png'
 import TrangFaculty from '../assets/trangIsland.png'
 import NakornFaculty from '../assets/nakornIsland.png'
 import starCute from '../assets/starCute.png'
+
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -32,10 +33,10 @@ const Home = ({ counter }) => {
         width: '100vw',
         height: '500px',
         margin: '0 auto'
-
-
         // Add more background-related styles if necessary
     };
+
+
 
     const handleNavigate = () => {
         const facultyname = 'songkhla'
@@ -88,8 +89,8 @@ const Home = ({ counter }) => {
 
                         {!IsCloseWindow &&
                             // <iframe className="embed-responsive-item sticky-top" src="https://www.youtube.com/embed/QmpIu83Q02c?si=6AGFhTfe8df6MYrY" width={800} height={400} allow="accelerometer;autoplay;"></iframe>
-
                             <>
+
                                 <iframe className="embed-responsive-item " src={`${linkUrl}&autoplay=1&mute=1`} allow="autoplay;fullscreen; encrypted-media" id="main-live"></iframe>
 
                                 {/* <iframe width="1440" height="762" src={linkUrl}
