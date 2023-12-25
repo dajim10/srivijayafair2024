@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faLine } from '@fortawesome/free-brands-svg-icons';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 const Register = () => {
     const navigate = useNavigate();
@@ -30,7 +32,7 @@ const Register = () => {
         })
             .then(res => {
                 console.log(res);
-                alert('ลงทะเบียนเรียบร้อยแล้ว');
+                Swal.fire("ลงทะเบียนสำเร็จ", "ระบบกำลังพาคุณไปหน้าล็อกอิน", "success");
                 navigate('/login');
             })
             .catch(err => {

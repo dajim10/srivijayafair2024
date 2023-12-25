@@ -62,29 +62,6 @@ const StarDown = () => {
 
     // }, []);
 
-
-    useEffect(() => {
-        const handleVisibilityChange = () => {
-            if (document.hidden) {
-                // Handle when the page is not visible
-                clearInterval(starsIntervalRef.current);
-                setStars([]); // Clear the existing stars
-            } else {
-                // Handle when the page becomes visible
-                // Restart the stars interval or perform other actions
-                starsIntervalRef.current = setInterval(generateStar, 1000);
-            }
-        };
-
-        document.addEventListener('visibilitychange', handleVisibilityChange);
-
-        return () => {
-            document.removeEventListener('visibilitychange', handleVisibilityChange);
-        };
-
-    }, []);
-
-
     useEffect(() => {
 
 
@@ -111,6 +88,30 @@ const StarDown = () => {
         starsIntervalRef.current = setInterval(generateStar, 1000);
 
     }, [isGamePaused, isPageVisible]);
+
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                // Handle when the page is not visible
+                clearInterval(starsIntervalRef.current);
+                setStars([]); // Clear the existing stars
+            } else {
+                // Handle when the page becomes visible
+                // Restart the stars interval or perform other actions
+                // starsIntervalRef.current = setInterval(generateStar(), 1000);
+            }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+
+    }, []);
+
+
+
 
     useEffect(() => {
         const moveStars = () => {

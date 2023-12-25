@@ -20,7 +20,7 @@ const Login = () => {
     const fetchFirstRecord = async () => {
         try {
             const record = await pb.collection('register').getFirstListItem(`phone="${phone}"`, {
-                expand: 'fullname,email,phone,email,address,score', // Add the fields you want to retrieve
+                expand: 'fullname,email,phone,email,address,score,spinCount', // Add the fields you want to retrieve
             });
 
             console.log('First Record:', record);
@@ -45,6 +45,7 @@ const Login = () => {
                     sessionStorage.setItem('address', record.address);
                     sessionStorage.setItem('score', record.score);
                     sessionStorage.setItem('id', record.id);
+                    sessionStorage.setItem('spinCount', record.spinCount);
                     // document.cookie = `phone=${phone};path=/`;
                     //
 
