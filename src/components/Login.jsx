@@ -5,6 +5,8 @@ const url = import.meta.env.VITE_POCKETBASE_URL;
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey, faHouse, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import Calendar from './Calendar';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 const pb = new PocketBase(url);
 
@@ -30,7 +32,12 @@ const Login = () => {
                 // Example: Check if the phone and email match certain conditions
                 if (record.phone === phone) {
                     // Perform successful login logic here
-                    console.log('Login successful!');
+                    // console.log('Login successful!');
+                    Swal.fire({
+                        title: "Srivijaya Fair 2024",
+                        text: "เข้าสู่ระบบสำเร็จ",
+                        icon: "success"
+                    });
                     setIsLogin(true);
                     setScore(record.score);
                     // try to set cookie
@@ -45,12 +52,12 @@ const Login = () => {
                     sessionStorage.setItem('address', record.address);
                     sessionStorage.setItem('score', record.score);
                     sessionStorage.setItem('id', record.id);
-                    sessionStorage.setItem('spinCount', record.spinCount);
+                    sessionStorage.setItem('spinCounter', record.spinCounter);
                     // document.cookie = `phone=${phone};path=/`;
                     //
 
                     window.location.reload();
-                    navigate('/');
+                    // navigate('/');
                     // how to refresh for useEffect in app.js take an effect
 
 
@@ -61,7 +68,9 @@ const Login = () => {
                 console.log('Login failed. User not found.');
             }
         } catch (error) {
-            console.error('Error fetching first record:', error);
+            // console.error('Error fetching first record:', error);
+            Swal.fire("เข้าระบบไม่สำเร็จ กรุณาตรวจสอบเบอร์โทรศัพท์อีกครั้ง", "Login Fail", "error");
+            setPhone('');
         }
     };
 

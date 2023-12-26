@@ -218,15 +218,7 @@ const Slide = ({ facultyData }) => {
                         </div>
 
 
-                        {/* {item.program.map((item, index) => (
-                            <div className="row" key={index}>
-                                {JSON}
-                            </div>
-                        ))
 
-                        } */}
-
-                        {/* {JSON.stringify(item.expand.program)} */}
                         <div className="row" key={item.id}>
 
                             <div className='my-3 mt-5'>
@@ -234,8 +226,9 @@ const Slide = ({ facultyData }) => {
                             </div>
                             {typeof item.expand.program === 'object' ?
                                 item.expand.program.map((item, index) => (
-                                    <div className="col-6 mt-2" style={{ display: 'flex', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
-                                        <div key={index}
+                                    <div className="col-6 mt-2" style={{ display: 'flex', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }} key={item.id}>
+
+                                        <div
                                             onClick={() => {
 
                                                 handleShow(`${imageUrl}${item.collectionId}/${item.id}/${item.image}`)

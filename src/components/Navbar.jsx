@@ -8,6 +8,7 @@ import { client } from '../lib/pocketbase'
 const Navbar = ({ userName }) => {
     const [userScore, setUserScore] = useState(0);
     const phone = sessionStorage.getItem('phone');
+    const [spinCounter, setSpinCounter] = useState(0);
 
     useEffect(() => {
         setInterval(async () => {
@@ -23,6 +24,7 @@ const Navbar = ({ userName }) => {
 
                         setUserScore(existingRecord.score);
                         sessionStorage.setItem('score', existingRecord.score);
+                        sessionStorage.setItem('spinCounter', existingRecord.spinCounter);
                         // setIsLogin(true);
                     } else {
                         console.log('No existing record found. Proceeding to createMember...');
