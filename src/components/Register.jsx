@@ -6,6 +6,7 @@ import { faFacebook, faLine } from '@fortawesome/free-brands-svg-icons';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
+
 const Register = () => {
     const navigate = useNavigate();
     const [allowInput, setAllowInput] = useState(false);
@@ -40,6 +41,18 @@ const Register = () => {
             });
     };
 
+    const checkPhone = (phone) => {
+
+        if (phone.length !== 10) {
+            Swal.fire("เบอร์โทรศัพท์ไม่ถูกต้อง", "กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก", "error");
+            // document.getElementById('phone').focus();
+            setPhone('');
+
+        }
+
+
+    }
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,6 +63,8 @@ const Register = () => {
             if (existingRecord) {
                 alert('เบอร์โทรศัพท์นี้มีผู้ใช้งานแล้ว');
                 console.log(existingRecord)
+                document.getElementById('phone').focus();
+                return;
             } else {
                 console.log('No existing record found. Proceeding to createMember...');
             }
@@ -95,7 +110,7 @@ const Register = () => {
                 />
 
 
-                <input type="text" className="form-control" id="phone" placeholder="เบอร์โทรศัพท์" value={phone} onChange={(e) => setPhone(e.target.value)}
+                <input type="text" className="form-control" id="phone" placeholder="เบอร์โทรศัพท์" value={phone} onChange={(e) => setPhone(e.target.value)} onBlur={e => checkPhone(e.target.value)}
                     required
                 />
 

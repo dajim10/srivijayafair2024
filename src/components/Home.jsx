@@ -14,6 +14,7 @@ import Calendar from './Calendar'
 import { client } from '../lib/pocketbase'
 import BgIsland from '../assets/bgIsland.png'
 import AllFaculty from './AllFaculty'
+import GifImage from '../assets/gifImage.gif'
 
 
 
@@ -66,22 +67,12 @@ const Home = ({ counter }) => {
 
 
     return (
-        <>
+        <div className='container'>
             <div className="row">
                 {/* youtube window */}
                 <div className="col col-lg text-center">
                     <div className="embed-responsive embed-responsive-16by9">
                         {/* how to make ifrme responsive */}
-
-
-                        <div className='container float-right w-50 sticky-top'>
-
-                            {/* <button className={`btn my-2 ${IsCloseWindow ? "btn-dark" : "btn-danger"}`} onClick={handleCloseWindow}>
-                                {IsCloseWindow ? <FontAwesomeIcon icon={faBars} /> : <FontAwesomeIcon icon={faTimes} />}
-                            </button> */}
-                            {/* {IsCloseWindow ? 'เปิด' : 'ปิด'} */}
-
-                        </div>
 
                         <div className='container d-flex justify-content-end' style={{ marginTop: '-50px' }}>
                             <img src={starCute} alt="star cute" width={50} />
@@ -114,11 +105,22 @@ const Home = ({ counter }) => {
 
             </div >
 
-            <div className="container text-center" style={{ position: 'relative', marginTop: '-50px' }} id="cartoon-div">
-                <img src={Cartoon} alt="cartoon" className='img-fluid' />
+            {/* <div className="container text-center" style={{ position: 'relative', marginTop: '-50px', display: 'flex' }} id="cartoon-div"> */}
+            {/* <img src={Cartoon} alt="cartoon" className='img-fluid' /> */}
+            <div className="container text-center" style={{ position: 'relative', marginTop: '-50px' }}>
+
+
+                <div className="row mt-3">
+                    <div className="col">
+                        <img src={GifImage} alt="" className='img-fluid' />
+                    </div>
+                </div>
+
+
+
+
             </div>
-
-
+            {/* </div> */}
 
 
             <Calendar />
@@ -177,7 +179,7 @@ const Home = ({ counter }) => {
                 {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, et.</p> */}
                 <FontAwesomeIcon icon={faEye} className='text-dark p-2' />{"  "}{counter}
             </div>
-        </>
+        </div>
     )
 }
 

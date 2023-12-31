@@ -735,6 +735,39 @@ textarea {
     border-radius: 15px;
     
   }
+
+  .gitImage:hover {
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
+  
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+  .gitImage {
+    position: relative;
+    width: 10%;
+    justify-content: center;
+    margin:0 auto !important;
+    /* left:-20% !important; */
+    /* margin-right:80px; */
+    object-fit: cover;
+
+   
+  }
   
   @keyframes MoveUpDown {
     0%, 100% {
@@ -747,8 +780,16 @@ textarea {
   
   @media screen and (max-width: 720px) {
 
+    .gitImage {
+      
+      width: 20%;
+      /* width: 20%; */
+      /* object-fit: cover; */
+      /* margin-left:-20px auto !important; */
+      
+    }
 
-    .carousel-control-prev,
+.carousel-control-prev,
 .carousel-control-next {
   width: 2%;
 }
@@ -778,11 +819,11 @@ textarea {
     }
 
     #mainLogo {
-      width: 70%;
+      /* width: 20%;
       margin: 20px auto;
       align-items: center;
       display:flex;
-      justify-content: center;
+      justify-content: center; */
     }
 
     .nav-button {

@@ -28,6 +28,7 @@ import Trang360 from './pages/Trang360'
 import Nakorn360 from './pages/Nakorn360'
 import Admin from './components/Admin'
 import Vr360 from './components/Vr360'
+import UpdateAddressReward from './components/UpdateAddressReward'
 
 
 
@@ -156,9 +157,15 @@ const App = () => {
 
 
             <div className="row">
-                <div className="col col-lg-3 mx-auto">
+                <div className="col col-lg-3 col-md mx-auto">
                     <img src={Logo} alt="" className='img-fluid' id="mainLogo" />
 
+
+                </div>
+
+            </div>
+            <div className="row">
+                <div className="col mx-auto">
                     {isLogin &&
                         <div className='text-center mb-4'>
                             <Link to='/rewards' className="button-85 mb-3 " style={{ textDecoration: 'none' }}>ร่วมสนุกสุ่มของรางวัล </Link>
@@ -194,6 +201,7 @@ const App = () => {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/vr360/:faculty" element={<Vr360 />} />
                 <Route path="/program" element={<Program />} />
+                <Route path="/updateaddressreward" element={<UpdateAddressReward />} />
 
             </Routes>
 

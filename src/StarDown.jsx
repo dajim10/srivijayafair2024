@@ -72,8 +72,11 @@ const StarDown = () => {
                     id: Date.now(),
                     x: Math.floor(Math.random() * window.innerWidth),
                     y: 0,
-                    speed: Math.random() * 5 + 2,
+                    speed: 3,
+                    // speed: Math.random() * 15 + 2,
+
                 };
+
 
                 setStars(prevStars => {
                     const updatedStars = [...prevStars, newStar].slice(-maxStars);

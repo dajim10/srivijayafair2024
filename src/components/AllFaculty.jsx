@@ -90,7 +90,7 @@ const AllFaculty = ({ faculty }) => {
 
     return (
 
-        <>
+        <div className='container'>
 
 
             <div className="container-fluid  py-2 rounded-5 shadow text-center sticky-bottom" style={{ backgroundColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(10px)' }}>
@@ -154,7 +154,7 @@ const AllFaculty = ({ faculty }) => {
 
 
 
-        </>
+        </div>
     )
 }
 

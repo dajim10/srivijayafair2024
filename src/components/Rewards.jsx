@@ -7,31 +7,33 @@ import boyCry from '../assets/boyCry.png';
 import boom from '../assets/boom.jpg';
 import tryagain from '../assets/tryagain.jpg';
 import { client } from '../lib/pocketbase'
-import PocketBase from 'pocketbase';
+// import PocketBase from 'pocketbase';
 import Swal from 'sweetalert2/dist/sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
-
-
-
+import { useNavigate } from 'react-router-dom';
 
 
 const Rewards = () => {
+    const navigate = useNavigate();
     const [rotations, setRotations] = useState([]);
     const [currentRotationIndex, setCurrentRotationIndex] = useState(0);
     const [rotation, setRotation] = useState(0);
     const [score, setScore] = useState(0);
     const [spinCount, setSpinCount] = useState(0);
     const [getRewards, setGetRewards] = useState(0);
-    const [arrowVisible, setArrowVisible] = useState(true);
+    const [arrowVisible, setArrowVisible] = useState(false);
     const [userName, setUserName] = useState(sessionStorage.getItem('fullname') || 'เข้าสู่ระบบ');
     const phone = useState(sessionStorage.getItem('phone'));
     const [spinCounter, setSpinCouter] = useState(sessionStorage.getItem('spinCounter'));
     // const userId = useState(sessionStorage.getItem('id'));
-
+    // กำหนด array ของรางวัล
+    const stock = [];
     const [isLogin, setIsLogin] = useState(false);
     const [spinning, setSpinning] = useState(false);
     const [starPoint, setStarPoint] = useState(0);
-    const [existingReward, setExistingReward] = useState(true);
+    const [existingReward, setExistingReward] = useState(null);
+    const [house, setHouse] = useState('');
+
 
 
     const checkRewards = async () => {
@@ -56,7 +58,19 @@ const Rewards = () => {
     };
 
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
+    };
+
+
+
+    useEffect(() => {
+        setInterval(() => {
+            setScore(sessionStorage.getItem('score'));
+            setSpinCouter(sessionStorage.getItem('spinCounter'));
+        }, 1000);
+    }, []);
 
 
 
@@ -102,19 +116,20 @@ const Rewards = () => {
     }, []);
 
     useEffect(() => {
+        setInterval(() => {
+            client.collection('statusgame').getList(1)
+                .then(res => {
 
-        client.collection('statusgame').getList(1)
-            .then(res => {
-
-                setStarPoint(res.items[0].starPoint);
-                console.log('starPoint : ', res.items[0].starPoint);
+                    setStarPoint(res.items[0].starPoint);
+                    sessionStorage.setItem('starPoint', res.items[0].starPoint);
+                    // console.log('starPoint : ', res.items[0].starPoint);
 
 
-            })
-            .catch(err => {
-                console.log(err);
-            });
-
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }, 1000);
 
     }, [])
 
@@ -122,7 +137,7 @@ const Rewards = () => {
         const numRotations = 10000;
         // const weights = [0, 0, 0, 0, 0, 0.05, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         // const weights = [0, 0, 0, 0, 0, 0.1, 0, 0, 0.1, 0, 0.1, 0, 0, 0, 0, 0, 0, 0];
-        const weights = [1, 5, 9, 0.1, 0.3, 0.1];
+        const weights = [1, 1, 1, 0.1, 0.1, 0.1];
 
 
         const rng = seedrandom('yourSeed');
@@ -139,27 +154,58 @@ const Rewards = () => {
 
     const handleSpin = async () => {
 
-        setSpinning(true);
-        setScore((prevScore) => prevScore - starPoint);
-        setSpinCouter((prevSpinCounter) => prevSpinCounter + 1);
-        client.collection('register').update(sessionStorage.getItem('id'), {
-            score: score - starPoint,
-            spinCounter: spinCounter + 1,
-        });
+        // fetch stock status = true
+        fetch(`https://sathern.rmutsv.ac.th:8077/api/collections/stock/records?filter=(status=true)`).then((response) => response.json())
+            .then((data) => {
+                const result = data.items;
+
+                stock.push(result);
+
+            }
+            )
+            .catch((error) => {
+                console.error('Error fetching spin result:', error);
+            });
+
+        // console.log(stock);
+        // ดึงค่าจาก stock มาแสดงเฉพาะที่เปิดใช้งานอยู่เท่านั้น
 
 
-        if (score <= 0) {
+        setScore(sessionStorage.getItem('score'));
+        console.log(typeof (score));
+
+        // if (score < starPoint) {
+        //     // alert('คะแนนของคุณไม่เพียงพอ');
+        //     Swal.fire({
+        //         title: "คะแนนของคุณไม่เพียงพอ",
+        //         text: "กรุณาเก็บดาวหรือแลกคะแนนก่อน",
+        //         icon: "warning"
+        //     });
+        //     return;
+        // }
+
+
+
+
+
+        if (score <= starPoint) {
             // exit, can't spin
             // alert('คะแนนของคุณหมดแล้ว');
-            // Swal.fire({
-            //     title: "คะแนนของคุณหมดแล้ว",
-            //     text: "กรุณาเก็บดาวหรือแลกคะแนนก่อน",
-            //     icon: "warning"
-            // });
+            Swal.fire({
+                title: "คะแนนของคุณหมดแล้ว",
+                text: "กรุณาเก็บดาวหรือแลกคะแนนก่อน",
+                icon: "warning"
+            });
 
-            // setArrowVisible(false);
+            setArrowVisible(false);
             return;
         } else {
+            setScore((prevScore) => prevScore - starPoint);
+            setSpinCouter((prevSpinCounter) => prevSpinCounter + 1);
+            client.collection('register').update(sessionStorage.getItem('id'), {
+                score: score - starPoint,
+                spinCounter: spinCounter + 1,
+            });
 
             // before spin check user get reward first before spin
 
@@ -168,9 +214,10 @@ const Rewards = () => {
             // test set existingReward === true
             // setExistingReward(true);
 
-            if (existingReward === true || existingReward === null) {
-                // setArrowVisible(true);
-                setGetRewards(0);
+
+            if (existingReward === true || existingReward === null) { // ไม่มีสิทธิลุ้นรางวัล ใช้ Array ของรางวัลที่ไม่มีรางวัล
+                setArrowVisible(true);
+                // setGetRewards(true);
                 await fetch('https://sathern.rmutsv.ac.th:8077/api/collections/gamecontrol/records')
                     .then((response) => response.json())
                     .then((data) => {
@@ -178,21 +225,13 @@ const Rewards = () => {
                         const weights = [1, 3, 3, 0.1, 0.1, 0.1];
                         const nextRotation = result[Math.floor(Math.random() * weights.length)];
                         // find nextRotation in stock 
+                        console.log('ไม่น่าจะได้รางวัล')
                         setRotation(0); // Reset rotation to start from the first position
 
                         const spinDuration = 3000; // Adjust the spinDuration based on your preferences
 
                         // Calculate the spinStep based on the duration and nextRotation
-                        const spinStep = (nextRotation / spinDuration) * 25; // 16ms is approximately one frame
-                        // const spinStep = spinDuration * 16;
-
-                        // console.log(spinStep);
-
-
-                        // test spinStep
-
-
-                        //
+                        const spinStep = (nextRotation / spinDuration) * 25; // 16ms is 
                         const animateSpin = () => {
                             setRotation((prevRotation) => {
                                 const newRotation = prevRotation + spinStep;
@@ -202,8 +241,10 @@ const Rewards = () => {
                                     setTimeout(animateSpin, 16); // Schedule the next frame
                                 } else {
                                     // Snap to the exact stop position
-                                    // setSpinning(false);
+
                                     setRotation(nextRotation);
+
+
 
                                     // Spin is complete
                                     setGetRewards((prevReward) => prevReward + nextRotation);
@@ -233,9 +274,10 @@ const Rewards = () => {
                     .then((response) => response.json())
                     .then((data) => {
                         const result = data.items[0].stopposition;
+                        console.log(result)
                         const nextRotation = result[Math.floor(Math.random() * result.length)];
                         // find nextRotation in stock collection
-                        // console.log(nextRotation);
+                        console.log(nextRotation);
                         // setSpinning(false);
 
 
@@ -250,7 +292,7 @@ const Rewards = () => {
                         // const spinStep = spinDuration * 16;
 
                         // console.log(spinStep);
-
+                        console.log('มีสิทธิ์ลุ้นรางวัล')
 
                         // test spinStep
 
@@ -298,17 +340,27 @@ const Rewards = () => {
                                         rewardId: stockId,
                                         phone: sessionStorage.getItem('phone'),
                                         fullname: sessionStorage.getItem('fullname'),
-
+                                        house: house
                                     });
+
+
+
+
                                     if (res.type === 1) {
                                         setTimeout(() => {
                                             Swal.fire({
-                                                title: "ยินดีด้วย",
-                                                text: "คุณได้รับรางวัลแล้ว",
+                                                title: "ยินดีด้วยคุณได้รับ",
+                                                text: res.name,
                                                 icon: "success",
-                                                html: `<img src=${import.meta.env.VITE_POCKETBASE_FILE_URL}/${res.collectionId}/${res.id}/${res.image} width="200px" height="200px" /> <br/> <h3>${res.name}</h3>`
+                                                confirmButtonText: "ตกลง",
+                                                html: `<img src="${import.meta.env.VITE_POCKETBASE_FILE_URL}${res.collectionId}/${res.id}/${res.image}" width="200px" />`,
                                             });
+                                            const id = sessionStorage.getItem('id');
+                                            navigate(`/updateaddressreward/${id}`);
                                         }, 5000);
+                                        setSpinning(false);
+                                        setExistingReward(true);
+
                                     }
 
                                 }
@@ -381,19 +433,14 @@ const Rewards = () => {
 
                 </div>
 
-                {/* <section
-                        className={`spin-button ${spinning ? 'spinning' : ''}`}
-                        onClick={handleSpin}
-                    ></section> */}
 
-                {/* <section className="spin-button" onClick={handleSpin}></section> */}
             </div>
 
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '30px' }}>
 
                 <button id="spin" className="button-container-reward" onClick={handleSpin}>
-                    {/* {!spinning ? 'หมุนวงล้อ' : 'กำลังหมุน...'} */} หมุนวงล้อ
+                    {!spinning ? 'หมุนวงล้อ' : 'กำลังหมุน...'}
 
                 </button>
             </div>
