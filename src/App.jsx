@@ -157,7 +157,7 @@ const App = () => {
 
 
             <div className="row">
-                <div className="col col-lg-3 col-md mx-auto">
+                <div className="col col-lg-3 col-md mx-auto mt-5">
                     <img src={Logo} alt="" className='img-fluid' id="mainLogo" />
 
 

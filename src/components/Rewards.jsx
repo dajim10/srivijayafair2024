@@ -11,6 +11,7 @@ import { client } from '../lib/pocketbase'
 import Swal from 'sweetalert2/dist/sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import { useNavigate } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
 
 
 const Rewards = () => {
@@ -24,7 +25,10 @@ const Rewards = () => {
     const [arrowVisible, setArrowVisible] = useState(false);
     const [userName, setUserName] = useState(sessionStorage.getItem('fullname') || 'เข้าสู่ระบบ');
     const phone = useState(sessionStorage.getItem('phone'));
-    const [spinCounter, setSpinCouter] = useState(sessionStorage.getItem('spinCounter'));
+    const [stockId, setStockId] = useState([0]);
+
+    const [spinCounter, setSpinCouter] = useState(parseInt(sessionStorage.getItem('spinCounter')));
+
     // const userId = useState(sessionStorage.getItem('id'));
     // กำหนด array ของรางวัล
     const stock = [];
@@ -33,7 +37,13 @@ const Rewards = () => {
     const [starPoint, setStarPoint] = useState(0);
     const [existingReward, setExistingReward] = useState(null);
     const [house, setHouse] = useState('');
-
+    const [road, setRoad] = useState('');
+    const [subDistrict, setSubDistrict] = useState('');
+    const [district, setDistrict] = useState('');
+    const [province, setProvince] = useState('');
+    const [postalCode, setPostalCode] = useState('');
+    const [modalShow, setModalShow] = useState(false);
+    const [arrayReward, setArrayReward] = useState([0, 1, 2, 3, 4, 5]);
 
 
     const checkRewards = async () => {
@@ -60,6 +70,31 @@ const Rewards = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        await client.collection('userRewards').create({
+            userId: sessionStorage.getItem('id'),
+            rewardId: stockId,
+            phone: sessionStorage.getItem('phone'),
+            fullname: sessionStorage.getItem('fullname'),
+            house: house,
+            road: road,
+            subDistrict: subDistrict,
+            district: district,
+            province: province,
+            postalCode: postalCode,
+        });
+        setModalShow(false);
+        // clear state
+        setHouse('');
+        setRoad('');
+        setSubDistrict('');
+        setDistrict('');
+        setProvince('');
+        setPostalCode('');
+        Swal.fire({
+            title: "บันทึกข้อมูลสำเร็จ",
+            text: "ขอบคุณที่ใช้บริการ",
+            icon: "success"
+        });
 
     };
 
@@ -131,6 +166,7 @@ const Rewards = () => {
                 });
         }, 1000);
 
+
     }, [])
 
     const generateRandomRotations = () => {
@@ -160,6 +196,10 @@ const Rewards = () => {
                 const result = data.items;
 
                 stock.push(result);
+                console.log('stock : ', stock);
+                stock.map((item) => {
+                    console.log(item.stopposition);
+                });
 
             }
             )
@@ -201,10 +241,11 @@ const Rewards = () => {
             return;
         } else {
             setScore((prevScore) => prevScore - starPoint);
-            setSpinCouter((prevSpinCounter) => prevSpinCounter + 1);
+            setSpinCouter((prevSpinCounter) => parseInt(prevSpinCounter) + 1);
             client.collection('register').update(sessionStorage.getItem('id'), {
                 score: score - starPoint,
-                spinCounter: spinCounter + 1,
+                spinCounter: parseInt(spinCounter) + 1,
+
             });
 
             // before spin check user get reward first before spin
@@ -215,10 +256,14 @@ const Rewards = () => {
             // setExistingReward(true);
 
 
+
+
+
+
             if (existingReward === true || existingReward === null) { // ไม่มีสิทธิลุ้นรางวัล ใช้ Array ของรางวัลที่ไม่มีรางวัล
                 setArrowVisible(true);
                 // setGetRewards(true);
-                await fetch('https://sathern.rmutsv.ac.th:8077/api/collections/gamecontrol/records')
+                await fetch(`${import.meta.env.VITE_POCKETBASE_URL}api/collections/gamecontrol/records`)
                     .then((response) => response.json())
                     .then((data) => {
                         const result = data.items[1].stopposition;
@@ -270,7 +315,7 @@ const Rewards = () => {
             } else {
                 // console.log(existingReward);
                 // Request spin result from the server
-                await fetch('https://sathern.rmutsv.ac.th:8077/api/collections/gamecontrol/records')
+                await fetch(`${import.meta.env.VITE_POCKETBASE_URL}api/collections/gamecontrol/records`)
                     .then((response) => response.json())
                     .then((data) => {
                         const result = data.items[0].stopposition;
@@ -278,6 +323,7 @@ const Rewards = () => {
                         const nextRotation = result[Math.floor(Math.random() * result.length)];
                         // find nextRotation in stock collection
                         console.log(nextRotation);
+
                         // setSpinning(false);
 
 
@@ -321,11 +367,13 @@ const Rewards = () => {
                         };
 
                         animateSpin();
+
                         client.collection('stock').getFirstListItem(`stopposition=${nextRotation}`)
                             .then((res) => {
                                 // console.log(res);
                                 const stock = res.amount;
                                 const stockId = res.id;
+                                setStockId(stockId);
 
 
 
@@ -335,15 +383,15 @@ const Rewards = () => {
 
                                         amount: stock - 1,
                                     });
-                                    client.collection('userRewards').create({
-                                        userId: sessionStorage.getItem('id'),
-                                        rewardId: stockId,
-                                        phone: sessionStorage.getItem('phone'),
-                                        fullname: sessionStorage.getItem('fullname'),
-                                        house: house
-                                    });
 
+                                    // client.collection('userRewards').create({
+                                    //     userId: sessionStorage.getItem('id'),
+                                    //     rewardId: stockId,
+                                    //     phone: sessionStorage.getItem('phone'),
+                                    //     fullname: sessionStorage.getItem('fullname'),
+                                    // });
 
+                                    console.log(res.type)
 
 
                                     if (res.type === 1) {
@@ -356,7 +404,11 @@ const Rewards = () => {
                                                 html: `<img src="${import.meta.env.VITE_POCKETBASE_FILE_URL}${res.collectionId}/${res.id}/${res.image}" width="200px" />`,
                                             });
                                             const id = sessionStorage.getItem('id');
-                                            navigate(`/updateaddressreward/${id}`);
+                                            // Open the modal
+
+                                            setModalShow(true);
+
+                                            // navigate(`/updateaddressreward/`);
                                         }, 5000);
                                         setSpinning(false);
                                         setExistingReward(true);
@@ -444,6 +496,96 @@ const Rewards = () => {
 
                 </button>
             </div>
+            {modalShow && <Modal
+                show={modalShow}
+                // onHide={() => setModalShow(false)}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <h5 className='text-center my-3'>กรุณากรอกที่อยู่เพื่อรับรางวัล</h5>
+                <form onSubmit={handleSubmit} className='p-3'>
+                    <div className="form-group">
+
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="house"
+                            placeholder="บ้านเลขที่"
+                            value={house}
+                            onChange={(e) => setHouse(e.target.value)}
+                            required
+                        />
+
+                    </div>
+                    <div className="form-group">
+
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="road"
+                            placeholder="ถนน"
+                            value={road}
+                            onChange={(e) => setRoad(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="subDistrict"
+                            placeholder="ตำบล"
+                            value={subDistrict}
+                            onChange={(e) => setSubDistrict(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="district"
+                            placeholder="อำเภอ"
+                            value={district}
+                            onChange={(e) => setDistrict(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="province"
+                            placeholder="จังหวัด"
+                            value={province}
+                            onChange={(e) => setProvince(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="postalCode"
+                            placeholder="รหัสไปรษณีย์"
+                            value={postalCode}
+                            onChange={(e) => setPostalCode(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group mt-2">
+                        <input type="submit" value="ตกลง" className='btn btn-primary' />
+                    </div>
+                </form>
+
+            </Modal>}
+
+
 
         </>
 

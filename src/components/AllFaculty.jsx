@@ -93,7 +93,7 @@ const AllFaculty = ({ faculty }) => {
         <div className='container'>
 
 
-            <div className="container-fluid  py-2 rounded-5 shadow text-center sticky-bottom" style={{ backgroundColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(10px)' }}>
+            <div className="container-fluid  py-2 rounded-5 shadow text-center " style={{ backgroundColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(10px)' }}>
 
 
 
@@ -127,7 +127,7 @@ const AllFaculty = ({ faculty }) => {
                             <span>มทร.ศรีวิชัย</span>
                             <h3>นครศรีฯ</h3>
                         </Link>
-                        <Link to="/vr360/nakorn">
+                        <Link to="https://my.treedis.com/tour/nakhon-c2a9f3f5?fbclid=IwAR3MET9dgrHL0EpzHNLdBgg_C1LaaFkp154ScwSBYDfCA_hRPC9D6F0D4IM" target='_blank'>
                             <div className={`${facultyName === 'nakorn' ? 'd-block' : 'd-none'}`}>
                                 <img src={icon360} alt="" width={100} />
                             </div>

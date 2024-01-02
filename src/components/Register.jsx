@@ -96,9 +96,10 @@ const Register = () => {
 
                 <select className="form-control rounded-pill" id="register_type" required style={{ fontSize: '20px' }} onChange={e => setRegister_type(e.target.value)} >
                     <option value="1">บุคคลทั่วไป</option>
-                    <option value="2">บุคลากรมหาวิทยาลัย</option>
-                    <option value="3">นักเรียน-นักศึกษา</option>
-                    {/* <option value="3">ศิษย์เก่า</option> */}
+                    <option value="2">นักเรียน-นักศึกษา</option>
+                    <option value="3">บุคลากรมทร.ศรีวิชัย</option>
+                    <option value="4">นักศึกษามทร.ศรีวิชัย</option>
+
                 </select>
 
 
