@@ -207,7 +207,13 @@ const App = () => {
 
             </Routes>
 
-
+            <footer className='sticky-bottom'>
+                <div className="row">
+                    <div className="col text-center">
+                        <p className='text-dark'>© 2024 Srivijaya Fair  15-19 January 2024</p>
+                    </div>
+                </div>
+            </footer>
         </div>
     )
 }

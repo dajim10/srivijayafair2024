@@ -853,7 +853,7 @@ textarea {
 
     #mainLogo {
       width: 50%;
-      margin: 0 auto;
+      margin: 20px auto;
       align-items: center;
       display:flex;
       justify-content: center;
