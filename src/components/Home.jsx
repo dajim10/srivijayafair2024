@@ -14,7 +14,9 @@ import Calendar from './Calendar'
 import { client } from '../lib/pocketbase'
 import BgIsland from '../assets/bgIsland.png'
 import AllFaculty from './AllFaculty'
-import GifImage from '../assets/gifImage.gif'
+import GifImage from '../assets/12.gif'
+import Check from '../assets/check.png'
+import { Modal } from 'react-bootstrap'
 
 
 
@@ -25,6 +27,7 @@ const Home = ({ counter }) => {
     const navigate = useNavigate();
     const [IsCloseWindow, setIsCloseWindow] = useState(false)
     const [linkUrl, setLinkUrl] = useState('')
+    const [showModal, setShowModal] = useState(false)
 
 
     const styles = {
@@ -48,6 +51,9 @@ const Home = ({ counter }) => {
         setIsCloseWindow(!IsCloseWindow)
     }
 
+    const handleShowModal = () => {
+        setShowModal(!showModal)
+    }
 
 
     useEffect(() => {
@@ -119,6 +125,9 @@ const Home = ({ counter }) => {
 
 
 
+
+
+
             </div>
             {/* </div> */}
 
@@ -176,6 +185,29 @@ const Home = ({ counter }) => {
             {/* } */}
 
             <div className="d-flex justify-content-center align-items-center text-center">
+
+                <Link to="/gauge">
+                    {/* <img src={Check} alt="" id="check" onClick={() => setShowModal(true)} /> */}
+                    <img src={Check} alt="" id="check" />
+                </Link>
+
+                <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+                    <Modal.Body>
+                        <div className="row">
+                            <div className="col text-center">
+                                <form className="form-group">
+                                    <h4>ประเมินความถึงพอใจ</h4>
+                                    <small className='text-muted'>ระดับความพึงพอใจ 5 = มากที่สุด 4 = มาก 3 = ปานกลาง 2 = น้อย <br />และ 1 = น้อยที่สุด</small>
+
+
+                                    <button className='btn-green mt-3 rounded-pill'>ตกลง</button>
+                                </form>
+                            </div>
+                        </div>
+                    </Modal.Body>
+                </Modal>
+
+
                 {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, et.</p> */}
                 <FontAwesomeIcon icon={faEye} className='text-dark p-2' />{"  "}{counter}
             </div>

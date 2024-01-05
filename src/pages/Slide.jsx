@@ -5,8 +5,9 @@ import { Modal } from 'react-bootstrap'
 import { Modal as Modal2 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import the FontAwesomeIcon component get close icon
 import { faClose, faChevronLeft, faChevronRight, } from '@fortawesome/free-solid-svg-icons';
+import { getCounter } from '../lib/getCounter'
 
-
+import { client } from '../lib/pocketbase';
 
 
 const responeSiveSwipeable = {
@@ -44,6 +45,8 @@ const responeSiveNonSwipeable = {
         slidesToSlide: 1,
     },
 };
+
+
 const arrowStyleNextTop = {
     position: 'absolute',
     right: '.25em',
@@ -101,9 +104,6 @@ const arrowStylePrev = {
 
 const Slide = ({ facultyData }) => {
 
-
-
-
     const imageUrl = import.meta.env.VITE_POCKETBASE_FILE_URL;
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
@@ -115,8 +115,17 @@ const Slide = ({ facultyData }) => {
     const [isDragging, setIsDragging] = useState(false);
     const [slideImage, setSlideImage] = useState([]);
     const [program, setProgram] = useState([]);
+    const [counter, setCounter] = useState(0);
+    const [programName, setProgramName] = useState('');
 
-    console.log(facultyData.program)
+    // console.log(facultyData.program)
+    // getCounter(facultyData.program).then(res => {
+    //     setCounter(res);
+    // });
+
+
+
+
 
     const handleDragStart = () => {
         setIsDragging(true);
@@ -126,19 +135,123 @@ const Slide = ({ facultyData }) => {
         setIsDragging(false);
     };
 
-    console.log(facultyData)
+    // console.log(facultyData)
 
-    const handleShow = (imageUrl, youtubeUrl, image2) => {
+    const handleShow = async (imageUrl, programName, id) => {
         setImage(imageUrl);
         setYoutubeUrl(youtubeUrl);
         setImage2(image2);
         setShowModal(true);
+        console.log(programName)
+        await getCounter(programName).then(res => {
+            setCounter(res);
+        });
+        const registerType = sessionStorage.getItem('register_type');
+        console.log(id)
+
+
+        const data = await client.collection('program').getFirstListItem(`id="${id}"`, {
+            expand: 'counter1,counter2,counter3,counter4,counter5',
+        }).then(res => {
+            // console.log(res)
+            return res;
+        })
+
+        // switch case 
+
+        switch (registerType) {
+            case '1':
+                await client.collection('program').update(id, {
+                    counter1: data.counter1 + 1
+                }).then(res => console.log(res))
+                    .catch(err => console.log(err))
+                break;
+            case '2':
+                await client.collection('program').update(id, {
+                    counter2: data.counter2 + 1
+                }).then(res => console.log(res))
+                    .catch(err => console.log(err))
+                break;
+            case '3':
+                await client.collection('program').update(id, {
+                    counter3: data.counter3 + 1
+                }).then(res => console.log(res))
+                    .catch(err => console.log(err))
+                break;
+            case '4':
+                await client.collection('program').update(id, {
+                    counter4: data.counter4 + 1
+                }).then(res => console.log(res))
+                    .catch(err => console.log(err))
+                break;
+            default:
+                await client.collection('program').update(id, {
+                    counter5: data.counter5 + 1
+                }).then(res => console.log(res))
+                    .catch(err => console.log(err))
+                break;
+
+        }
+
+
+
     };
 
 
-    const handleShow2 = (imageUrl) => {
+
+    const handleShow2 = async (imageUrl, facultyName, id) => {
         setImage(imageUrl);
         setShowModal2(true);
+        await getCounter(facultyName).then(res => {
+            setCounter(res);
+        });
+        const registerType = sessionStorage.getItem('register_type');
+        console.log(id)
+
+
+        const data = await client.collection('faculty').getFirstListItem(`id="${id}"`, {
+            expand: 'counter1,counter2,counter3,counter4,counter5',
+        }).then(res => {
+            // console.log(res)
+            return res;
+        })
+
+        // switch case 
+
+        switch (registerType) {
+            case '1':
+                await client.collection('faculty').update(id, {
+                    counter1: data.counter1 + 1
+                }).then(res => console.log(res))
+                    .catch(err => console.log(err))
+                break;
+            case '2':
+                await client.collection('faculty').update(id, {
+                    counter2: data.counter2 + 1
+                }).then(res => console.log(res))
+                    .catch(err => console.log(err))
+                break;
+            case '3':
+                await client.collection('faculty').update(id, {
+                    counter3: data.counter3 + 1
+                }).then(res => console.log(res))
+                    .catch(err => console.log(err))
+                break;
+            case '4':
+                await client.collection('faculty').update(id, {
+                    counter4: data.counter4 + 1
+                }).then(res => console.log(res))
+                    .catch(err => console.log(err))
+                break;
+            default:
+                await client.collection('faculty').update(id, {
+                    counter5: data.counter5 + 1
+                }).then(res => console.log(res))
+                    .catch(err => console.log(err))
+                break;
+
+        }
+
     };
 
     const handleClose = () => {
@@ -149,11 +262,15 @@ const Slide = ({ facultyData }) => {
         setShowModal2(false);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (facultyName) => {
         const registerId = sessionStorage.getItem('id');
-        console.log(registerId);
+        // console.log(registerId);
 
         if (registerId) {
+
+            getCounter('admission' + ':' + facultyName).then(res => {
+                setCounter(res);
+            });
             window.location.href = `https://admission.rmutsv.ac.th/check.php?id=${registerId}`;
         }
         else {
@@ -207,6 +324,7 @@ const Slide = ({ facultyData }) => {
     };
 
     const renderCustomNextArrowTop = (clickHandler, hasNext, label) => {
+
         return hasNext && (
             <button type="button"
                 onClick={clickHandler}
@@ -223,7 +341,7 @@ const Slide = ({ facultyData }) => {
     return (
         <>
             <ResponsiveCarousel
-                infiniteLoop={true}
+
                 renderArrowPrev={renderCustomPrevArrowTop}
                 renderArrowNext={renderCustomNextArrowTop}
 
@@ -235,6 +353,7 @@ const Slide = ({ facultyData }) => {
                 responsive={responeSiveNonSwipeable}
 
 
+
                 key={facultyData.campusID}   >
                 {facultyData.map((item, index) => (
                     <>
@@ -242,14 +361,15 @@ const Slide = ({ facultyData }) => {
                             <div className="col-sm-9 mx-auto" >
 
                                 <h5 className='p-3 text-center  text-light rounded-pill mt-2' style={{ backgroundColor: '#00154b' }}>{item.name}</h5>
-                                <iframe src={`${item.youtubeLink}&autoplay=1&mute=1`} id="main-live"></iframe>
+                                <iframe src={`${item.youtubeLink}&autoplay=1&mute=1`} id="main"></iframe>
                             </div>
 
                         </div>
+                        <div className="row text-center">
+                            <div className='col-md mx-auto my-3'>
+                                <button className='nav-button' onClick={handleSubmit}>สมัครเรียน</button>
 
-                        <div className='my-3'>
-                            <button className='nav-button' onClick={handleSubmit}>สมัครเรียน</button>
-                            <button className='nav-button'>ทดลองเรียน</button>
+                            </div>
                         </div>
 
 
@@ -266,8 +386,10 @@ const Slide = ({ facultyData }) => {
                                 swipeable={true}
                                 responsive={responeSiveSwipeable}
 
+
                             >
                                 {typeof item.expand.program === 'object' ?
+
                                     item.expand.program.map((item, index) => (
 
 
@@ -277,9 +399,12 @@ const Slide = ({ facultyData }) => {
                                             <div
                                                 onClick={() => {
 
-                                                    handleShow(`${imageUrl}${item.collectionId}/${item.id}/${item.image}`)
+
+                                                    handleShow(`${imageUrl}${item.collectionId}/${item.id}/${item.image}`, `${item.name}`, `${item.id}`)
                                                     setYoutubeUrl(item.youtubeLink)
                                                     setImage2(`${imageUrl}${item.collectionId}/${item.id}/${item.image2}`)
+
+                                                    setProgramName(item.name)
 
                                                 }
                                                 }
@@ -305,11 +430,15 @@ const Slide = ({ facultyData }) => {
                                 renderArrowNext={renderCustomNextArrow}
                                 swipeable={true}
                                 transitionTime={500}
-                                responsive={responeSiveSwipeable}
+                                responsive={responeSiveNonSwipeable}
+                                showIndicators={false}
+
 
                             >
+
+                                {/* ของเดิมแบบทีละภาพ */}
                                 {item.slideImage.map((image, imageIndex) => (
-                                    <div className="col-lg-6 mx-auto p-2" key={imageIndex} onClick={() => handleShow2(`${imageUrl}${item.collectionId}/${item.id}/${image}`)}>
+                                    <div className="col-lg-4 mx-auto  p-2" key={imageIndex} onClick={() => handleShow2(`${imageUrl}${item.collectionId}/${item.id}/${image}`, `${item.name}`, `${item.id}`)}>
                                         <img
                                             src={`${imageUrl}${item.collectionId}/${item.id}/${image}`}
                                             alt={`Slide Image ${imageIndex}`}
@@ -318,15 +447,15 @@ const Slide = ({ facultyData }) => {
                                         />
                                     </div>
                                 ))}
-                            </ResponsiveCarousel>
-                        </div>
 
 
 
-
-
+                            </ResponsiveCarousel >
+                        </div >
                     </>
                 ))
+
+
                 }
 
 
@@ -337,7 +466,8 @@ const Slide = ({ facultyData }) => {
             ))} */}
 
 
-            <Modal Modal show={showModal} onHide={handleClose} style={{ backgroundColor: 'rgba(255,255,255,0.2)', width: '100vw', backdropFilter: 'blur(10px)' }}>
+            <Modal show={showModal} onHide={handleClose} style={{ backgroundColor: 'rgba(255,255,255,0.2)', width: '100vw', backdropFilter: 'blur(10px)' }
+            }>
                 {/* <Modal.Header closeButton>
                     <Modal.Title>Large Image</Modal.Title>
                 </Modal.Header> */}
@@ -373,6 +503,7 @@ const Slide = ({ facultyData }) => {
 
 
 export default Slide
+
 
 
 

@@ -116,7 +116,8 @@ const AllFaculty = ({ faculty }) => {
                             <span>มทร.ศรีวิชัย</span>
                             <h3>ตรัง</h3>
                         </Link>
-                        <Link to="/vr360/trang">
+                        {/* <Link to="/vr360/trang"> */}
+                        <Link to="https://my.treedis.com/tour/trang-f06cc610?fbclid=IwAR29ffoGQLACWnSENUf1g4OE1tXgeHPRde8TaB3LZUBgee9kzcInKRSha-o" target='_blank'>
                             <div className={`${facultyName === 'trang' ? 'd-block' : 'd-none'}`}>
                                 <img src={icon360} alt="" width={100} />
                             </div>

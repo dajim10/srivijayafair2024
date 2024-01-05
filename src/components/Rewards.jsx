@@ -14,6 +14,9 @@ import { useNavigate } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 
 
+
+
+
 const Rewards = () => {
     const navigate = useNavigate();
     const [rotations, setRotations] = useState([]);
@@ -38,22 +41,90 @@ const Rewards = () => {
     const [existingReward, setExistingReward] = useState(null);
     const [house, setHouse] = useState('');
     const [road, setRoad] = useState('');
-    const [subDistrict, setSubDistrict] = useState('');
-    const [district, setDistrict] = useState('');
-    const [province, setProvince] = useState('');
-    const [postalCode, setPostalCode] = useState('');
+    const [zip_code, setZipCode] = useState('');
     const [modalShow, setModalShow] = useState(false);
-    const [arrayReward, setArrayReward] = useState([0, 1, 2, 3, 4, 5]);
+    const [arrayReward, setArrayReward] = useState([]);
+    const [showMessage, setShowMessage] = useState(false);
+    const [provinces, setProvinces] = useState([]);
+    const [province, setProvince] = useState('');
+    const [tambon, setTambon] = useState('');
+    const [amphure, setAmphure] = useState('');
+
+
+
+
+    // สร้าง Dropdown จังหวัด
+    const handleProvinceChange = (e) => {
+        const selectedProvince = e.target.value;
+        setProvince(selectedProvince);
+        // Reset amphure and tambon when province changes
+        setAmphure('');
+        setTambon('');
+    };
+
+    const handleAmphureChange = (e) => {
+        const selectedAmphure = e.target.value;
+        setAmphure(selectedAmphure);
+        // Reset tambon when amphure changes
+        setTambon('');
+    };
+
+    const handleTambonChange = (e) => {
+        const selectedTambon = e.target.value;
+        setTambon(selectedTambon);
+    };
+    // ***** สร้าง Dropdown จังหวัด *****
+
+
+    useEffect(() => {
+        if (showMessage === false) {
+            Swal.fire({
+                title: "กติกาการเล่น",
+                text: "ใช้ 50 คะแนนต่อครั้ง ในการหมุนวงล้อ  หากหมุนได้รางวัล กรุณากรอกที่อยู่เพื่อการจัดส่ง ",
+                icon: "info",
+                confirmButtonText: "ตกลง",
+            });
+            setShowMessage(true);
+        }
+    }, [showMessage]);
+
+    useEffect(() => {
+        (() => {
+            fetch(
+                "https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_province_with_amphure_tambon.json"
+            )
+                .then((response) => response.json())
+                .then((result) => {
+                    setProvinces(result);
+
+                });
+        })();
+    }, []);
+
+    useEffect(() => {
+        // Assuming you have a selectedTambon object with a zip_code property
+        const selectedTambon = provinces
+            .find((p) => p.name_th === province)
+            ?.amphure.find((a) => a.name_th === amphure)
+            ?.tambon.find((t) => t.name_th === tambon);
+
+        if (selectedTambon) {
+            setZipCode(selectedTambon.zip_code);
+        } else {
+            setZipCode('');
+        }
+    }, [province, amphure, tambon]);
 
 
     const checkRewards = async () => {
         const phone = sessionStorage.getItem('phone');
 
-        await fetch(`https://sathern.rmutsv.ac.th:8077/api/collections/userRewards/records?filter=phone='${phone}'`).then((res) => res.json())
+        await fetch(`${import.meta.env.VITE_POCKETBASE_URL}api/collections/userRewards/records?filter=phone='${phone}'`).then((res) => res.json())
             .then((data) => {
                 // console.log(data.items);
                 if (data.items.length > 0) {
                     // console.log(data)
+                    console.log('มีรางวัลแล้ว')
                     setExistingReward(true);
                 }
                 else {
@@ -67,6 +138,7 @@ const Rewards = () => {
 
     };
 
+    // บันทึกรายที่อยู่เพื่อรับรางวัล
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -77,19 +149,20 @@ const Rewards = () => {
             fullname: sessionStorage.getItem('fullname'),
             house: house,
             road: road,
-            subDistrict: subDistrict,
-            district: district,
+            tambon: tambon,
+            amphure: amphure,
             province: province,
-            postalCode: postalCode,
+            zip_code: zip_code,
         });
         setModalShow(false);
         // clear state
         setHouse('');
         setRoad('');
-        setSubDistrict('');
-        setDistrict('');
+        setTambon('');
+        setAmphure('');
         setProvince('');
-        setPostalCode('');
+
+        setZipCode('');
         Swal.fire({
             title: "บันทึกข้อมูลสำเร็จ",
             text: "ขอบคุณที่ใช้บริการ",
@@ -98,7 +171,7 @@ const Rewards = () => {
 
     };
 
-
+    // fetch score and spinCounter from pocketbase
 
     useEffect(() => {
         setInterval(() => {
@@ -150,6 +223,7 @@ const Rewards = () => {
         }
     }, []);
 
+    // fetch starPoint from pocketbase fetch ทุกๆ 1 วินาที
     useEffect(() => {
         setInterval(() => {
             client.collection('statusgame').getList(1)
@@ -169,6 +243,7 @@ const Rewards = () => {
 
     }, [])
 
+    // กำหนดค่าต่าง ๆ ในการหมุนวงล้อ
     const generateRandomRotations = () => {
         const numRotations = 10000;
         // const weights = [0, 0, 0, 0, 0, 0.05, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -191,15 +266,13 @@ const Rewards = () => {
     const handleSpin = async () => {
 
         // fetch stock status = true
-        fetch(`https://sathern.rmutsv.ac.th:8077/api/collections/stock/records?filter=(status=true)`).then((response) => response.json())
+        fetch(`${import.meta.env.VITE_POCKETBASE_URL}api/collections/stock/records?filter=(status=true)`).then((response) => response.json())
             .then((data) => {
                 const result = data.items;
 
                 stock.push(result);
                 console.log('stock : ', stock);
-                stock.map((item) => {
-                    console.log(item.stopposition);
-                });
+
 
             }
             )
@@ -530,52 +603,83 @@ const Rewards = () => {
                             required
                         />
                     </div>
-                    <div className="form-group">
 
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="subDistrict"
-                            placeholder="ตำบล"
-                            value={subDistrict}
-                            onChange={(e) => setSubDistrict(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
 
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="district"
-                            placeholder="อำเภอ"
-                            value={district}
-                            onChange={(e) => setDistrict(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
 
-                        <input
-                            type="text"
+                    <div className="form-group">
+                        <select
                             className="form-control"
                             id="province"
-                            placeholder="จังหวัด"
                             value={province}
-                            onChange={(e) => setProvince(e.target.value)}
+                            onChange={handleProvinceChange}
                             required
-                        />
+                            style={{ borderRadius: '50px', marginTop: '10px', fontSize: '21px' }}
+                        >
+                            <option value="">เลือกจังหวัด</option>
+                            {provinces.map((province) => (
+                                <option key={province.id} value={province.name_th}>
+                                    {province.name_th}
+                                </option>
+                            ))}
+                        </select>
                     </div>
+
+                    <div className="form-group">
+                        <select
+                            className="form-control"
+                            id="amphure"
+                            value={amphure}
+                            onChange={handleAmphureChange}
+                            required
+                            disabled={!province}
+                            style={{ borderRadius: '50px', marginTop: '10px', fontSize: '21px' }}
+                        >
+                            <option value="">เลือกอำเภอ</option>
+                            {provinces
+                                .find((p) => p.name_th === province)
+                                ?.amphure.map((amphure) => (
+                                    <option key={amphure.id} value={amphure.name_th}>
+                                        {amphure.name_th}
+                                    </option>
+                                ))}
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <select
+                            className="form-control "
+                            id="tambon"
+                            value={tambon}
+                            onChange={handleTambonChange}
+                            required
+                            disabled={!amphure}
+                            style={{ borderRadius: '50px', marginTop: '10px', fontSize: '21px' }}
+                        >
+                            <option value="">เลือกตำบล</option>
+                            {provinces
+                                .find((p) => p.name_th === province)
+                                ?.amphure.find((a) => a.name_th === amphure)
+                                ?.tambon.map((tambon) => (
+                                    <option key={tambon.id} value={tambon.name_th}>
+                                        {tambon.name_th}
+                                    </option>
+                                ))}
+                        </select>
+                    </div>
+
+
+                    {/*  */}
                     <div className="form-group">
 
                         <input
                             type="text"
                             className="form-control"
-                            id="postalCode"
+                            id="zip_code"
                             placeholder="รหัสไปรษณีย์"
-                            value={postalCode}
-                            onChange={(e) => setPostalCode(e.target.value)}
+                            value={zip_code}
+                            onChange={(e) => setZipCode(e.target.value)}
                             required
+                            readOnly
                         />
                     </div>
                     <div className="form-group mt-2">

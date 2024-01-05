@@ -120,7 +120,7 @@ const Register = () => {
                     value={email} onChange={(e) => setEmail(e.target.value)}
 
                 />
-                {register_type === '3' &&
+                {register_type === '2' &&
                     <input type="text" className="form-control" id="schoolName" placeholder="ชื่อโรงเรียน" required onChange={(e) => setSchool(e.target.value)} />
                 }
 
@@ -128,6 +128,7 @@ const Register = () => {
                     <h3>Social</h3>
                     <div className="form-group">
                         <FontAwesomeIcon icon={faFacebook} style={{ fontSize: '20px', color: 'blue' }} />
+
                         <input type="text" className="form-control" id="facebook" placeholder="Facebook" onChange={(e) => setFacebook(e.target.value)} />
                     </div>
                     <div className="form-group mt-2">

@@ -29,6 +29,7 @@ const Login = () => {
 
             // Perform login logic based on the retrieved record
             if (record) {
+                localStorage.setItem('phone', phone);
                 // Example: Check if the phone and email match certain conditions
                 if (record.phone === phone) {
                     // Perform successful login logic here
@@ -53,6 +54,7 @@ const Login = () => {
                     sessionStorage.setItem('score', record.score);
                     sessionStorage.setItem('id', record.id);
                     sessionStorage.setItem('spinCounter', record.spinCounter);
+                    sessionStorage.setItem('register_type', record.register_type);
                     // document.cookie = `phone=${phone};path=/`;
                     //
 

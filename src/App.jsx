@@ -29,6 +29,7 @@ import Nakorn360 from './pages/Nakorn360'
 import Admin from './components/Admin'
 import Vr360 from './components/Vr360'
 import UpdateAddressReward from './components/UpdateAddressReward'
+import Gauge from './components/Gauge'
 
 
 
@@ -157,7 +158,7 @@ const App = () => {
 
 
             <div className="row">
-                <div className="col col-lg-3 col-md mx-auto mt-5">
+                <div className="col text-center mx-auto mt-5">
                     <img src={Logo} alt="" className='img-fluid' id="mainLogo" />
 
 
@@ -202,6 +203,7 @@ const App = () => {
                 <Route path="/vr360/:faculty" element={<Vr360 />} />
                 <Route path="/program" element={<Program />} />
                 <Route path="/updateaddressreward" element={<UpdateAddressReward />} />
+                <Route path="/gauge" element={<Gauge />} />
 
             </Routes>
 

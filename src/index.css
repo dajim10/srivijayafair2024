@@ -47,6 +47,12 @@ body {
     
 }
 
+#main {
+  aspect-ratio: 16 / 9;
+  height: 80%;
+  width: 80%;
+}
+
 #mainContent {
 
   background-image: url('./assets/background_xl.png');
@@ -171,8 +177,8 @@ body {
 
 #main-live{
 	aspect-ratio: 16 / 9;
-	height: 80%;
-	width: 80%;
+	height: 90%;
+	width: 90%;
 }
 
 #iframe360 {
@@ -208,7 +214,11 @@ body {
   width: 100%;
 }
 
-input[type="text"],input[type="email"],input[type="password"] {
+
+
+input[type="text"],input[type="email"],input[type="password"]
+
+ {
   font-size:21px !important;
   border-radius: 50px;
   margin-top: 10px;
@@ -235,6 +245,10 @@ textarea {
   background-color: var(--var-green);
 
   
+}
+
+#check {
+  height:200px;
 }
 
 .star-container {
@@ -305,6 +319,8 @@ textarea {
   transition: opacity 0.3s ease-in-out;
   border-radius: 10px;
 }
+
+
 
 @keyframes glowing-button-85 {
   0% {
@@ -624,7 +640,8 @@ textarea {
   
   .center-mode-carousel .carousel-item > div {
     /* Adjust the width to control the visible portion of the next and previous slides */
-    width: 80%; /* Adjust as needed */
+    width: 80%; 
+    /* Adjust as needed */
     margin: 0 auto;
   }
   
@@ -768,6 +785,14 @@ textarea {
 
    
   }
+
+  #mainLogo {
+    width: 30%;
+    margin: 20px auto;
+    align-items: center;
+    display:flex;
+    justify-content: center;
+  }
   
   @keyframes MoveUpDown {
     0%, 100% {
@@ -789,12 +814,20 @@ textarea {
       
     }
 
-.carousel-control-prev,
+    #check {
+      position: fixed;
+      top: 50%;
+      right: -10%;
+      transform: translate(-50%, -0%);
+      height:100px;
+    }
+
+/* .carousel-control-prev,
 .carousel-control-next {
   width: 2%;
-}
+} */
 
-.carousel-control-prev-icon,
+/* .carousel-control-prev-icon,
 .carousel-control-next-icon {
 
   background-color: #ffcc00;
@@ -816,14 +849,14 @@ textarea {
     .image-container img {
       width: 100%;
       height: auto;
-    }
+    } */
 
     #mainLogo {
-      /* width: 20%;
-      margin: 20px auto;
+      width: 50%;
+      margin: 0 auto;
       align-items: center;
       display:flex;
-      justify-content: center; */
+      justify-content: center;
     }
 
     .nav-button {
@@ -836,10 +869,18 @@ textarea {
     .score {
       font-size: 1rem;
     }
-    #main-live {
+
+    
+
+    #main {
       aspect-ratio: 16 / 9;
       height: 80%;
       width: 80%;
+    }
+    #main-live {
+      aspect-ratio: 16 / 9;
+      height: 100%;
+      width: 100%;
 
     }
 
