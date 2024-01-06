@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Cartoon from '../assets/cartoon.png'
 import SongkhlaFaculty from '../assets/songkhlaIsland.png'
 import TrangFaculty from '../assets/trangIsland.png'
-import NakornFaculty from '../assets/nakornIsland.png'
+import NakornFaculty from '../assets/nakorn_island.png'
 import starCute from '../assets/starCute.png'
 
 import axios from 'axios'
@@ -147,20 +147,25 @@ const Home = ({ counter }) => {
             <div className="container-fluid "    >
 
 
-                <div className="row">
+                {/* <div className="row">
                     <div className="col-lg-6 col-md-6 col-sm-6 text-center  mx-auto">
                         <Link to="/allfaculty/songkhla">
                             <img src={SongkhlaFaculty} alt="songkhla" className='img-fluid' width={400} />
                         </Link>
                     </div>
-                </div>
+                </div> */}
 
-                <div className="row">
+                <div className="row mt-3">
 
 
 
                     <div className="col">
                         <div className="row">
+                            <div className="col  mx-auto">
+                                <Link to="/allfaculty/songkhla">
+                                    <img src={SongkhlaFaculty} alt="songkhla" className='img-fluid' width={400} />
+                                </Link>
+                            </div>
                             <div className="col text-center">
                                 <Link to="/allfaculty/trang">
                                     <img src={TrangFaculty} alt="trang" className='img-fluid' width={400} />
