@@ -8,6 +8,7 @@ import { faClose, faChevronLeft, faChevronRight, } from '@fortawesome/free-solid
 import { getCounter } from '../lib/getCounter'
 
 import { client } from '../lib/pocketbase';
+import { Link } from 'react-router-dom';
 
 
 const responeSiveSwipeable = {
@@ -75,6 +76,7 @@ const arrowStylePrevTop = {
 
 
 
+
 const arrowStyleNext = {
     position: 'absolute',
     right: '0',
@@ -117,6 +119,7 @@ const Slide = ({ facultyData }) => {
     const [program, setProgram] = useState([]);
     const [counter, setCounter] = useState(0);
     const [programName, setProgramName] = useState('');
+    const [ModalShow, setModalShow] = useState(false);
 
     // console.log(facultyData.program)
     // getCounter(facultyData.program).then(res => {
@@ -338,6 +341,50 @@ const Slide = ({ facultyData }) => {
         );
     };
 
+
+    const ModalCarousel = (item) => {
+        const data = item;
+        return (
+            <Modal show={ModalShow}>
+                <ResponsiveCarousel showThumbs={false}
+                    renderArrowPrev={renderCustomPrevArrow}
+                    renderArrowNext={renderCustomNextArrow}
+                    swipeable={true}
+                    transitionTime={500}
+                    responsive={responeSiveNonSwipeable}
+                    showIndicators={false}
+
+
+                >
+
+                    {/* ของเดิมแบบทีละภาพ */}
+                    {data.slideImage.map((image, imageIndex) => (
+                        // <div className="col-lg-4 mx-auto  p-2" key={imageIndex} onClick={() => handleShow2(`${imageUrl}${item.collectionId}/${item.id}/${image}`, `${item.name}`, `${item.id}`)}>
+                        <div className='col-lg-6 mx-auto p-2' key={imageIndex}
+                            onClick={() => {
+
+                                // setModalShow(true)
+                                ModalCarousel(item)
+                            }
+                            }
+                        >
+                            <img
+                                src={`${imageUrl}${item.collectionId}/${item.id}/${image}`}
+                                alt={`Slide Image ${imageIndex}`}
+                                className="img-fluid  rounded-5"
+
+                            />
+                        </div>
+                    ))}
+
+
+
+                </ResponsiveCarousel >
+            </Modal>
+        )
+
+    }
+
     return (
         <>
             <ResponsiveCarousel
@@ -368,8 +415,13 @@ const Slide = ({ facultyData }) => {
                         <div className="row text-center">
                             <div className='col-md mx-auto my-3'>
                                 <button className='nav-button' onClick={handleSubmit}>สมัครเรียน</button>
-
+                                {item.facebookLink === '' ? null :
+                                    <a href={`${item.facebookLink}`} target="_blank">
+                                        <button className='nav-button' >สอบถามข้อมูลเพิ่มเติม</button>
+                                    </a>
+                                }
                             </div>
+
                         </div>
 
 
@@ -439,6 +491,9 @@ const Slide = ({ facultyData }) => {
                                 {/* ของเดิมแบบทีละภาพ */}
                                 {item.slideImage.map((image, imageIndex) => (
                                     <div className="col-lg-4 mx-auto  p-2" key={imageIndex} onClick={() => handleShow2(`${imageUrl}${item.collectionId}/${item.id}/${image}`, `${item.name}`, `${item.id}`)}>
+                                        {/* <div className='col-lg-6 mx-auto p-2' key={imageIndex}
+                                         onClick={() => ModalCarousel(item)}
+                                     > */}
                                         <img
                                             src={`${imageUrl}${item.collectionId}/${item.id}/${image}`}
                                             alt={`Slide Image ${imageIndex}`}
@@ -503,9 +558,3 @@ const Slide = ({ facultyData }) => {
 
 
 export default Slide
-
-
-
-
-
-

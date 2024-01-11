@@ -107,19 +107,39 @@ const Activiry = () => {
 
             {/* end calendar */}
             <div className="container p-3 rounded" id="activity">
-                <h1 className="text-center">กิจกรรมวันที่ {day}</h1>
-                <div className="row">
-                    <div className="col text-center" >
-                        {activity.map((activity, index) => (
+                <h3 className="text-center">กิจกรรมวันที่ {day}</h3>
+                <div className="row glass p-3">
+                    {/* <div className="col text-center" > */}
+                    {/* {activity.map((activity, index) => ( */}
+                    <>
+                        {/* <div className="d-flex flex-column justify-content-center align-items-center">
+                                <div >{activity.time}</div>
 
-                            <div className="card m-2 p-2 " key={index}>
-                                <h5 className={activity.active ? 'active' : null}>{activity.event}</h5>
-                                <p>{activity.time}</p>
-
+                                <div >{activity.event}</div>
                             </div>
+                            <hr /> */}
+                        {/* change this to table please */}
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th width="150px">Time</th>
+                                    <th>Event</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {activity.map((activity, index) => (
+                                    <tr key={index} className={index % 2 === 0 ? '' : 'table-success'}>
+                                        <td>{activity.time}</td>
+                                        <td>{activity.event}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </>
 
-                        ))}
-                    </div>
+
+                    {/* ))} */}
+
 
                 </div>
             </div>

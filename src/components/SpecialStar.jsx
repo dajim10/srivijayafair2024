@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { client } from '../lib/pocketbase';
+import star from '../assets/star.png';
 
 const SpecialStar = () => {
 

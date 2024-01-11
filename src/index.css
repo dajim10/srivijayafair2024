@@ -30,7 +30,7 @@
     box-sizing: border-box;
     /* font-family: 'Noto Sans Thai', sans-serif; */
     font-family: 'Prompt', sans-serif;
-    cursor: url('./assets/cursor_50.png'), auto;
+    /* cursor: url('./assets/cursor_50.png'), auto; */
 
 
 }
@@ -215,8 +215,23 @@ body {
 }
 
 
+input[type="radio"]  {
+  font-size:21px !important;
+  margin-right:20px;
+ 
+}
 
-input[type="text"],input[type="email"],input[type="password"]
+
+label {
+  margin:3px;
+  border:1px solid #cccccc4b;
+  padding:5px 10px;
+  
+  border-radius: 8px;
+}
+
+
+input[type="text"],input[type="email"],input[type="password"],input[type="number"],input[type="tel"]
 
  {
   font-size:21px !important;
@@ -229,7 +244,9 @@ input[type="checkbox"] {
 }
 
 label {
-  font-size:21px !important;
+  /* font-size:21px !important; */
+  margin-right:20px;
+  padding-right:20px;
 }
 
 
@@ -853,7 +870,7 @@ textarea {
 
     #mainLogo {
       width: 50%;
-      margin: 20px auto;
+      margin: 10px auto;
       align-items: center;
       display:flex;
       justify-content: center;

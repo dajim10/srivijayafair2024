@@ -17,6 +17,7 @@ import { client } from './lib/pocketbase'
 import Activity from './components/Activity'
 import Logo from './assets/Logo500.png'
 import Program from './pages/Program'
+import GiftBox from './assets/giftBox.png'
 
 import SlotMachine from './components/SlotMachine'
 import Game from './components/Game'
@@ -30,6 +31,7 @@ import Admin from './components/Admin'
 import Vr360 from './components/Vr360'
 import UpdateAddressReward from './components/UpdateAddressReward'
 import Gauge from './components/Gauge'
+import SurveyForm from './components/SurveyForm'
 
 
 
@@ -158,7 +160,7 @@ const App = () => {
 
 
             <div className="row">
-                <div className="col text-center mx-auto mt-5">
+                <div className="col text-center mx-auto mt-3">
                     <img src={Logo} alt="" className='img-fluid' id="mainLogo" />
 
 
@@ -166,10 +168,21 @@ const App = () => {
 
             </div>
             <div className="row">
-                <div className="col mx-auto">
+                <div className=" mx-auto ">
                     {isLogin &&
-                        <div className='text-center mb-4'>
-                            <Link to='/rewards' className="button-85 mb-3 " style={{ textDecoration: 'none' }}>ร่วมสนุกสุ่มของรางวัล </Link>
+                        <div className='text-center mb-3'>
+
+
+
+                            <Link to='/rewards' className="button-85 " style={{ textDecoration: 'none' }}>ร่วมกิจกรรมรับของรางวัล
+                                <img src={GiftBox} alt="" width={100} height={100} />
+                            </Link>
+
+
+
+
+
+
                         </div>
                     }
                 </div>
@@ -187,8 +200,8 @@ const App = () => {
                 <Route path="/inded" element={<Inded />} />
                 <Route to="/allfaculty">
                     <Route path="/allfaculty/songkhla" element={<AllFaculty faculty='songkhla' />} />
-                    <Route path="/allfaculty/trang" element={<AllFaculty faculty={'trang'} />} />
-                    <Route path="/allfaculty/nakorn" element={<AllFaculty faculty={'nakorn'} />} />
+                    <Route path="/allfaculty/trang" element={<AllFaculty faculty='trang' />} />
+                    <Route path="/allfaculty/nakorn" element={<AllFaculty faculty='nakorn' />} />
                 </Route>
                 <Route path="/activity/:day" element={<Activity />} />
 
@@ -203,7 +216,7 @@ const App = () => {
                 <Route path="/vr360/:faculty" element={<Vr360 />} />
                 <Route path="/program" element={<Program />} />
                 <Route path="/updateaddressreward" element={<UpdateAddressReward />} />
-                <Route path="/gauge" element={<Gauge />} />
+                <Route path="/survey" element={<SurveyForm />} />
 
             </Routes>
 

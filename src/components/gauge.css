@@ -5,6 +5,25 @@
   padding: 20px;
 }
 
+.form-control {
+ background-color: rgba(255,255,255,0.5);
+ backdrop-filter: blur(10px);
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+input[type="text"],
+textarea,select {
+  width: 100%;
+  padding: 10px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 .form-group {
   margin-bottom: 20px;
 }

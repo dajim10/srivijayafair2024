@@ -114,7 +114,21 @@ const Gauge = () => {
 
     };
 
+    // const value = formData.phone;
 
+
+
+
+
+    // client.collection('register').getList(1, {
+    //     filter: {
+    //         phone: value
+    //     }
+    // }).then(res => {
+    //     console.log(res)
+    // }).catch(err => {
+    //     console.log(err)
+    // })
 
 
     return (

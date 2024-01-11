@@ -301,7 +301,7 @@ const Rewards = () => {
 
 
 
-        if (score <= starPoint) {
+        if (score < starPoint) {
             // exit, can't spin
             // alert('คะแนนของคุณหมดแล้ว');
             Swal.fire({

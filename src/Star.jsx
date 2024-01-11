@@ -3,6 +3,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import './index.css'; // Make sure to import your existing CSS file
 import StarLogo from './assets/star1.png'
 
+
 const Star = ({ x, y, onClick }) => {
     const containerStyle = {
         top: `${y}px`,

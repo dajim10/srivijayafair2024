@@ -4,6 +4,7 @@ import SongkhlaFaculty from '../assets/songkhlaIsland.png'
 import TrangFaculty from '../assets/trangIsland.png'
 import NakornFaculty from '../assets/nakorn_island.png'
 import starCute from '../assets/starCute.png'
+import LogoLive from '../assets/logolive.png'
 
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
@@ -28,6 +29,30 @@ const Home = ({ counter }) => {
     const [IsCloseWindow, setIsCloseWindow] = useState(false)
     const [linkUrl, setLinkUrl] = useState('')
     const [showModal, setShowModal] = useState(false)
+
+    /// create drag and drop
+
+    const handleDragStart = (e) => {
+        const target = e.target;
+        e.dataTransfer.setData('text/plain', target.id);
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const data = e.dataTransfer.getData('text/plain');
+        const draggedElement = document.getElementById(data);
+
+        // Update the position of the dragged element
+        draggedElement.style.left = `${e.clientX - draggedElement.width / 2}px`;
+        draggedElement.style.top = `${e.clientY - draggedElement.height / 2}px`;
+    };
+
+    ////
+
 
 
     const styles = {
@@ -80,7 +105,8 @@ const Home = ({ counter }) => {
                     <div className="embed-responsive embed-responsive-16by9">
                         {/* how to make ifrme responsive */}
 
-                        <div className='container d-flex justify-content-end' style={{ marginTop: '-50px' }}>
+                        <div className='container d-flex justify-content-between' style={{ marginTop: '-50px' }}>
+                            <img src={LogoLive} alt="logo live" height={20} className='mt-3' />
                             <img src={starCute} alt="star cute" width={50} />
                         </div>
 
@@ -191,10 +217,24 @@ const Home = ({ counter }) => {
 
             <div className="d-flex justify-content-center align-items-center text-center">
 
-                <Link to="/gauge">
-                    {/* <img src={Check} alt="" id="check" onClick={() => setShowModal(true)} /> */}
+                {/* <Link to="/gauge">
+                    
+                    
                     <img src={Check} alt="" id="check" />
+                </Link> */}
+                <Link to="/survey">
+                    <img
+                        src={Check}
+                        alt=""
+                        id="check"
+                    // draggable="true"
+                    // onDragStart={(e) => handleDragStart(e)}
+                    // onDragOver={(e) => handleDragOver(e)}
+                    // onDrop={(e) => handleDrop(e)}
+                    // style={{ position: 'absolute', cursor: 'move' }}
+                    />
                 </Link>
+
 
                 <Modal show={showModal} onHide={() => setShowModal(false)} centered>
                     <Modal.Body>

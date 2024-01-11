@@ -38,7 +38,7 @@ const SongkhlaFaculty = () => {
 
     return (
         <>
-            <Slide facultyData={facultyData} />
+            <Slide facultyData={facultyData} key={campusId} />
 
         </>
 
