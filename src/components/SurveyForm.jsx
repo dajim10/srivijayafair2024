@@ -186,7 +186,7 @@ const SurveyForm = () => {
 
                     <label>
                         ที่อยู่ :
-                        <input type="text" name="address" value={formData.address} onChange={handleChange} />
+                        <input type="text" name="address" value={formData.address} onChange={handleChange} required />
                     </label>
 
                     <label>
@@ -782,6 +782,7 @@ const SurveyForm = () => {
                         />
                     </label>
                 </div>
+                <small className='text-danger'>*** ผู้ที่ประเมินจะได้รับคะแนนพิเศษ 50 คะแนน จากการประเมินครั้งแรกเพียงครั้งเดียวเท่านั้น *** </small>
 
                 <div className="text-center">
                     <button type="submit" className='button-85 my-2 mx-auto'>ส่งแบบประเมิน</button>

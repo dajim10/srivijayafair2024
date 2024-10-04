@@ -5,10 +5,14 @@ import { Modal } from 'react-bootstrap'
 import { Modal as Modal2 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import the FontAwesomeIcon component get close icon
 import { faClose, faChevronLeft, faChevronRight, } from '@fortawesome/free-solid-svg-icons';
-import { getCounter } from '../lib/getCounter'
+import { getCounter, getScore, myCounter } from '../lib/getCounter'
 
 import { client } from '../lib/pocketbase';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+
+
 
 
 const responeSiveSwipeable = {
@@ -145,12 +149,16 @@ const Slide = ({ facultyData }) => {
         setYoutubeUrl(youtubeUrl);
         setImage2(image2);
         setShowModal(true);
-        console.log(programName)
+        // myCounter('Visit:' + programName)
+        // console.log(programName)
         await getCounter(programName).then(res => {
             setCounter(res);
         });
         const registerType = sessionStorage.getItem('register_type');
         console.log(id)
+
+        getScore();
+
 
 
         const data = await client.collection('program').getFirstListItem(`id="${id}"`, {
@@ -203,57 +211,135 @@ const Slide = ({ facultyData }) => {
 
 
     const handleShow2 = async (imageUrl, facultyName, id) => {
+
         setImage(imageUrl);
+
         setShowModal2(true);
+        const register_type = sessionStorage.getItem('register_type');
+
+        // console.log(facultyName)
+        // console.log(typeof register_type)
+
+        // const counterName = `counter${register_type}`
+
+
+        try {
+            const existingRecord = await client.collection('faculty').getFirstListItem(`name="${facultyName}"`);
+
+            if (existingRecord) {
+
+                switch (register_type) {
+
+                    case '1':
+                        const dataUpdate = {
+                            counter1: existingRecord.counter1 + 1
+                        }
+                        await client.collection('faculty').update(existingRecord.id, dataUpdate).then(res => console.log(res));
+                        break;
+                    case '2':
+                        const dataUpdate2 = {
+                            counter2: existingRecord.counter2 + 1
+                        }
+                        await client.collection('faculty').update(existingRecord.id, dataUpdate2).then(res => console.log(res));
+                        break;
+                    case '3':
+                        const dataUpdate3 = {
+                            counter3: existingRecord.counter3 + 1
+                        }
+                        await client.collection('faculty').update(existingRecord.id, dataUpdate3).then(res => console.log(res));
+                        break;
+                    case '4':
+                        const dataUpdate4 = {
+                            counter4: existingRecord.counter4 + 1
+                        }
+                        await client.collection('faculty').update(existingRecord.id, dataUpdate4).then(res => console.log(res));
+                        break;
+                    default:
+                        const dataUpdate5 = {
+                            counter5: existingRecord.counter5 + 1
+                        }
+                        await client.collection('faculty').update(existingRecord.id, dataUpdate5).then(res => console.log(res));
+                        break;
+
+
+
+                }
+
+            } else {
+                console.log('No existing record found. Proceeding to createMember...');
+            }
+
+        }
+        catch (err) {
+            if (err.statusCode === 404) {
+                // Handle the case where the document is not found
+                console.log('Document not found. Proceeding to createMember...');
+            } else {
+                // createMember(); // Proceed to create the member even if the document is not found
+                console.error('Error:', err);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+        // myCounter('Visit:' + facultyName)
         await getCounter(facultyName).then(res => {
             setCounter(res);
+            console.log(facultyName)
         });
-        const registerType = sessionStorage.getItem('register_type');
         console.log(id)
-
 
         const data = await client.collection('faculty').getFirstListItem(`id="${id}"`, {
             expand: 'counter1,counter2,counter3,counter4,counter5',
         }).then(res => {
-            // console.log(res)
             return res;
         })
 
-        // switch case 
+        // switch case
+        // switch (registerType) {
+        //     case '1':
+        //         await client.collection('faculty').update(id, {
+        //             counter1: data.counter1 + 1
+        //         }).then(res => console.log(res))
+        //             .catch(err => console.log(err))
+        //         break;
+        //     case '2':
+        //         await client.collection('faculty').update(id, {
+        //             counter2: data.counter2 + 1
+        //         }).then(res => console.log(res))
+        //             .catch(err => console.log(err))
+        //         break;
+        //     case '3':
+        //         await client.collection('faculty').update(id, {
+        //             counter3: data.counter3 + 1
+        //         }).then(res => console.log(res))
+        //             .catch(err => console.log(err))
+        //         break;
+        //     case '4':
+        //         await client.collection('faculty').update(id, {
+        //             counter4: data.counter4 + 1
+        //         }).then(res => console.log(res))
+        //             .catch(err => console.log(err))
+        //         break;
+        //     default:
+        //         await client.collection('faculty').update(id, {
+        //             counter5: data.counter5 + 1
+        //         }).then(res => console.log(res))
+        //             .catch(err => console.log(err))
+        //         break;
 
-        switch (registerType) {
-            case '1':
-                await client.collection('faculty').update(id, {
-                    counter1: data.counter1 + 1
-                }).then(res => console.log(res))
-                    .catch(err => console.log(err))
-                break;
-            case '2':
-                await client.collection('faculty').update(id, {
-                    counter2: data.counter2 + 1
-                }).then(res => console.log(res))
-                    .catch(err => console.log(err))
-                break;
-            case '3':
-                await client.collection('faculty').update(id, {
-                    counter3: data.counter3 + 1
-                }).then(res => console.log(res))
-                    .catch(err => console.log(err))
-                break;
-            case '4':
-                await client.collection('faculty').update(id, {
-                    counter4: data.counter4 + 1
-                }).then(res => console.log(res))
-                    .catch(err => console.log(err))
-                break;
-            default:
-                await client.collection('faculty').update(id, {
-                    counter5: data.counter5 + 1
-                }).then(res => console.log(res))
-                    .catch(err => console.log(err))
-                break;
+        // }
 
-        }
+
+
+        getScore();
 
     };
 
@@ -269,15 +355,56 @@ const Slide = ({ facultyData }) => {
         const registerId = sessionStorage.getItem('id');
         // console.log(registerId);
 
+
         if (registerId) {
 
             getCounter('admission' + ':' + facultyName).then(res => {
                 setCounter(res);
             });
-            window.location.href = `https://admission.rmutsv.ac.th/check.php?id=${registerId}`;
+
+
+            const data = client.collection('register').getFirstListItem(`id="${registerId}"`, {
+                expand: 'counter1,counter2,counter3,counter4,counter5',
+            }).then(res => {
+                console.log(res.admission)
+                if (!res.admission) {
+                    window.location.href = `https://admission.rmutsv.ac.th/check.php?id=${registerId}`
+                    console.log(res)
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'คุณได้ทำการสมัครเรียนในคณะนี้แล้ว',
+                        footer: '<img src="https://dev.web.rmutsv.ac.th/assets/Logo500-KNQzDSng.png" alt="" width="100px" />'
+                    })
+                }
+
+
+
+
+                return res;
+            })
+
+            // console.log(res.score)
+
+            // if (!data.admission) {
+            //     client.collection('register').update(registerId, {
+            //         score: data.score + 50,
+            //     }).then(res => {
+            //         window.location.href = `https://admission.rmutsv.ac.th/check.php?id=${registerId}`
+            //         console.log(res)
+            //     })
+            //         .catch(err => console.log(err))
+
+            // } else {
+            //     alert('คุณได้ทำการสมัครแล้ว');
+            // }
+            // window.location.href = `https://admission.rmutsv.ac.th/check.php?id=${registerId}`
+
         }
         else {
-            alert('กรุณาเข้าสู่ระบบก่อน');
+            // alert('กรุณาเข้าสู่ระบบก่อน');
+            window.location.href = `https://admission.rmutsv.ac.th/`
         }
     }
 
@@ -301,7 +428,9 @@ const Slide = ({ facultyData }) => {
     const renderCustomNextArrow = (clickHandler, hasNext, label) => {
         return hasNext && (
             <button type="button"
-                onClick={clickHandler}
+                onClick={
+                    clickHandler
+                }
                 title={label}
                 style={isDragging ? disabledArrowStyle : arrowStyleNext}
                 disabled={isDragging}
@@ -365,6 +494,7 @@ const Slide = ({ facultyData }) => {
 
                                 // setModalShow(true)
                                 ModalCarousel(item)
+
                             }
                             }
                         >
@@ -417,12 +547,19 @@ const Slide = ({ facultyData }) => {
                                 <button className='nav-button' onClick={handleSubmit}>สมัครเรียน</button>
                                 {item.facebookLink === '' ? null :
                                     <a href={`${item.facebookLink}`} target="_blank">
-                                        <button className='nav-button' >สอบถามข้อมูลเพิ่มเติม</button>
+                                        <button className='nav-button' onClick={() => myCounter(`chat:${item.name}`)} >สอบถามข้อมูลเพิ่มเติม</button>
                                     </a>
                                 }
+                                {item.trial === '' ? null :
+                                    <a href={`${item.trial}`} target="_blank">
+                                        <button className='nav-button' >ทดลองเรียน</button>
+                                    </a>
+                                }
+
                             </div>
 
                         </div>
+
 
 
 
@@ -450,7 +587,7 @@ const Slide = ({ facultyData }) => {
 
                                             <div
                                                 onClick={() => {
-
+                                                    getScore();
 
                                                     handleShow(`${imageUrl}${item.collectionId}/${item.id}/${item.image}`, `${item.name}`, `${item.id}`)
                                                     setYoutubeUrl(item.youtubeLink)
@@ -490,7 +627,13 @@ const Slide = ({ facultyData }) => {
 
                                 {/* ของเดิมแบบทีละภาพ */}
                                 {item.slideImage.map((image, imageIndex) => (
-                                    <div className="col-lg-4 mx-auto  p-2" key={imageIndex} onClick={() => handleShow2(`${imageUrl}${item.collectionId}/${item.id}/${image}`, `${item.name}`, `${item.id}`)}>
+                                    <div className="col-lg-4 mx-auto  p-2" key={imageIndex} onClick={() => {
+                                        getScore();
+                                        handleShow2(`${imageUrl}${item.collectionId}/${item.id}/${image}`, `${item.name}`, `${item.id}`)
+                                    }
+                                    }
+
+                                    >
                                         {/* <div className='col-lg-6 mx-auto p-2' key={imageIndex}
                                          onClick={() => ModalCarousel(item)}
                                      > */}
@@ -521,7 +664,7 @@ const Slide = ({ facultyData }) => {
             ))} */}
 
 
-            <Modal show={showModal} onHide={handleClose} style={{ backgroundColor: 'rgba(255,255,255,0.2)', width: '100vw', backdropFilter: 'blur(10px)' }
+            <Modal Modal show={showModal} onHide={handleClose} style={{ backgroundColor: 'rgba(255,255,255,0.2)', width: '100vw', backdropFilter: 'blur(10px)' }
             }>
                 {/* <Modal.Header closeButton>
                     <Modal.Title>Large Image</Modal.Title>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { client } from '../lib/pocketbase'
+import Star from '../assets/1.png'
+import Box from '../assets/box_20.png'
 
 
 
@@ -8,6 +10,7 @@ import { client } from '../lib/pocketbase'
 const Admin = () => {
 
     const [isGamePaused, setIsGamePaused] = useState(null);
+    const [isSpecialPaused, setIsSpecialPaused] = useState(null);
     const [adminLogin, setAdminLogin] = useState(false);
     const [starPoint, setStarPoint] = useState(0);
     const [inventory, setInventory] = useState({
@@ -24,6 +27,7 @@ const Admin = () => {
             .then(res => {
 
                 setIsGamePaused(res.items[0].isGamePaused);
+                setIsSpecialPaused(res.items[0].isSpecialPaused);
                 console.log(res.items[0].isGamePaused)
                 setStarPoint(res.items[0].starPoint);
             })
@@ -32,6 +36,9 @@ const Admin = () => {
             });
 
     }, []);
+
+
+
 
 
     useEffect(() => {
@@ -59,10 +66,25 @@ const Admin = () => {
 
     }
 
-    const handleSubmit = (e) => {
+    const handleSpecialStart = (e) => {
+        const check = e.target.checked;
+        client.collection('statusgame').update('c8rxzctc2d6cnxp', {
+            isSpecialPaused: check
+        }).then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+
+    const handleSubmit = async (e) => {
         const systemUser = import.meta.env.VITE_SYSTEM_USERNAME;
         const systemPassword = import.meta.env.VITE_SYSTEM_PASSWORD;
         // console.log(import.meta.env.VITE_POCKETBASE_PASSWORD);
+
+
+
 
         e.preventDefault();
         if (e.target[0].value === systemUser
@@ -70,6 +92,7 @@ const Admin = () => {
             setAdminLogin(true);
             console.log('login success');
         }
+
     }
 
     const hendleChangeStarPoint = async (e) => {
@@ -186,14 +209,36 @@ const Admin = () => {
 
                                         <div className="form-check form-switch ">
 
-                                            <div className='d-flex align-items-center justify-content-center '>
-                                                <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked={isGamePaused} onChange={e => {
+                                            <div className='d-flex flex-column align-items-center justify-content-center '>
+                                                <div>
+                                                    <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked={isGamePaused} onChange={e => {
 
-                                                    setIsGamePaused(e.target.checked);
-                                                    handleGameStart(e);
-                                                }} />
+                                                        setIsGamePaused(e.target.checked);
+                                                        handleGameStart(e);
+                                                    }} />
+                                                    <div>
+                                                        <img src={Star} alt="" width={50} />
+                                                    </div>
+                                                </div>
+
+
                                                 <div className='mx-2'>
                                                     {isGamePaused ? <label htmlFor="flexSwitchCheckChecked">เกมดาวตกหยุดอยู่</label> : <label htmlFor="flexSwitchCheckChecked">เกมดาวตกเปิดอยู่</label>}
+                                                </div>
+
+                                                <div>
+                                                    <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked={isSpecialPaused} onChange={e => {
+
+                                                        setIsSpecialPaused(e.target.checked);
+                                                        handleSpecialStart(e);
+                                                    }} />
+                                                    <img src={Box} alt="" width={50} />
+                                                </div>
+                                                <div className='mx-2'>
+                                                    {isSpecialPaused ? <label
+
+                                                        htmlFor="flexSwitchCheckChecked">กล่อง 10 คะแนนปิดอยู่</label> : <label htmlFor="flexSwitchCheckChecked">กล่อง 10 คะแนนเปิดอยู่</label>}
+
                                                 </div>
                                             </div>
 

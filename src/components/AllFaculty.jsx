@@ -5,7 +5,7 @@ import SongkhlaFaculty from '../pages/SongkhlaFaculty'
 import TrangFaculty from '../pages/TrangFaculty'
 import NakornFaculty from '../pages/NakornFaculty'
 import { client } from '../lib/pocketbase'
-import { getCounter } from '../lib/getCounter'
+import { getCounter, myCounter } from '../lib/getCounter'
 import Vr360 from './Vr360'
 
 const AllFaculty = ({ faculty }) => {
@@ -14,22 +14,28 @@ const AllFaculty = ({ faculty }) => {
 
 
     const [counter, setCounter] = useState(0);
+
     useEffect(() => {
+
+
 
 
         if (faculty === 'songkhla') {
             getCounter('songkhla').then(res => {
                 setCounter(res);
+                return;
             }
             );
         } else if (faculty === 'trang') {
             getCounter('trang').then(res => {
                 setCounter(res);
+                return;
             }
             );
         } else if (faculty === 'nakorn') {
             getCounter('nakorn').then(res => {
                 setCounter(res);
+                return;
             }
             );
         }
@@ -81,7 +87,7 @@ const AllFaculty = ({ faculty }) => {
     useEffect(() => {
         if (isLogin) {
             console.log('isLogin')
-            fetchFirstRecord();
+            // fetchFirstRecord();
         }
     }
         , [isLogin]);
@@ -97,17 +103,20 @@ const AllFaculty = ({ faculty }) => {
 
 
 
-                <div className="row">
-                    <div className="col" style={{ borderRight: '2px solid #ccc' }}>
-                        <Link to="/allfaculty/songkhla" className={`${facultyName === 'songkhla' ? 'text-green' : 'text-muted'} link-without-underline `}>
+                <div className="row" >
+                    <div className="col" style={{ borderRight: '2px solid #ccc' }} >
+                        <Link to="/allfaculty/songkhla" className={`${facultyName === 'songkhla' ? 'text-green' : 'text-muted'} link-without-underline `}
+                        >
                             <span>มทร.ศรีวิชัย</span>
                             <h3>สงขลา</h3>
                         </Link>
-                        <Link to="/vr360/songkhla">
-                            <div className={`${facultyName === 'songkhla' ? 'd-block' : 'd-none'}`}>
+                        <a href="https://my.treedis.com/tour/shongkhla-03c3d111" target="_blank">
+                            <div className={`${facultyName === 'songkhla' ? 'd-block' : 'd-none'}
+                            
+                            `} onClick={() => myCounter('visit 360:Songkhla')}>
                                 <img src={icon360} alt="" width={100} />
                             </div>
-                        </Link>
+                        </a>
 
 
                     </div>
@@ -117,45 +126,48 @@ const AllFaculty = ({ faculty }) => {
                             <h3>ตรัง</h3>
                         </Link>
                         {/* <Link to="/vr360/trang"> */}
-                        <Link to="https://my.treedis.com/tour/trang-f06cc610?fbclid=IwAR29ffoGQLACWnSENUf1g4OE1tXgeHPRde8TaB3LZUBgee9kzcInKRSha-o" target='_blank'>
+                        <a href="https://my.treedis.com/tour/trang-f06cc610?fbclid=IwAR29ffoGQLACWnSENUf1g4OE1tXgeHPRde8TaB3LZUBgee9kzcInKRSha-o" target='_blank' onClick={() => myCounter('visit 360:Trang')}>
                             <div className={`${facultyName === 'trang' ? 'd-block' : 'd-none'}`}>
                                 <img src={icon360} alt="" width={100} />
                             </div>
-                        </Link>
+                        </a>
                     </div>
                     <div className="col">
                         <Link to="/allfaculty/nakorn" className={`${facultyName === 'nakorn' ? 'text-green' : 'text-muted'} link-without-underline`}>
                             <span>มทร.ศรีวิชัย</span>
                             <h3>นครศรีฯ</h3>
                         </Link>
-                        <Link to="https://my.treedis.com/tour/nakhon-c2a9f3f5?fbclid=IwAR3MET9dgrHL0EpzHNLdBgg_C1LaaFkp154ScwSBYDfCA_hRPC9D6F0D4IM" target='_blank'>
+                        <a href="https://my.treedis.com/tour/nakhon-c2a9f3f5" target='_blank' onClick={() => myCounter('visit 360:Nakorn')}>
                             <div className={`${facultyName === 'nakorn' ? 'd-block' : 'd-none'}`}>
                                 <img src={icon360} alt="" width={100} />
                             </div>
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>
 
 
-            {facultyName === 'songkhla' ?
-                <SongkhlaFaculty />
-                : null
+            {
+                facultyName === 'songkhla' ?
+                    <SongkhlaFaculty />
+                    : null
             }
 
-            {facultyName === 'trang' ?
-                <TrangFaculty />
-                : null
+            {
+                facultyName === 'trang' ?
+                    <TrangFaculty />
+                    : null
             }
 
-            {facultyName === 'nakorn' ?
-                <NakornFaculty />
-                : null
+            {
+                facultyName === 'nakorn' ?
+                    <NakornFaculty />
+                    : null
             }
 
 
 
-        </div>
+        </div >
     )
 }
 

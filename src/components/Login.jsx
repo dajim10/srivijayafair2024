@@ -37,7 +37,8 @@ const Login = () => {
                     Swal.fire({
                         title: "Srivijaya Fair 2024",
                         text: "เข้าสู่ระบบสำเร็จ",
-                        icon: "success"
+                        icon: "success",
+                        footer: '<img src="https://dev.web.rmutsv.ac.th/assets/Logo500-KNQzDSng.png" alt="" width="100px" />'
                     });
                     setIsLogin(true);
                     setScore(record.score);
@@ -58,8 +59,8 @@ const Login = () => {
                     // document.cookie = `phone=${phone};path=/`;
                     //
 
+                    navigate('/');
                     window.location.reload();
-                    // navigate('/');
                     // how to refresh for useEffect in app.js take an effect
 
 

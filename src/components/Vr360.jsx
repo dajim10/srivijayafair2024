@@ -21,7 +21,7 @@ const Vr360 = ({ linkUrl }) => {
                     <FontAwesomeIcon icon={faCircleRight} onClick={() => navigate('/vr360/trang')} style={{ fontSize: '40px' }} />
                 </div>
 
-                <iframe src="https://my.treedis.com/tour/ruts-rattaphum-28507ac5" frameborder="0" width={1080} height={1920} id="iframe360"></iframe>
+                <iframe src="https://my.treedis.com/tour/shongkhla" frameborder="0" width={1080} height={1920} id="iframe360"></iframe>
                 <div className="mt-2" style={{ height: '20px' }}></div>
             </div>
         )
@@ -51,7 +51,8 @@ const Vr360 = ({ linkUrl }) => {
 
                     <FontAwesomeIcon icon={faCircleRight} onClick={() => navigate('/allfaculty/nakorn')} style={{ fontSize: '40px' }} />
                 </div>
-                <iframe src="https://my.treedis.com/tour/ruts-rattaphum-28507ac5" frameborder="0" width={1080} height={1920} id="iframe360"></iframe>
+                {/* https://my.treedis.com/tour/nakhon-c2a9f3f5 */}
+                <iframe src="https://my.treedis.com/tour/nakhon-c2a9f3f5 " frameborder="0" width={1080} height={1920} id="iframe360"></iframe>
                 <div className="mt-2" style={{ height: '20px' }}></div>
             </div>
         )

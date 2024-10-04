@@ -111,7 +111,7 @@ const Register = () => {
                 />
 
 
-                <input type="text" className="form-control" id="phone" placeholder="เบอร์โทรศัพท์" value={phone} onChange={(e) => setPhone(e.target.value)} onBlur={e => checkPhone(e.target.value)}
+                <input type="tel" className="form-control" id="phone" placeholder="เบอร์โทรศัพท์" value={phone} onChange={(e) => setPhone(e.target.value)} onBlur={e => checkPhone(e.target.value)}
                     required
                 />
 

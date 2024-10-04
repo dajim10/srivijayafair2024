@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { client } from '../lib/pocketbase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBackward } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -75,14 +77,20 @@ const Activiry = () => {
             {/* calendar */}
             <div className='container p-3 rounded ' id="calendar">
                 <h1 className="text-center">ปฏิทินกิจกรรม</h1>
+                <div className="text-center">
+
+                    <Link to="/" className='btn btn-warning p-2'>
+                        <FontAwesomeIcon icon={faBackward} /> เข้าชมงาน
+                    </Link>
+                </div>
                 <div className="row">
                     {calendar.map((date, index) => (
                         <div className="col text-center" key={index}>
 
 
                             <div className="col p-2 shadow my-2 rounded bg-light text-center" >
-                                <Link to={`/activity/${date.day}`} className='link-without-underline'>
-                                    <h2 className={date.active ? 'active' : null} style={{ fontWeight: '700' }}>{date.day}</h2>
+                                <Link to={`/activity/${date.day}`} className='link-without-underline' >
+                                    <h2 className={date.active ? 'active' : 'null'} style={{ fontWeight: '700' }}>{date.day}</h2>
                                     {/* <p>{date.active ? 'active' : 'not active'}</p> */}
                                     <span className={date.active ? 'active' : null}>{date.month}</span>
                                 </Link>

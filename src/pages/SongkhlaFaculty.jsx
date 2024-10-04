@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { client } from '../lib/pocketbase'
+import { getScore, myCounter } from '../lib/getCounter'
 import Slide from './Slide';
 
 
@@ -12,10 +13,11 @@ const SongkhlaFaculty = () => {
 
     useEffect(() => {
 
-
+        // getScore();
+        myCounter('Visit:Songkhla Faculty')
         async function fetchData() {
             // You can await here
-            const response = await client.collection('faculty').getList(1, 100, { expand: "campus,program" });
+            const response = await client.collection('faculty').getList(1, 100, { expand: "campus,program", sort: "counter2" });
             // ... how to expand more field
             // const response = await client.collection('faculty').getList(1, 100, { expand: "campus, program" });
 
@@ -38,7 +40,7 @@ const SongkhlaFaculty = () => {
 
     return (
         <>
-            <Slide facultyData={facultyData} key={campusId} />
+            <Slide facultyData={facultyData} key={facultyData.id} />
 
         </>
 

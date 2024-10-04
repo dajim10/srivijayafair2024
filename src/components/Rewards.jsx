@@ -12,12 +12,13 @@ import Swal from 'sweetalert2/dist/sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
-
+import { myCounter } from '../lib/getCounter';
 
 
 
 
 const Rewards = () => {
+
     const navigate = useNavigate();
     const [rotations, setRotations] = useState([]);
     const [currentRotationIndex, setCurrentRotationIndex] = useState(0);
@@ -76,6 +77,8 @@ const Rewards = () => {
     // ***** สร้าง Dropdown จังหวัด *****
 
 
+
+
     useEffect(() => {
         if (showMessage === false) {
             Swal.fire({
@@ -85,6 +88,7 @@ const Rewards = () => {
                 confirmButtonText: "ตกลง",
             });
             setShowMessage(true);
+            myCounter('Reward:')
         }
     }, [showMessage]);
 
@@ -155,6 +159,7 @@ const Rewards = () => {
             zip_code: zip_code,
         });
         setModalShow(false);
+        myCounternter('get reward:')
         // clear state
         setHouse('');
         setRoad('');
@@ -211,6 +216,9 @@ const Rewards = () => {
 
 
     };
+
+
+
 
     useEffect(() => {
         if (userName !== 'เข้าสู่ระบบ') {
@@ -307,7 +315,8 @@ const Rewards = () => {
             Swal.fire({
                 title: "คะแนนของคุณหมดแล้ว",
                 text: "กรุณาเก็บดาวหรือแลกคะแนนก่อน",
-                icon: "warning"
+                icon: "warning",
+                footer: '<img src="https://dev.web.rmutsv.ac.th/assets/Logo500-KNQzDSng.png" alt="" width="100px" />'
             });
 
             setArrowVisible(false);

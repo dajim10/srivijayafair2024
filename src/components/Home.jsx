@@ -9,7 +9,7 @@ import LogoLive from '../assets/logolive.png'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faEye } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faEye, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import Calendar from './Calendar'
 import { client } from '../lib/pocketbase'
@@ -18,6 +18,7 @@ import AllFaculty from './AllFaculty'
 import GifImage from '../assets/12.gif'
 import Check from '../assets/check.png'
 import { Modal } from 'react-bootstrap'
+import calendar from '../assets/calendar.png'
 
 
 
@@ -31,6 +32,7 @@ const Home = ({ counter }) => {
     const [showModal, setShowModal] = useState(false)
 
     /// create drag and drop
+
 
     const handleDragStart = (e) => {
         const target = e.target;
@@ -82,15 +84,15 @@ const Home = ({ counter }) => {
 
 
     useEffect(() => {
-        setInterval(async () => {
-            client.collection('live').getList(1)
-                .then(res => {
-                    setLinkUrl(res.items[0].linkUrl);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }, 1000);
+        // setInterval(async () => {
+        client.collection('live').getList(1)
+            .then(res => {
+                setLinkUrl(res.items[0].linkUrl);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        // }, 1000);
     }
         , [linkUrl]);
 
@@ -105,6 +107,11 @@ const Home = ({ counter }) => {
                     <div className="embed-responsive embed-responsive-16by9">
                         {/* how to make ifrme responsive */}
 
+                        {/* <div className="bg-primary" style={{ position: 'absolute', left: '200px', top: '200px', fontSize: '1rem', border: '1px solid #ccc', borderRadius: '20px', padding: '10px', boxShadow: '0 0 5px #ccc', cursor: 'pointer' }}>
+                            <FontAwesomeIcon icon={faCalendarDays} className='text-light' />
+                            <p className='text-light'>ปฏิทินกิจกรรม</p>
+                        </div> */}
+
                         <div className='container d-flex justify-content-between' style={{ marginTop: '-50px' }}>
                             <img src={LogoLive} alt="logo live" height={20} className='mt-3' />
                             <img src={starCute} alt="star cute" width={50} />
@@ -114,8 +121,9 @@ const Home = ({ counter }) => {
                             // <iframe className="embed-responsive-item sticky-top" src="https://www.youtube.com/embed/QmpIu83Q02c?si=6AGFhTfe8df6MYrY" width={800} height={400} allow="accelerometer;autoplay;"></iframe>
                             <>
 
-                                <iframe className="embed-responsive-item " src={`${linkUrl}&autoplay=1&mute=1`} allow="autoplay;fullscreen; encrypted-media" id="main-live"></iframe>
-
+                                {/* <iframe className="embed-responsive-item " src={`${linkUrl}&autoplay=1&mute=1`} allow="autoplay;fullscreen; encrypted-media" id="main-live"></iframe> */}
+                                <iframe src={`${linkUrl}&autoplay=1&mute=1`} allow="fullscreen" id="main-live"></iframe>
+                                {/* <iframe src="https://www5.cbox.ws/box/?boxid=948718&boxtag=4HHBBC" width="80%" height="250" allowtransparency="yes" allow="autoplay" frameBorder="0" marginHeight="0" marginWidth="0" scrolling="auto" ></iframe> */}
                                 {/* <iframe width="1440" height="762" src={linkUrl}
 
                                     frameborder="0" allow="autoplay; encrypted-media"
@@ -139,7 +147,7 @@ const Home = ({ counter }) => {
 
             {/* <div className="container text-center" style={{ position: 'relative', marginTop: '-50px', display: 'flex' }} id="cartoon-div"> */}
             {/* <img src={Cartoon} alt="cartoon" className='img-fluid' /> */}
-            <div className="container text-center" style={{ position: 'relative', marginTop: '-50px' }}>
+            <div className="container text-center" style={{ position: 'relative', marginTop: '-20px' }}>
 
 
                 <div className="row mt-3">
@@ -234,6 +242,9 @@ const Home = ({ counter }) => {
                     // style={{ position: 'absolute', cursor: 'move' }}
                     />
                 </Link>
+                <a href="#calendar">
+                    <img src={calendar} alt="calendar" id="calendar2" />
+                </a>
 
 
                 <Modal show={showModal} onHide={() => setShowModal(false)} centered>
@@ -254,7 +265,7 @@ const Home = ({ counter }) => {
 
 
                 {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, et.</p> */}
-                <FontAwesomeIcon icon={faEye} className='text-dark p-2' />{"  "}{counter}
+                {/* <FontAwesomeIcon icon={faEye} className='text-dark p-2' />{"  "}{counter} */}
             </div>
         </div>
     )
